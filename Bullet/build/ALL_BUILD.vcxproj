@@ -1,0 +1,238 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<Project DefaultTargets="Build" ToolsVersion="12.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="MinSizeRel|Win32">
+      <Configuration>MinSizeRel</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="RelWithDebInfo|Win32">
+      <Configuration>RelWithDebInfo</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGUID>{5A654E6B-EB3A-3FC4-9F0D-9EE20F48433C}</ProjectGUID>
+    <Keyword>Win32Proj</Keyword>
+    <Platform>Win32</Platform>
+    <ProjectName>ALL_BUILD</ProjectName>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>Utility</ConfigurationType>
+    <UseOfMfc>false</UseOfMfc>
+    <CharacterSet>MultiByte</CharacterSet>
+    <PlatformToolset>v120</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>Utility</ConfigurationType>
+    <UseOfMfc>false</UseOfMfc>
+    <CharacterSet>MultiByte</CharacterSet>
+    <PlatformToolset>v120</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'" Label="Configuration">
+    <ConfigurationType>Utility</ConfigurationType>
+    <UseOfMfc>false</UseOfMfc>
+    <CharacterSet>MultiByte</CharacterSet>
+    <PlatformToolset>v120</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|Win32'" Label="Configuration">
+    <ConfigurationType>Utility</ConfigurationType>
+    <UseOfMfc>false</UseOfMfc>
+    <CharacterSet>MultiByte</CharacterSet>
+    <PlatformToolset>v120</PlatformToolset>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+    <PropertyGroup>
+      <_ProjectFileVersion>10.0.20506.1</_ProjectFileVersion>
+      <IntDir Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(Platform)\$(Configuration)\$(ProjectName)\</IntDir>
+      <IntDir Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(Platform)\$(Configuration)\$(ProjectName)\</IntDir>
+      <IntDir Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'">$(Platform)\$(Configuration)\$(ProjectName)\</IntDir>
+      <IntDir Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|Win32'">$(Platform)\$(Configuration)\$(ProjectName)\</IntDir>
+    </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <Midl>
+      <AdditionalIncludeDirectories>%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <OutputDirectory>$(ProjectDir)/$(IntDir)</OutputDirectory>
+      <HeaderFileName>%(Filename).h</HeaderFileName>
+      <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
+      <InterfaceIdentifierFileName>%(Filename)_i.c</InterfaceIdentifierFileName>
+      <ProxyFileName>%(Filename)_p.c</ProxyFileName>
+    </Midl>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <Midl>
+      <AdditionalIncludeDirectories>%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <OutputDirectory>$(ProjectDir)/$(IntDir)</OutputDirectory>
+      <HeaderFileName>%(Filename).h</HeaderFileName>
+      <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
+      <InterfaceIdentifierFileName>%(Filename)_i.c</InterfaceIdentifierFileName>
+      <ProxyFileName>%(Filename)_p.c</ProxyFileName>
+    </Midl>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'">
+    <Midl>
+      <AdditionalIncludeDirectories>%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <OutputDirectory>$(ProjectDir)/$(IntDir)</OutputDirectory>
+      <HeaderFileName>%(Filename).h</HeaderFileName>
+      <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
+      <InterfaceIdentifierFileName>%(Filename)_i.c</InterfaceIdentifierFileName>
+      <ProxyFileName>%(Filename)_p.c</ProxyFileName>
+    </Midl>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|Win32'">
+    <Midl>
+      <AdditionalIncludeDirectories>%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <OutputDirectory>$(ProjectDir)/$(IntDir)</OutputDirectory>
+      <HeaderFileName>%(Filename).h</HeaderFileName>
+      <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
+      <InterfaceIdentifierFileName>%(Filename)_i.c</InterfaceIdentifierFileName>
+      <ProxyFileName>%(Filename)_p.c</ProxyFileName>
+    </Midl>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <CustomBuild Include="D:\Downloads\bullet3-2.83.6\bullet3-2.83.6\CMakeLists.txt">
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Building Custom Rule D:/Downloads/bullet3-2.83.6/bullet3-2.83.6/CMakeLists.txt</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">setlocal
+"D:\Program Files (x86)\CMake\bin\cmake.exe" -HD:/Downloads/bullet3-2.83.6/bullet3-2.83.6 "-BD:/Documents/Visual Studio 2013/Projects/RasaEngine/Bullet/build" --check-stamp-file "D:\Documents\Visual Studio 2013\Projects\RasaEngine\Bullet\build\CMakeFiles\generate.stamp"
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">D:/Downloads/bullet3-2.83.6/bullet3-2.83.6/CMakeLists.txt;D:\Downloads\bullet3-2.83.6\bullet3-2.83.6\CMakeLists.txt;D:\Documents\Visual Studio 2013\Projects\RasaEngine\Bullet\build\CMakeFiles\3.4.1\CMakeSystem.cmake;D:\Program Files (x86)\CMake\share\cmake-3.4\Modules\CMakeSystemSpecificInitialize.cmake;D:\Documents\Visual Studio 2013\Projects\RasaEngine\Bullet\build\CMakeFiles\3.4.1\CMakeCCompiler.cmake;D:\Documents\Visual Studio 2013\Projects\RasaEngine\Bullet\build\CMakeFiles\3.4.1\CMakeCXXCompiler.cmake;D:\Program Files (x86)\CMake\share\cmake-3.4\Modules\CMakeSystemSpecificInformation.cmake;D:\Program Files (x86)\CMake\share\cmake-3.4\Modules\CMakeGenericSystem.cmake;D:\Program Files (x86)\CMake\share\cmake-3.4\Modules\Platform\Windows.cmake;D:\Program Files (x86)\CMake\share\cmake-3.4\Modules\Platform\WindowsPaths.cmake;D:\Program Files (x86)\CMake\share\cmake-3.4\Modules\CMakeCInformation.cmake;D:\Program Files (x86)\CMake\share\cmake-3.4\Modules\Platform\Windows-MSVC-C.cmake;D:\Program Files (x86)\CMake\share\cmake-3.4\Modules\Platform\Windows-MSVC.cmake;D:\Documents\Visual Studio 2013\Projects\RasaEngine\Bullet\build\CMakeFiles\3.4.1\CMakeRCCompiler.cmake;D:\Program Files (x86)\CMake\share\cmake-3.4\Modules\CMakeRCInformation.cmake;D:\Program Files (x86)\CMake\share\cmake-3.4\Modules\CMakeCommonLanguageInclude.cmake;D:\Program Files (x86)\CMake\share\cmake-3.4\Modules\CMakeCXXInformation.cmake;D:\Program Files (x86)\CMake\share\cmake-3.4\Modules\Compiler\MSVC-CXX.cmake;D:\Program Files (x86)\CMake\share\cmake-3.4\Modules\Platform\Windows-MSVC-CXX.cmake;D:\Program Files (x86)\CMake\share\cmake-3.4\Modules\Platform\Windows-MSVC.cmake;D:\Program Files (x86)\CMake\share\cmake-3.4\Modules\CMakeCommonLanguageInclude.cmake;D:\Program Files (x86)\CMake\share\cmake-3.4\Modules\FindOpenGL.cmake;D:\Program Files (x86)\CMake\share\cmake-3.4\Modules\FindPackageHandleStandardArgs.cmake;D:\Program Files (x86)\CMake\share\cmake-3.4\Modules\FindPackageMessage.cmake;D:\Program Files (x86)\CMake\share\cmake-3.4\Modules\CMakeParseArguments.cmake;D:\Downloads\bullet3-2.83.6\bullet3-2.83.6\BulletConfig.cmake.in;D:\Downloads\bullet3-2.83.6\bullet3-2.83.6\CMakeLists.txt;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">D:\Documents\Visual Studio 2013\Projects\RasaEngine\Bullet\build\CMakeFiles\generate.stamp</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Building Custom Rule D:/Downloads/bullet3-2.83.6/bullet3-2.83.6/CMakeLists.txt</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">setlocal
+"D:\Program Files (x86)\CMake\bin\cmake.exe" -HD:/Downloads/bullet3-2.83.6/bullet3-2.83.6 "-BD:/Documents/Visual Studio 2013/Projects/RasaEngine/Bullet/build" --check-stamp-file "D:\Documents\Visual Studio 2013\Projects\RasaEngine\Bullet\build\CMakeFiles\generate.stamp"
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">D:/Downloads/bullet3-2.83.6/bullet3-2.83.6/CMakeLists.txt;D:\Downloads\bullet3-2.83.6\bullet3-2.83.6\CMakeLists.txt;D:\Documents\Visual Studio 2013\Projects\RasaEngine\Bullet\build\CMakeFiles\3.4.1\CMakeSystem.cmake;D:\Program Files (x86)\CMake\share\cmake-3.4\Modules\CMakeSystemSpecificInitialize.cmake;D:\Documents\Visual Studio 2013\Projects\RasaEngine\Bullet\build\CMakeFiles\3.4.1\CMakeCCompiler.cmake;D:\Documents\Visual Studio 2013\Projects\RasaEngine\Bullet\build\CMakeFiles\3.4.1\CMakeCXXCompiler.cmake;D:\Program Files (x86)\CMake\share\cmake-3.4\Modules\CMakeSystemSpecificInformation.cmake;D:\Program Files (x86)\CMake\share\cmake-3.4\Modules\CMakeGenericSystem.cmake;D:\Program Files (x86)\CMake\share\cmake-3.4\Modules\Platform\Windows.cmake;D:\Program Files (x86)\CMake\share\cmake-3.4\Modules\Platform\WindowsPaths.cmake;D:\Program Files (x86)\CMake\share\cmake-3.4\Modules\CMakeCInformation.cmake;D:\Program Files (x86)\CMake\share\cmake-3.4\Modules\Platform\Windows-MSVC-C.cmake;D:\Program Files (x86)\CMake\share\cmake-3.4\Modules\Platform\Windows-MSVC.cmake;D:\Documents\Visual Studio 2013\Projects\RasaEngine\Bullet\build\CMakeFiles\3.4.1\CMakeRCCompiler.cmake;D:\Program Files (x86)\CMake\share\cmake-3.4\Modules\CMakeRCInformation.cmake;D:\Program Files (x86)\CMake\share\cmake-3.4\Modules\CMakeCommonLanguageInclude.cmake;D:\Program Files (x86)\CMake\share\cmake-3.4\Modules\CMakeCXXInformation.cmake;D:\Program Files (x86)\CMake\share\cmake-3.4\Modules\Compiler\MSVC-CXX.cmake;D:\Program Files (x86)\CMake\share\cmake-3.4\Modules\Platform\Windows-MSVC-CXX.cmake;D:\Program Files (x86)\CMake\share\cmake-3.4\Modules\Platform\Windows-MSVC.cmake;D:\Program Files (x86)\CMake\share\cmake-3.4\Modules\CMakeCommonLanguageInclude.cmake;D:\Program Files (x86)\CMake\share\cmake-3.4\Modules\FindOpenGL.cmake;D:\Program Files (x86)\CMake\share\cmake-3.4\Modules\FindPackageHandleStandardArgs.cmake;D:\Program Files (x86)\CMake\share\cmake-3.4\Modules\FindPackageMessage.cmake;D:\Program Files (x86)\CMake\share\cmake-3.4\Modules\CMakeParseArguments.cmake;D:\Downloads\bullet3-2.83.6\bullet3-2.83.6\BulletConfig.cmake.in;D:\Downloads\bullet3-2.83.6\bullet3-2.83.6\CMakeLists.txt;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">D:\Documents\Visual Studio 2013\Projects\RasaEngine\Bullet\build\CMakeFiles\generate.stamp</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'">Building Custom Rule D:/Downloads/bullet3-2.83.6/bullet3-2.83.6/CMakeLists.txt</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'">setlocal
+"D:\Program Files (x86)\CMake\bin\cmake.exe" -HD:/Downloads/bullet3-2.83.6/bullet3-2.83.6 "-BD:/Documents/Visual Studio 2013/Projects/RasaEngine/Bullet/build" --check-stamp-file "D:\Documents\Visual Studio 2013\Projects\RasaEngine\Bullet\build\CMakeFiles\generate.stamp"
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'">D:/Downloads/bullet3-2.83.6/bullet3-2.83.6/CMakeLists.txt;D:\Downloads\bullet3-2.83.6\bullet3-2.83.6\CMakeLists.txt;D:\Documents\Visual Studio 2013\Projects\RasaEngine\Bullet\build\CMakeFiles\3.4.1\CMakeSystem.cmake;D:\Program Files (x86)\CMake\share\cmake-3.4\Modules\CMakeSystemSpecificInitialize.cmake;D:\Documents\Visual Studio 2013\Projects\RasaEngine\Bullet\build\CMakeFiles\3.4.1\CMakeCCompiler.cmake;D:\Documents\Visual Studio 2013\Projects\RasaEngine\Bullet\build\CMakeFiles\3.4.1\CMakeCXXCompiler.cmake;D:\Program Files (x86)\CMake\share\cmake-3.4\Modules\CMakeSystemSpecificInformation.cmake;D:\Program Files (x86)\CMake\share\cmake-3.4\Modules\CMakeGenericSystem.cmake;D:\Program Files (x86)\CMake\share\cmake-3.4\Modules\Platform\Windows.cmake;D:\Program Files (x86)\CMake\share\cmake-3.4\Modules\Platform\WindowsPaths.cmake;D:\Program Files (x86)\CMake\share\cmake-3.4\Modules\CMakeCInformation.cmake;D:\Program Files (x86)\CMake\share\cmake-3.4\Modules\Platform\Windows-MSVC-C.cmake;D:\Program Files (x86)\CMake\share\cmake-3.4\Modules\Platform\Windows-MSVC.cmake;D:\Documents\Visual Studio 2013\Projects\RasaEngine\Bullet\build\CMakeFiles\3.4.1\CMakeRCCompiler.cmake;D:\Program Files (x86)\CMake\share\cmake-3.4\Modules\CMakeRCInformation.cmake;D:\Program Files (x86)\CMake\share\cmake-3.4\Modules\CMakeCommonLanguageInclude.cmake;D:\Program Files (x86)\CMake\share\cmake-3.4\Modules\CMakeCXXInformation.cmake;D:\Program Files (x86)\CMake\share\cmake-3.4\Modules\Compiler\MSVC-CXX.cmake;D:\Program Files (x86)\CMake\share\cmake-3.4\Modules\Platform\Windows-MSVC-CXX.cmake;D:\Program Files (x86)\CMake\share\cmake-3.4\Modules\Platform\Windows-MSVC.cmake;D:\Program Files (x86)\CMake\share\cmake-3.4\Modules\CMakeCommonLanguageInclude.cmake;D:\Program Files (x86)\CMake\share\cmake-3.4\Modules\FindOpenGL.cmake;D:\Program Files (x86)\CMake\share\cmake-3.4\Modules\FindPackageHandleStandardArgs.cmake;D:\Program Files (x86)\CMake\share\cmake-3.4\Modules\FindPackageMessage.cmake;D:\Program Files (x86)\CMake\share\cmake-3.4\Modules\CMakeParseArguments.cmake;D:\Downloads\bullet3-2.83.6\bullet3-2.83.6\BulletConfig.cmake.in;D:\Downloads\bullet3-2.83.6\bullet3-2.83.6\CMakeLists.txt;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'">D:\Documents\Visual Studio 2013\Projects\RasaEngine\Bullet\build\CMakeFiles\generate.stamp</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|Win32'">Building Custom Rule D:/Downloads/bullet3-2.83.6/bullet3-2.83.6/CMakeLists.txt</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|Win32'">setlocal
+"D:\Program Files (x86)\CMake\bin\cmake.exe" -HD:/Downloads/bullet3-2.83.6/bullet3-2.83.6 "-BD:/Documents/Visual Studio 2013/Projects/RasaEngine/Bullet/build" --check-stamp-file "D:\Documents\Visual Studio 2013\Projects\RasaEngine\Bullet\build\CMakeFiles\generate.stamp"
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|Win32'">D:/Downloads/bullet3-2.83.6/bullet3-2.83.6/CMakeLists.txt;D:\Downloads\bullet3-2.83.6\bullet3-2.83.6\CMakeLists.txt;D:\Documents\Visual Studio 2013\Projects\RasaEngine\Bullet\build\CMakeFiles\3.4.1\CMakeSystem.cmake;D:\Program Files (x86)\CMake\share\cmake-3.4\Modules\CMakeSystemSpecificInitialize.cmake;D:\Documents\Visual Studio 2013\Projects\RasaEngine\Bullet\build\CMakeFiles\3.4.1\CMakeCCompiler.cmake;D:\Documents\Visual Studio 2013\Projects\RasaEngine\Bullet\build\CMakeFiles\3.4.1\CMakeCXXCompiler.cmake;D:\Program Files (x86)\CMake\share\cmake-3.4\Modules\CMakeSystemSpecificInformation.cmake;D:\Program Files (x86)\CMake\share\cmake-3.4\Modules\CMakeGenericSystem.cmake;D:\Program Files (x86)\CMake\share\cmake-3.4\Modules\Platform\Windows.cmake;D:\Program Files (x86)\CMake\share\cmake-3.4\Modules\Platform\WindowsPaths.cmake;D:\Program Files (x86)\CMake\share\cmake-3.4\Modules\CMakeCInformation.cmake;D:\Program Files (x86)\CMake\share\cmake-3.4\Modules\Platform\Windows-MSVC-C.cmake;D:\Program Files (x86)\CMake\share\cmake-3.4\Modules\Platform\Windows-MSVC.cmake;D:\Documents\Visual Studio 2013\Projects\RasaEngine\Bullet\build\CMakeFiles\3.4.1\CMakeRCCompiler.cmake;D:\Program Files (x86)\CMake\share\cmake-3.4\Modules\CMakeRCInformation.cmake;D:\Program Files (x86)\CMake\share\cmake-3.4\Modules\CMakeCommonLanguageInclude.cmake;D:\Program Files (x86)\CMake\share\cmake-3.4\Modules\CMakeCXXInformation.cmake;D:\Program Files (x86)\CMake\share\cmake-3.4\Modules\Compiler\MSVC-CXX.cmake;D:\Program Files (x86)\CMake\share\cmake-3.4\Modules\Platform\Windows-MSVC-CXX.cmake;D:\Program Files (x86)\CMake\share\cmake-3.4\Modules\Platform\Windows-MSVC.cmake;D:\Program Files (x86)\CMake\share\cmake-3.4\Modules\CMakeCommonLanguageInclude.cmake;D:\Program Files (x86)\CMake\share\cmake-3.4\Modules\FindOpenGL.cmake;D:\Program Files (x86)\CMake\share\cmake-3.4\Modules\FindPackageHandleStandardArgs.cmake;D:\Program Files (x86)\CMake\share\cmake-3.4\Modules\FindPackageMessage.cmake;D:\Program Files (x86)\CMake\share\cmake-3.4\Modules\CMakeParseArguments.cmake;D:\Downloads\bullet3-2.83.6\bullet3-2.83.6\BulletConfig.cmake.in;D:\Downloads\bullet3-2.83.6\bullet3-2.83.6\CMakeLists.txt;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|Win32'">D:\Documents\Visual Studio 2013\Projects\RasaEngine\Bullet\build\CMakeFiles\generate.stamp</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|Win32'">false</LinkObjects>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="D:/Documents/Visual Studio 2013/Projects/RasaEngine/Bullet/build/ZERO_CHECK.vcxproj">
+      <Project>830D9378-53CA-389E-B4E1-BBC16C84E3CE</Project>
+    </ProjectReference>
+    <ProjectReference Include="D:/Documents/Visual Studio 2013/Projects/RasaEngine/Bullet/build/examples/BasicDemo/App_BasicExample.vcxproj">
+      <Project>5B220F51-C511-39F1-8BE4-F3E9B73479D5</Project>
+    </ProjectReference>
+    <ProjectReference Include="D:/Documents/Visual Studio 2013/Projects/RasaEngine/Bullet/build/examples/ExampleBrowser/App_ExampleBrowser.vcxproj">
+      <Project>671E70EB-2AB0-3D74-A837-7B2603373B38</Project>
+    </ProjectReference>
+    <ProjectReference Include="D:/Documents/Visual Studio 2013/Projects/RasaEngine/Bullet/build/examples/HelloWorld/App_HelloWorld.vcxproj">
+      <Project>2B0EF32D-0674-37CA-8CC4-3F691A0156C7</Project>
+    </ProjectReference>
+    <ProjectReference Include="D:/Documents/Visual Studio 2013/Projects/RasaEngine/Bullet/build/src/Bullet3Serialize/Bullet2FileLoader/Bullet2FileLoader.vcxproj">
+      <Project>F23B29E2-BE89-3C34-8FEF-D60F2EA552D1</Project>
+    </ProjectReference>
+    <ProjectReference Include="D:/Documents/Visual Studio 2013/Projects/RasaEngine/Bullet/build/src/Bullet3Collision/Bullet3Collision.vcxproj">
+      <Project>B55D2676-63D6-3708-A522-16B6E5FDAE4C</Project>
+    </ProjectReference>
+    <ProjectReference Include="D:/Documents/Visual Studio 2013/Projects/RasaEngine/Bullet/build/src/Bullet3Common/Bullet3Common.vcxproj">
+      <Project>CA2C858A-3A8E-378B-A763-0EAB461199DE</Project>
+    </ProjectReference>
+    <ProjectReference Include="D:/Documents/Visual Studio 2013/Projects/RasaEngine/Bullet/build/src/Bullet3Dynamics/Bullet3Dynamics.vcxproj">
+      <Project>1D9F00C2-A08C-3515-90FA-E77ECD3B0023</Project>
+    </ProjectReference>
+    <ProjectReference Include="D:/Documents/Visual Studio 2013/Projects/RasaEngine/Bullet/build/src/Bullet3Geometry/Bullet3Geometry.vcxproj">
+      <Project>2422FCE7-ADCD-3486-B6EA-D800B40CD6E7</Project>
+    </ProjectReference>
+    <ProjectReference Include="D:/Documents/Visual Studio 2013/Projects/RasaEngine/Bullet/build/src/Bullet3OpenCL/Bullet3OpenCL_clew.vcxproj">
+      <Project>9952E8D3-E2DF-30F8-82B0-4AA4F25A8824</Project>
+    </ProjectReference>
+    <ProjectReference Include="D:/Documents/Visual Studio 2013/Projects/RasaEngine/Bullet/build/src/BulletCollision/BulletCollision.vcxproj">
+      <Project>4F4FCFDE-3F56-3A2C-B8BF-3B71E639DDF2</Project>
+    </ProjectReference>
+    <ProjectReference Include="D:/Documents/Visual Studio 2013/Projects/RasaEngine/Bullet/build/src/BulletDynamics/BulletDynamics.vcxproj">
+      <Project>06ECEC08-BA0E-36D1-9FAD-89241C6F6370</Project>
+    </ProjectReference>
+    <ProjectReference Include="D:/Documents/Visual Studio 2013/Projects/RasaEngine/Bullet/build/Extras/Serialize/BulletFileLoader/BulletFileLoader.vcxproj">
+      <Project>6E679337-D001-3643-8509-3A361AD66090</Project>
+    </ProjectReference>
+    <ProjectReference Include="D:/Documents/Visual Studio 2013/Projects/RasaEngine/Bullet/build/src/BulletSoftBody/BulletSoftBody.vcxproj">
+      <Project>0E9B6165-BD52-3AF3-8C02-43C5C80222A9</Project>
+    </ProjectReference>
+    <ProjectReference Include="D:/Documents/Visual Studio 2013/Projects/RasaEngine/Bullet/build/Extras/Serialize/BulletWorldImporter/BulletWorldImporter.vcxproj">
+      <Project>D20A0F46-C7DA-3107-8E99-B86946EC07F4</Project>
+    </ProjectReference>
+    <ProjectReference Include="D:/Documents/Visual Studio 2013/Projects/RasaEngine/Bullet/build/Extras/Serialize/BulletXmlWorldImporter/BulletXmlWorldImporter.vcxproj">
+      <Project>5C94F790-9FDF-3671-ABC9-21A9FD430EEC</Project>
+    </ProjectReference>
+    <ProjectReference Include="D:/Documents/Visual Studio 2013/Projects/RasaEngine/Bullet/build/Extras/ConvexDecomposition/ConvexDecomposition.vcxproj">
+      <Project>64277A8B-28CA-34C0-B0D5-EEF73A070FD8</Project>
+    </ProjectReference>
+    <ProjectReference Include="D:/Documents/Visual Studio 2013/Projects/RasaEngine/Bullet/build/Extras/GIMPACTUtils/GIMPACTUtils.vcxproj">
+      <Project>FD67FFCE-53C5-363C-9466-42108B79F915</Project>
+    </ProjectReference>
+    <ProjectReference Include="D:/Documents/Visual Studio 2013/Projects/RasaEngine/Bullet/build/Extras/HACD/HACD.vcxproj">
+      <Project>F6C47416-F8DB-3E22-ACF6-79A5E6A2B550</Project>
+    </ProjectReference>
+    <ProjectReference Include="D:/Documents/Visual Studio 2013/Projects/RasaEngine/Bullet/build/src/LinearMath/LinearMath.vcxproj">
+      <Project>F07F429B-0F4F-308C-9FE3-4EDFD56DB0A7</Project>
+    </ProjectReference>
+    <ProjectReference Include="D:/Documents/Visual Studio 2013/Projects/RasaEngine/Bullet/build/examples/OpenGLWindow/OpenGLWindow.vcxproj">
+      <Project>BCA075E6-04C8-3C9D-8B64-D2FA6E65DA8F</Project>
+    </ProjectReference>
+    <ProjectReference Include="D:/Documents/Visual Studio 2013/Projects/RasaEngine/Bullet/build/test/gtest-1.7.0/gtest.vcxproj">
+      <Project>EE2B802C-7847-364D-B099-439818C81AB2</Project>
+    </ProjectReference>
+    <ProjectReference Include="D:/Documents/Visual Studio 2013/Projects/RasaEngine/Bullet/build/examples/ThirdPartyLibs/Gwen/gwen.vcxproj">
+      <Project>58F3B5FE-8BFB-3767-9470-EE494475D75B</Project>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

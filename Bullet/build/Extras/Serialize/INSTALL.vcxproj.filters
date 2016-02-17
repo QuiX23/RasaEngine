@@ -1,0 +1,13 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<Project ToolsVersion="12.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <CustomBuild Include="D:\Documents\Visual Studio 2013\Projects\RasaEngine\Bullet\build\CMakeFiles\6fff0441046ac242d84025d1baf93f8a\INSTALL_force.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="CMake Rules">
+      <UniqueIdentifier>{BD4A9583-AC04-3714-96CB-0A45AB85EA99}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>
