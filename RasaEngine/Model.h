@@ -4,15 +4,16 @@
 #include <assimp/scene.h>
 #include <assimp/postprocess.h>
 
+#include "IRenderable.h"
 
 class Mesh;
 
-class Model
+class Model :public IRenderable
 {
 public:
 	/*  Functions   */
 	Model(GLchar* path);
-	void Draw(Shader shader);
+	void draw(IRenderer & renderer);
 private:
 	/*  Model Data  */
 	std::vector<Mesh> meshes;

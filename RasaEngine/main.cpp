@@ -53,7 +53,7 @@ int main()
 	glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 	glfwWindowHint(GLFW_RESIZABLE, GL_FALSE);
 
-	GLFWwindow* window = glfwCreateWindow(screenWidth, screenHeight, "LearnOpenGL", nullptr, nullptr); // Windowed
+	GLFWwindow* window = glfwCreateWindow(screenWidth, screenHeight, "RasaEngine", nullptr, nullptr); // Windowed
 	glfwMakeContextCurrent(window);
 
 	// Set the required callback functions
@@ -103,6 +103,12 @@ int main()
 	}
 	#endif
 
+	// Load models
+	Model ourModel("Models/nanosuit/nanosuit.obj");
+
+	// Setup and compile our shaders
+	Shader shader("Shaders/SimpleShader.vert", "Shaders/SimpleShader.frag");
+	Shader lampShader("Shaders/LampShader.vert", "Shaders/LampShader.frag");
 
 	while (!glfwWindowShouldClose(window))
 	{
@@ -118,6 +124,10 @@ int main()
 		// Clear the colorbuffer
 		glClearColor(0.05f, 0.05f, 0.05f, 1.0f);
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+
+
+		shader.Use();   
+
 
 		// Swap the buffers
 		glfwSwapBuffers(window);

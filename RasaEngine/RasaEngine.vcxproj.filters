@@ -28,6 +28,9 @@
     <Filter Include="MIDI">
       <UniqueIdentifier>{8d23e7cb-be85-44f4-85d8-6836addb5452}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Core\Interfaces">
+      <UniqueIdentifier>{c00d39b4-921f-4a5b-a5d7-3c0c0bd15851}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Camera.h">
@@ -50,6 +53,15 @@
     </ClInclude>
     <ClInclude Include="MidiDebugger.h">
       <Filter>MIDI</Filter>
+    </ClInclude>
+    <ClInclude Include="IRenderable.h">
+      <Filter>Core\Interfaces</Filter>
+    </ClInclude>
+    <ClInclude Include="IRenderer.h">
+      <Filter>Core\Interfaces</Filter>
+    </ClInclude>
+    <ClInclude Include="OGLRenderer.h">
+      <Filter>Core\Header Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -77,8 +89,32 @@
     <ClCompile Include="MidiDebugger.cpp">
       <Filter>MIDI</Filter>
     </ClCompile>
+    <ClCompile Include="OGLRenderer.cpp">
+      <Filter>Core\Core Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
+    <None Include="Shaders\LampShader.vert">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="Shaders\SimpleShader.frag">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="Shaders\SimpleShader.vert">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="Shaders\TutorialShader.frag">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="Shaders\TutorialShader.vert">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="Shaders\TutorialShader2.frag">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="Shaders\LampShader.frag">
+      <Filter>Shaders</Filter>
+    </None>
   </ItemGroup>
 </Project>

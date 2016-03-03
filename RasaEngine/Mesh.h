@@ -8,7 +8,9 @@
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 
-class Mesh
+#include "IRenderable.h"
+
+class Mesh : public IRenderable
 {
 public:
 	struct Vertex {
@@ -28,7 +30,7 @@ public:
 	std::vector<Texture> textures;
 	/*  Functions  */
 	Mesh(std::vector<Vertex> vertices, std::vector<GLuint> indices, std::vector<Texture> textures);
-	void Draw(Shader shader);
+	void draw(IRenderer & renderer);
 private:
 	/*  Render data  */
 	GLuint VAO, VBO, EBO;

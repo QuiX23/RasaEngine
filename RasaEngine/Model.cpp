@@ -157,10 +157,10 @@ GLint Model::TextureFromFile(const char* path, string directory)
 
 
 
-void Model::Draw(Shader shader)
+	void Model::draw(IRenderer & renderer)
 {
     for(GLuint i = 0; i < this->meshes.size(); i++)
-        this->meshes[i].Draw(shader);
+		this->meshes[i].draw(renderer);
 }  
 
 

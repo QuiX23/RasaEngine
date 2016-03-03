@@ -155,11 +155,14 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="Camera.h" />
+    <ClInclude Include="IRenderer.h" />
+    <ClInclude Include="IRenderable.h" />
     <ClInclude Include="Mesh.h" />
     <ClInclude Include="MidiDebugger.h" />
     <ClInclude Include="MIDI\RtMidi.h" />
     <ClInclude Include="MIDI\rtmidi_c.h" />
     <ClInclude Include="Model.h" />
+    <ClInclude Include="OGLRenderer.h" />
     <ClInclude Include="Shader.h" />
   </ItemGroup>
   <ItemGroup>
@@ -170,10 +173,18 @@
     <ClCompile Include="MIDI\RtMidi.cpp" />
     <ClCompile Include="MIDI\rtmidi_c.cpp" />
     <ClCompile Include="Model.cpp" />
+    <ClCompile Include="OGLRenderer.cpp" />
     <ClCompile Include="Shader.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
+    <None Include="Shaders\LampShader.frag" />
+    <None Include="Shaders\LampShader.vert" />
+    <None Include="Shaders\SimpleShader.frag" />
+    <None Include="Shaders\SimpleShader.vert" />
+    <None Include="Shaders\TutorialShader.frag" />
+    <None Include="Shaders\TutorialShader.vert" />
+    <None Include="Shaders\TutorialShader2.frag" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Bullet\build\src\BulletCollision\BulletCollision.vcxproj">
