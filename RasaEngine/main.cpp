@@ -1,8 +1,10 @@
 
+#include <iostream>
+#include <cstdlib>
+#include <windows.h>
+
 #include "GL\glew.h"
 #include <GLFW\glfw3.h>
-
-#include <iostream>
 
 #include "SOIL.h"
 
@@ -10,15 +12,16 @@
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
 
-#include "Shader.h"
-#include "Camera.h"
-#include "Model.h"
-
 #include "btBulletCollisionCommon.h"
 #include "btBulletCollisionCommon.h"
 #include "BulletDynamics\Dynamics\btDiscreteDynamicsWorld.h"
 #include "BulletDynamics\ConstraintSolver\btSequentialImpulseConstraintSolver.h"
 
+#include "Shader.h"
+#include "Camera.h"
+#include "Model.h"
+
+#include "MidiDebugger.h"
 
 // Properties
 GLuint screenWidth = 800, screenHeight = 600;
@@ -37,6 +40,7 @@ bool firstMouse = true;
 
 GLfloat deltaTime = 0.0f;
 GLfloat lastFrame = 0.0f;
+
 
 // The MAIN function, from here we start our application and run the Game loop
 int main()
@@ -58,7 +62,8 @@ int main()
 	glfwSetScrollCallback(window, scroll_callback);
 
 	// Options
-	glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
+	//Disabling coursor in window
+	//glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
 
 	// Initialize GLEW to setup the OpenGL Function pointers
 	glewExperimental = GL_TRUE;
@@ -85,7 +90,20 @@ int main()
 	btDiscreteDynamicsWorld* dynamicsWorld = new btDiscreteDynamicsWorld(dispatcher, broadphase, solver, collisionConfiguration);
 	#pragma endregion
 
-	// Game loop
+	//If you have connected a MIDI controller, this will allow you to debug you code;
+	#if _DEBUG
+	std::unique_ptr<MidiDebugger> midiDebug;
+	try
+	{
+		midiDebug = std::make_unique<MidiDebugger>();
+	}
+	catch (_exception e)
+	{
+		std::cout << "No MIDI port found!";
+	}
+	#endif
+
+
 	while (!glfwWindowShouldClose(window))
 	{
 		// Set frame time
@@ -104,6 +122,7 @@ int main()
 		// Swap the buffers
 		glfwSwapBuffers(window);
 	}
+
 
 	glfwTerminate();
 	return 0;

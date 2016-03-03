@@ -25,6 +25,9 @@
     <Filter Include="Shaders">
       <UniqueIdentifier>{5b20c1b2-2b2a-404d-aa46-9a4ef637a30c}</UniqueIdentifier>
     </Filter>
+    <Filter Include="MIDI">
+      <UniqueIdentifier>{8d23e7cb-be85-44f4-85d8-6836addb5452}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Camera.h">
@@ -38,6 +41,15 @@
     </ClInclude>
     <ClInclude Include="Shader.h">
       <Filter>Core\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="MIDI\rtmidi_c.h">
+      <Filter>MIDI</Filter>
+    </ClInclude>
+    <ClInclude Include="MIDI\RtMidi.h">
+      <Filter>MIDI</Filter>
+    </ClInclude>
+    <ClInclude Include="MidiDebugger.h">
+      <Filter>MIDI</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -55,6 +67,15 @@
     </ClCompile>
     <ClCompile Include="main.cpp">
       <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="MIDI\rtmidi_c.cpp">
+      <Filter>MIDI</Filter>
+    </ClCompile>
+    <ClCompile Include="MIDI\RtMidi.cpp">
+      <Filter>MIDI</Filter>
+    </ClCompile>
+    <ClCompile Include="MidiDebugger.cpp">
+      <Filter>MIDI</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
