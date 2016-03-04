@@ -1,9 +1,11 @@
 #pragma once
 
-#include "Mesh.h"
+#include "Shader.h"
+#include "IVertexArray.h"
+#include "ITextureSet.h"
 
 class IRenderer
 {
 public:
-	virtual void render(const Mesh & object) = 0;
+	virtual void renderObject(const IVertexArray & vertexArray, const ITextureSet & textureSet, Shader shader) = 0;
 };

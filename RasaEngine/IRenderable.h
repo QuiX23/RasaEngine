@@ -5,5 +5,5 @@
 class IRenderable
 {
 	public:
-		virtual void draw(IRenderer & renderer) = 0;
+		virtual void draw(IRenderer & renderer, Shader shader) = 0;
 };

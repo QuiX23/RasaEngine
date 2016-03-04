@@ -157,13 +157,19 @@
     <ClInclude Include="Camera.h" />
     <ClInclude Include="IRenderer.h" />
     <ClInclude Include="IRenderable.h" />
+    <ClInclude Include="ITextureSet.h" />
+    <ClInclude Include="IVertexArray.h" />
     <ClInclude Include="Mesh.h" />
     <ClInclude Include="MidiDebugger.h" />
     <ClInclude Include="MIDI\RtMidi.h" />
     <ClInclude Include="MIDI\rtmidi_c.h" />
     <ClInclude Include="Model.h" />
     <ClInclude Include="OGLRenderer.h" />
+    <ClInclude Include="OGLTextureSet.h" />
+    <ClInclude Include="OGLVertexArray.h" />
     <ClInclude Include="Shader.h" />
+    <ClInclude Include="Texture.h" />
+    <ClInclude Include="Vertex.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Camera.cpp" />
@@ -174,6 +180,8 @@
     <ClCompile Include="MIDI\rtmidi_c.cpp" />
     <ClCompile Include="Model.cpp" />
     <ClCompile Include="OGLRenderer.cpp" />
+    <ClCompile Include="OGLTextureSet.cpp" />
+    <ClCompile Include="OGLVertexArray.cpp" />
     <ClCompile Include="Shader.cpp" />
   </ItemGroup>
   <ItemGroup>

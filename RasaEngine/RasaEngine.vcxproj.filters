@@ -13,37 +13,49 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
-    <Filter Include="Core">
-      <UniqueIdentifier>{abd3c81d-437b-4024-af37-d84e3cc75d22}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Core\Header Files">
-      <UniqueIdentifier>{2bcc77be-7bc8-4e8e-85c3-3a697caf54fe}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Core\Core Files">
-      <UniqueIdentifier>{d485b0b5-df3f-4dd6-991d-67c5ae7281c1}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Shaders">
       <UniqueIdentifier>{5b20c1b2-2b2a-404d-aa46-9a4ef637a30c}</UniqueIdentifier>
     </Filter>
     <Filter Include="MIDI">
       <UniqueIdentifier>{8d23e7cb-be85-44f4-85d8-6836addb5452}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Core\Interfaces">
+    <Filter Include="Engine">
+      <UniqueIdentifier>{6b119bf2-ece0-4c5b-b2e9-7ecf71240479}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Core">
+      <UniqueIdentifier>{abd3c81d-437b-4024-af37-d84e3cc75d22}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Core\Header Files">
+      <UniqueIdentifier>{2bcc77be-7bc8-4e8e-85c3-3a697caf54fe}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Core\Interfaces">
       <UniqueIdentifier>{c00d39b4-921f-4a5b-a5d7-3c0c0bd15851}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\GraphicEngine">
+      <UniqueIdentifier>{0efe537b-b062-4920-bc9b-7f038e8f7532}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\GraphicEngine\Header Files">
+      <UniqueIdentifier>{c09bc2b9-6370-4906-a97f-619c0b5a090e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Core\Source Files">
+      <UniqueIdentifier>{d485b0b5-df3f-4dd6-991d-67c5ae7281c1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\GraphicEngine\Source Files">
+      <UniqueIdentifier>{cac843b8-6722-4aae-b92f-53a5d930f121}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\GraphicEngine\Interfaces">
+      <UniqueIdentifier>{a71d1bb3-c923-406c-a795-31795d22b833}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Camera.h">
-      <Filter>Core\Header Files</Filter>
+      <Filter>Engine\Core\Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Mesh.h">
-      <Filter>Core\Header Files</Filter>
+      <Filter>Engine\Core\Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Model.h">
-      <Filter>Core\Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Shader.h">
-      <Filter>Core\Header Files</Filter>
+      <Filter>Engine\Core\Header Files</Filter>
     </ClInclude>
     <ClInclude Include="MIDI\rtmidi_c.h">
       <Filter>MIDI</Filter>
@@ -55,27 +67,45 @@
       <Filter>MIDI</Filter>
     </ClInclude>
     <ClInclude Include="IRenderable.h">
-      <Filter>Core\Interfaces</Filter>
-    </ClInclude>
-    <ClInclude Include="IRenderer.h">
-      <Filter>Core\Interfaces</Filter>
+      <Filter>Engine\Core\Interfaces</Filter>
     </ClInclude>
     <ClInclude Include="OGLRenderer.h">
-      <Filter>Core\Header Files</Filter>
+      <Filter>Engine\GraphicEngine\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="IRenderer.h">
+      <Filter>Engine\GraphicEngine\Interfaces</Filter>
+    </ClInclude>
+    <ClInclude Include="IVertexArray.h">
+      <Filter>Engine\GraphicEngine\Interfaces</Filter>
+    </ClInclude>
+    <ClInclude Include="OGLVertexArray.h">
+      <Filter>Engine\GraphicEngine\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Vertex.h">
+      <Filter>Engine\Core\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Shader.h">
+      <Filter>Engine\GraphicEngine\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ITextureSet.h">
+      <Filter>Engine\GraphicEngine\Interfaces</Filter>
+    </ClInclude>
+    <ClInclude Include="OGLTextureSet.h">
+      <Filter>Engine\GraphicEngine\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Texture.h">
+      <Filter>Engine\Core\Header Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Camera.cpp">
-      <Filter>Core\Core Files</Filter>
+      <Filter>Engine\Core\Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Mesh.cpp">
-      <Filter>Core\Core Files</Filter>
+      <Filter>Engine\Core\Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Model.cpp">
-      <Filter>Core\Core Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Shader.cpp">
-      <Filter>Core\Core Files</Filter>
+      <Filter>Engine\Core\Source Files</Filter>
     </ClCompile>
     <ClCompile Include="main.cpp">
       <Filter>Source Files</Filter>
@@ -90,7 +120,16 @@
       <Filter>MIDI</Filter>
     </ClCompile>
     <ClCompile Include="OGLRenderer.cpp">
-      <Filter>Core\Core Files</Filter>
+      <Filter>Engine\GraphicEngine\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="OGLVertexArray.cpp">
+      <Filter>Engine\GraphicEngine\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Shader.cpp">
+      <Filter>Engine\GraphicEngine\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="OGLTextureSet.cpp">
+      <Filter>Engine\GraphicEngine\Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

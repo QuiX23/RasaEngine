@@ -4,25 +4,23 @@
 
 #include <fstream>
 #include <sstream>
-#include <iostream>
-// GL Includes
-#include <GL/glew.h> // Contains all the necessery OpenGL includes
-#include <glm/glm.hpp>
-#include <glm/gtc/matrix_transform.hpp>
 
 using namespace std;
 
-void OGLRenderer::render(const Mesh &object)
+
+
+
+void OGLRenderer::renderObject(const IVertexArray & vertexArray, const ITextureSet & textureSet, Shader shader)
 {
 	GLuint diffuseNr = 1;
 	GLuint specularNr = 1;
-	for (GLuint i = 0; i < object.textures.size(); i++)
+	for (GLuint i = 0; i < textureSet.textures.size(); i++)
 	{
 		glActiveTexture(GL_TEXTURE0 + i); // Activate proper texture unit before binding
 		// Retrieve texture number (the N in diffuse_textureN)
 		stringstream ss;
 		string number;
-		string name = this->textures[i].type;
+		string name = textureSet.textures[i].type;
 		if (name == "texture_diffuse")
 			ss << diffuseNr++; // Transfer GLuint to stream
 		else if (name == "texture_specular")
@@ -30,18 +28,17 @@ void OGLRenderer::render(const Mesh &object)
 		number = ss.str();
 
 		glUniform1f(glGetUniformLocation(shader.Program, ("material." + name + number).c_str()), i);
-		glBindTexture(GL_TEXTURE_2D, object.textures[i].id);
+		glBindTexture(GL_TEXTURE_2D, textureSet.textures[i].id);
 	}
 	glUniform1f(glGetUniformLocation(shader.Program, "material.shininess"), 16.0f);
 
-	// Draw mesh
-	glBindVertexArray(object.VAO);
-	glDrawElements(GL_TRIANGLES, object.indices.size(), GL_UNSIGNED_INT, 0);
+	glBindVertexArray(vertexArray.VAO);
+	glDrawElements(GL_TRIANGLES, vertexArray.indiciesNum, GL_UNSIGNED_INT, 0);
 	glBindVertexArray(0);
 
 
 	// Always good practice to set everything back to defaults once configured.
-	for (GLuint i = 0; i < object.textures.size(); i++)
+	for (GLuint i = 0; i < textureSet.textures.size(); i++)
 	{
 		glActiveTexture(GL_TEXTURE0 + i);
 		glBindTexture(GL_TEXTURE_2D, 0);
