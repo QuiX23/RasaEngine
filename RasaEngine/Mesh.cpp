@@ -18,13 +18,14 @@ Mesh::Mesh(vector<Vertex> vertices, vector<int> indices, vector<Texture> texture
 
 void Mesh::setupMesh()
 {
-	vertexArray.setVertexArray(vertices, indices);
+	vertexArray = Context::getInstance().CreateVertexArray(vertices, indices);
 	textureSet.setTextureSet(textures);
 }
 
 void Mesh::draw(IRenderer & renderer, Shader shader)
 {
-	renderer.renderObject(vertexArray, textureSet, shader);
+	int a = 0;
+	renderer.renderObject(*vertexArray, textureSet, shader);
 	
 }
 
