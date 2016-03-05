@@ -155,6 +155,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="Camera.h" />
+    <ClInclude Include="Context.h" />
     <ClInclude Include="IRenderer.h" />
     <ClInclude Include="IRenderable.h" />
     <ClInclude Include="ITextureSet.h" />
@@ -179,6 +180,7 @@
     <ClCompile Include="MIDI\RtMidi.cpp" />
     <ClCompile Include="MIDI\rtmidi_c.cpp" />
     <ClCompile Include="Model.cpp" />
+    <ClCompile Include="Context.cpp" />
     <ClCompile Include="OGLRenderer.cpp" />
     <ClCompile Include="OGLTextureSet.cpp" />
     <ClCompile Include="OGLVertexArray.cpp" />

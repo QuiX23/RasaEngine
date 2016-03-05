@@ -96,6 +96,9 @@
     <ClInclude Include="Texture.h">
       <Filter>Engine\Core\Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Context.h">
+      <Filter>Engine\GraphicEngine\Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Camera.cpp">
@@ -129,6 +132,9 @@
       <Filter>Engine\GraphicEngine\Source Files</Filter>
     </ClCompile>
     <ClCompile Include="OGLTextureSet.cpp">
+      <Filter>Engine\GraphicEngine\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Context.cpp">
       <Filter>Engine\GraphicEngine\Source Files</Filter>
     </ClCompile>
   </ItemGroup>
