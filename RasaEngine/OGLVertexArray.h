@@ -10,7 +10,7 @@
 class OGLVertexArray :public IVertexArray
 {
 public:
-	GLuint VAO, VBO, EBO, indiciesNum;
+	GLuint VBO, EBO;
 
 	OGLVertexArray();
 	~OGLVertexArray();

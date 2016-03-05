@@ -1,8 +1,6 @@
 #include "Model.h"
 #include <iostream>
-//#include <boost/utility/binary.hpp>
 #include <SOIL.h>
-
 
 
 using namespace std;
@@ -49,11 +47,9 @@ Mesh Model::processMesh(aiMesh* mesh, const aiScene* scene)
 	vector<int> indices;
 	vector<Texture> textures;
 
-
 	for (int i = 0; i < mesh->mNumVertices; i++)
 	{
 		Vertex vertex;
-		//vertex.type = BOOST_BINARY(111);
 
 		glm::vec3 vector;
 		vector.x = mesh->mVertices[i].x;

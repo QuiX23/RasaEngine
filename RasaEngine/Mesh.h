@@ -10,8 +10,7 @@
 #include "Vertex.h"
 #include "Texture.h"
 
-#include "Context.h"
-#include "IVertexArray.h"
+#include "OGLVertexArray.h"
 #include "OGLTextureSet.h"
 
 class Mesh:IRenderable
@@ -26,7 +25,7 @@ public:
 	void draw(IRenderer & renderer, Shader shader);
 private:
 	/*  Render data  */
-	shared_ptr<IVertexArray> vertexArray;
+	OGLVertexArray vertexArray;
 	OGLTextureSet textureSet;
 	/*  Functions    */
 	void setupMesh();

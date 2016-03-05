@@ -8,13 +8,13 @@ class Context
 public:
 	//Singleton pattern methods
 	static Context& getInstance();
-	void operator=(Context const&) = delete;
 	Context(Context const&) = delete;
+	void operator=(Context const&) = delete;
 	~Context();
 	
-	void setOGLContext();
 	unique_ptr < IRenderer > renderer;
-	shared_ptr<IVertexArray> CreateVertexArray(const vector<Vertex> & vertices, const vector<int> & indices) const;
+	shared_ptr<IVertexArray> CreateVertexArray(const vector<Vertex> & vertices, const vector<int> & indices);
+	void createOGLContext();
 
 private:
 	Context(){};

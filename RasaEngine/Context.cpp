@@ -8,14 +8,14 @@ Context& Context::getInstance()
 	return instance;
 }
 
-shared_ptr<IVertexArray>  Context::CreateVertexArray(const vector<Vertex> & vertices, const vector<int> & indices)const
+shared_ptr<IVertexArray>  Context::CreateVertexArray(const vector<Vertex> & vertices, const vector<int> & indices)
 {
 	shared_ptr<IVertexArray> vertexArray =make_shared<OGLVertexArray>( );
 	vertexArray->setVertexArray(vertices, indices);
-	return vertexArray;
+	return 0;vertexArray;
 }
 
-void Context::setOGLContext()
+void Context::createOGLContext()
 {
 	renderer = std::make_unique<OGLRenderer>();
 }
