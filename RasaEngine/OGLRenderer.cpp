@@ -1,7 +1,6 @@
 #include "OGLRenderer.h"
 
 #include <string>
-
 #include <fstream>
 #include <sstream>
 
@@ -12,6 +11,8 @@ using namespace std;
 
 void OGLRenderer::renderObject(const IVertexArray & vertexArray, const ITextureSet & textureSet, Shader shader)
 {
+	const OGLVertexArray &vArray = static_cast <const OGLVertexArray&>(vertexArray);
+	//OGLVertexArray &vArray = dynamic_cast < OGLVertexArray&>(const_cast < IVertexArray&>(vertexArray));
 	GLuint diffuseNr = 1;
 	GLuint specularNr = 1;
 	for (GLuint i = 0; i < textureSet.textures.size(); i++)
@@ -32,8 +33,8 @@ void OGLRenderer::renderObject(const IVertexArray & vertexArray, const ITextureS
 	}
 	glUniform1f(glGetUniformLocation(shader.Program, "material.shininess"), 16.0f);
 
-	glBindVertexArray(vertexArray.VAO);
-	glDrawElements(GL_TRIANGLES, vertexArray.indiciesNum, GL_UNSIGNED_INT, 0);
+	glBindVertexArray(vArray.VAO);
+	glDrawElements(GL_TRIANGLES, vArray.indiciesNum, GL_UNSIGNED_INT, 0);
 	glBindVertexArray(0);
 
 

@@ -1,0 +1,12 @@
+diff a/RasaEngine/Mesh.h b/RasaEngine/Mesh.h	(rejected hunks)
+@@ -24,9 +24,9 @@
+ 	Mesh(std::vector<Vertex> vertices, std::vector<int> indices, std::vector<Texture> textures);
+ 	void draw(IRenderer & renderer, Shader shader);
+ private:
++	/*  Render data  */
+ 	OGLVertexArray vertexArray;
+ 	OGLTextureSet textureSet;
+-	/*  Render data  */
+ 	/*  Functions    */
+ 	void setupMesh();
+ };
