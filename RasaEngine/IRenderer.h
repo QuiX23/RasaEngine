@@ -1,11 +1,12 @@
 #pragma once
+#include <memory>
 
 #include "Shader.h"
 #include "IVertexArray.h"
-#include "ITextureSet.h"
+#include "ITextureBuffer.h"
 
 class IRenderer
 {
 public:
-	virtual void renderObject(const IVertexArray & vertexArray, const ITextureSet & textureSet, Shader shader) = 0;
+	virtual void renderObject(const IVertexArray & vertexArray, const vector<shared_ptr<ITextureBuffer>> & textureBuffer, Shader shader) = 0;
 };

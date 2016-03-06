@@ -1,4 +1,7 @@
 #pragma once
+
+
+
 #include "IRenderable.h"
 
 #include "Mesh.h"
@@ -17,14 +20,14 @@ public:
 private:
 	/*  Model Data  */
 	std::vector<Mesh> meshes;
-	std::vector<Texture> textures_loaded;
+	std::vector<shared_ptr<Texture>> textures_loaded;
 	std::string directory;
 	/*  Functions   */
 	void loadModel(std::string path);
-	GLint TextureFromFile(const char* path, std::string directory);
+	unique_ptr<unsigned char> TextureFromFile(const char* path, string directory, int &width, int &height);
 	void processNode(aiNode* node, const aiScene* scene);
 	Mesh processMesh(aiMesh* mesh, const aiScene* scene);
-	std::vector<Texture> loadMaterialTextures(aiMaterial* mat, aiTextureType type,
+	std::vector<shared_ptr<Texture>>  loadMaterialTextures(aiMaterial* mat, aiTextureType type,
 		std::string typeName);
 };
 

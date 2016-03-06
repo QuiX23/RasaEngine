@@ -46,6 +46,12 @@
     <Filter Include="Engine\GraphicEngine\Interfaces">
       <UniqueIdentifier>{a71d1bb3-c923-406c-a795-31795d22b833}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Engine\PhysicEngine">
+      <UniqueIdentifier>{34f9ad17-bbb6-404a-b000-04de9d3e91d5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\CommonConcepts">
+      <UniqueIdentifier>{2e29914e-5bc0-400d-b8bc-eb123532d8d7}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Camera.h">
@@ -81,22 +87,25 @@
     <ClInclude Include="OGLVertexArray.h">
       <Filter>Engine\GraphicEngine\Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Vertex.h">
-      <Filter>Engine\Core\Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="Shader.h">
       <Filter>Engine\GraphicEngine\Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="ITextureSet.h">
-      <Filter>Engine\GraphicEngine\Interfaces</Filter>
-    </ClInclude>
-    <ClInclude Include="OGLTextureSet.h">
+    <ClInclude Include="Context.h">
       <Filter>Engine\GraphicEngine\Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Texture.h">
+    <ClInclude Include="Material.h">
       <Filter>Engine\Core\Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Context.h">
+    <ClInclude Include="Texture.h">
+      <Filter>Engine\CommonConcepts</Filter>
+    </ClInclude>
+    <ClInclude Include="Vertex.h">
+      <Filter>Engine\CommonConcepts</Filter>
+    </ClInclude>
+    <ClInclude Include="ITextureBuffer.h">
+      <Filter>Engine\GraphicEngine\Interfaces</Filter>
+    </ClInclude>
+    <ClInclude Include="OGLTextureBuffer.h">
       <Filter>Engine\GraphicEngine\Header Files</Filter>
     </ClInclude>
   </ItemGroup>
@@ -131,10 +140,13 @@
     <ClCompile Include="Shader.cpp">
       <Filter>Engine\GraphicEngine\Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="OGLTextureSet.cpp">
+    <ClCompile Include="Context.cpp">
       <Filter>Engine\GraphicEngine\Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Context.cpp">
+    <ClCompile Include="Material.cpp">
+      <Filter>Engine\Core\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="OGLTextureBuffer.cpp">
       <Filter>Engine\GraphicEngine\Source Files</Filter>
     </ClCompile>
   </ItemGroup>

@@ -15,6 +15,13 @@ shared_ptr<IVertexArray>  Context::CreateVertexArray(const vector<Vertex> & vert
 	return vertexArray;
 }
 
+shared_ptr<ITextureBuffer> Context::CreateTextureBuffer(const unsigned char* const texture, const int & width, const int & height)const
+{
+	shared_ptr<ITextureBuffer> textureBuffer = make_shared<OGLTextureBuffer>();
+	textureBuffer->setTextureBuffer(texture, width,height);
+	return textureBuffer;
+}
+
 void Context::setOGLContext()
 {
 	renderer = std::make_unique<OGLRenderer>();

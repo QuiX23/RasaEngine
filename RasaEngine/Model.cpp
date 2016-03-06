@@ -1,6 +1,8 @@
 #include "Model.h"
 #include <iostream>
+#include <boost/utility/binary.hpp>
 #include <SOIL.h>
+
 
 
 using namespace std;
@@ -45,11 +47,12 @@ Mesh Model::processMesh(aiMesh* mesh, const aiScene* scene)
 {
 	vector<Vertex> vertices;
 	vector<int> indices;
-	vector<Texture> textures;
+	Material material;
 
 	for (int i = 0; i < mesh->mNumVertices; i++)
 	{
 		Vertex vertex;
+		vertex.Type = BOOST_BINARY(111);
 
 		glm::vec3 vector;
 		vector.x = mesh->mVertices[i].x;
@@ -86,54 +89,46 @@ Mesh Model::processMesh(aiMesh* mesh, const aiScene* scene)
 
 	if (mesh->mMaterialIndex >= 0)
 	{
-		aiMaterial* material = scene->mMaterials[mesh->mMaterialIndex];
-		vector<Texture> diffuseMaps = this->loadMaterialTextures(material,
+		aiMaterial* aMaterial = scene->mMaterials[mesh->mMaterialIndex];
+		vector<shared_ptr<Texture>> diffuseMaps = this->loadMaterialTextures(aMaterial,
 			aiTextureType_DIFFUSE, "texture_diffuse");
-		textures.insert(textures.end(), diffuseMaps.begin(), diffuseMaps.end());
-		vector<Texture> specularMaps = this->loadMaterialTextures(material,
+		material.textures.insert(material.textures.end(), diffuseMaps.begin(), diffuseMaps.end());
+		vector<shared_ptr<Texture>> specularMaps = this->loadMaterialTextures(aMaterial,
 			aiTextureType_SPECULAR, "texture_specular");
-		textures.insert(textures.end(), specularMaps.begin(), specularMaps.end());
+		material.textures.insert(material.textures.end(), specularMaps.begin(), specularMaps.end());
 	}
+	material.temporarySetter();
 
-	return Mesh(vertices, indices, textures);
+	return Mesh(vertices, indices, material);
 }
 
-GLint Model::TextureFromFile(const char* path, string directory)
+unique_ptr<unsigned char> Model::TextureFromFile(const char* path, string directory, int &width, int &height)
 {
 	//Generate texture ID and load texture data 
 	string filename = string(path);
 	filename = directory + '/' + filename;
-	GLuint textureID;
-	glGenTextures(1, &textureID);
-	int width, height;
+	//Dangerous line could in future turn into memory leak!!!
+	//!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+	//SOIL_free_image_data(image);
 	unsigned char* image = SOIL_load_image(filename.c_str(), &width, &height, 0, SOIL_LOAD_RGB);
-	// Assign texture to ID
-	glBindTexture(GL_TEXTURE_2D, textureID);
-	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, GL_RGB, GL_UNSIGNED_BYTE, image);
-	glGenerateMipmap(GL_TEXTURE_2D);
-
-	// Parameters
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-	glBindTexture(GL_TEXTURE_2D, 0);
+	unique_ptr<unsigned char> temp (SOIL_load_image(filename.c_str(), &width, &height, 0, SOIL_LOAD_RGB));
 	SOIL_free_image_data(image);
-	return textureID;
+	return move(temp);
+
 }
 
 
-vector<Texture> Model::loadMaterialTextures(aiMaterial* mat, aiTextureType type, string typeName)
+vector<shared_ptr<Texture>> Model::loadMaterialTextures(aiMaterial* mat, aiTextureType type, string typeName)
 {
-	vector<Texture> textures;
-	for (GLuint i = 0; i < mat->GetTextureCount(type); i++)
+	vector<shared_ptr<Texture>> textures;
+	for (int i = 0; i < mat->GetTextureCount(type); i++)
 	{
 		aiString str;
 		mat->GetTexture(type, i, &str);
-		GLboolean skip = false;
-		for (GLuint j = 0; j < textures_loaded.size(); j++)
+		bool skip = false;
+		for (int j = 0; j < textures_loaded.size(); j++)
 		{
-			if (textures_loaded[j].path == str)
+			if (textures_loaded[j]->path == str)
 			{
 				textures.push_back(textures_loaded[j]);
 				skip = true;
@@ -141,11 +136,18 @@ vector<Texture> Model::loadMaterialTextures(aiMaterial* mat, aiTextureType type,
 			}
 		}
 		if (!skip)
-		{   // If texture hasn't been loaded already, load it
-			Texture texture;
-			texture.id = TextureFromFile(str.C_Str(), this->directory);
-			texture.type = typeName;
-			texture.path = str;
+		{   
+			int width = 0, height = 0;
+			shared_ptr<Texture> texture=make_shared<Texture>();
+			unique_ptr <unsigned char>tempImage =TextureFromFile(str.C_Str(), this->directory, width, height);
+			texture->image = std::make_unique<unsigned char>();
+			texture->image = move(tempImage);
+			texture->image =move(tempImage);
+			texture->width = width;
+			texture->height = height;
+			texture->type = typeName;
+			texture->path = str;
+			texture->texturBuffer = Context::getInstance().CreateTextureBuffer(&*texture->image, texture->width, texture->height);
 			textures.push_back(texture);
 			this->textures_loaded.push_back(texture);  // Add to loaded textures
 		}
@@ -159,7 +161,7 @@ vector<Texture> Model::loadMaterialTextures(aiMaterial* mat, aiTextureType type,
 void Model::draw(IRenderer & renderer, Shader shader)
 {
 	for (GLuint i = 0; i < this->meshes.size(); i++)
-		this->meshes[i].draw(renderer,shader);
+		this->meshes[i].draw(renderer, shader);
 }
 
 

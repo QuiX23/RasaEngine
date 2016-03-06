@@ -7,11 +7,11 @@ using namespace std;
 
 
 
-Mesh::Mesh(vector<Vertex> vertices, vector<int> indices, vector<Texture> textures)
+Mesh::Mesh(vector<Vertex> vertices, vector<int> indices, Material material)
 {
 	this->vertices = vertices;
 	this->indices = indices;
-	this->textures = textures;
+	this->material = material;
 
 	this->setupMesh();
 }
@@ -19,13 +19,12 @@ Mesh::Mesh(vector<Vertex> vertices, vector<int> indices, vector<Texture> texture
 void Mesh::setupMesh()
 {
 	vertexArray = Context::getInstance().CreateVertexArray(vertices, indices);
-	textureSet.setTextureSet(textures);
 }
 
 void Mesh::draw(IRenderer & renderer, Shader shader)
 {
 	int a = 0;
-	renderer.renderObject(*vertexArray, textureSet, shader);
+	renderer.renderObject(*vertexArray, material.buffers, shader);
 
 }
 

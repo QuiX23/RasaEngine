@@ -66,7 +66,7 @@
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
   </ImportGroup>
   <PropertyGroup Label="UserMacros">
-    <NuGetPackageImportStamp>7fb6fa73</NuGetPackageImportStamp>
+    <NuGetPackageImportStamp>fc9c5c77</NuGetPackageImportStamp>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
@@ -158,15 +158,16 @@
     <ClInclude Include="Context.h" />
     <ClInclude Include="IRenderer.h" />
     <ClInclude Include="IRenderable.h" />
-    <ClInclude Include="ITextureSet.h" />
+    <ClInclude Include="ITextureBuffer.h" />
     <ClInclude Include="IVertexArray.h" />
+    <ClInclude Include="Material.h" />
     <ClInclude Include="Mesh.h" />
     <ClInclude Include="MidiDebugger.h" />
     <ClInclude Include="MIDI\RtMidi.h" />
     <ClInclude Include="MIDI\rtmidi_c.h" />
     <ClInclude Include="Model.h" />
     <ClInclude Include="OGLRenderer.h" />
-    <ClInclude Include="OGLTextureSet.h" />
+    <ClInclude Include="OGLTextureBuffer.h" />
     <ClInclude Include="OGLVertexArray.h" />
     <ClInclude Include="Shader.h" />
     <ClInclude Include="Texture.h" />
@@ -175,6 +176,7 @@
   <ItemGroup>
     <ClCompile Include="Camera.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="Material.cpp" />
     <ClCompile Include="Mesh.cpp" />
     <ClCompile Include="MidiDebugger.cpp" />
     <ClCompile Include="MIDI\RtMidi.cpp" />
@@ -182,7 +184,7 @@
     <ClCompile Include="Model.cpp" />
     <ClCompile Include="Context.cpp" />
     <ClCompile Include="OGLRenderer.cpp" />
-    <ClCompile Include="OGLTextureSet.cpp" />
+    <ClCompile Include="OGLTextureBuffer.cpp" />
     <ClCompile Include="OGLVertexArray.cpp" />
     <ClCompile Include="Shader.cpp" />
   </ItemGroup>
@@ -227,6 +229,7 @@
     <Import Project="..\packages\glm.0.9.7.1\build\native\glm.targets" Condition="Exists('..\packages\glm.0.9.7.1\build\native\glm.targets')" />
     <Import Project="..\packages\Assimp.redist.3.0.0\build\native\Assimp.redist.targets" Condition="Exists('..\packages\Assimp.redist.3.0.0\build\native\Assimp.redist.targets')" />
     <Import Project="..\packages\Assimp.3.0.0\build\native\Assimp.targets" Condition="Exists('..\packages\Assimp.3.0.0\build\native\Assimp.targets')" />
+    <Import Project="..\packages\boost.1.60.0.0\build\native\boost.targets" Condition="Exists('..\packages\boost.1.60.0.0\build\native\boost.targets')" />
   </ImportGroup>
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>
@@ -235,5 +238,6 @@
     <Error Condition="!Exists('..\packages\glm.0.9.7.1\build\native\glm.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\glm.0.9.7.1\build\native\glm.targets'))" />
     <Error Condition="!Exists('..\packages\Assimp.redist.3.0.0\build\native\Assimp.redist.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Assimp.redist.3.0.0\build\native\Assimp.redist.targets'))" />
     <Error Condition="!Exists('..\packages\Assimp.3.0.0\build\native\Assimp.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Assimp.3.0.0\build\native\Assimp.targets'))" />
+    <Error Condition="!Exists('..\packages\boost.1.60.0.0\build\native\boost.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\boost.1.60.0.0\build\native\boost.targets'))" />
   </Target>
 </Project>

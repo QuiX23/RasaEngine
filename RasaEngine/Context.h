@@ -15,6 +15,7 @@ public:
 	void setOGLContext();
 	unique_ptr < IRenderer > renderer;
 	shared_ptr<IVertexArray> CreateVertexArray(const vector<Vertex> & vertices, const vector<int> & indices) const;
+	shared_ptr<ITextureBuffer> CreateTextureBuffer(const unsigned char* const texture, const int & width, const int & height)const;
 
 private:
 	Context(){};

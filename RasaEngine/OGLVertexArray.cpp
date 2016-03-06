@@ -23,7 +23,7 @@ void OGLVertexArray::setVertexArray(const vector<Vertex> & vertices, const vecto
 	// Vertex Positions
 	glEnableVertexAttribArray(0);
 	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex),
-		(GLvoid*)0);
+		(GLvoid*)offsetof(Vertex, Position));
 	// Vertex Normals
 	glEnableVertexAttribArray(1);
 	glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex),
