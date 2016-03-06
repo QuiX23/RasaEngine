@@ -140,8 +140,6 @@ vector<shared_ptr<Texture>> Model::loadMaterialTextures(aiMaterial* mat, aiTextu
 			int width = 0, height = 0;
 			shared_ptr<Texture> texture=make_shared<Texture>();
 			unique_ptr <unsigned char>tempImage =TextureFromFile(str.C_Str(), this->directory, width, height);
-			texture->image = std::make_unique<unsigned char>();
-			texture->image = move(tempImage);
 			texture->image =move(tempImage);
 			texture->width = width;
 			texture->height = height;
