@@ -108,6 +108,9 @@
     <ClInclude Include="OGLTextureBuffer.h">
       <Filter>Engine\GraphicEngine\Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="TexturesManager.h">
+      <Filter>Engine\Core\Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Camera.cpp">
@@ -148,6 +151,9 @@
     </ClCompile>
     <ClCompile Include="OGLTextureBuffer.cpp">
       <Filter>Engine\GraphicEngine\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="TexturesManager.cpp">
+      <Filter>Engine\Core\Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

@@ -138,14 +138,8 @@ vector<shared_ptr<Texture>> Model::loadMaterialTextures(aiMaterial* mat, aiTextu
 		if (!skip)
 		{   
 			int width = 0, height = 0;
-			shared_ptr<Texture> texture=make_shared<Texture>();
 			unique_ptr <unsigned char>tempImage =TextureFromFile(str.C_Str(), this->directory, width, height);
-			texture->image =move(tempImage);
-			texture->width = width;
-			texture->height = height;
-			texture->type = typeName;
-			texture->path = str;
-			texture->texturBuffer = Context::getInstance().CreateTextureBuffer(&*texture->image, texture->width, texture->height);
+			shared_ptr<Texture> texture = make_shared<Texture>(width, height, typeName,str, &*tempImage);
 			textures.push_back(texture);
 			this->textures_loaded.push_back(texture);  // Add to loaded textures
 		}

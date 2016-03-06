@@ -171,6 +171,7 @@
     <ClInclude Include="OGLVertexArray.h" />
     <ClInclude Include="Shader.h" />
     <ClInclude Include="Texture.h" />
+    <ClInclude Include="TexturesManager.h" />
     <ClInclude Include="Vertex.h" />
   </ItemGroup>
   <ItemGroup>
@@ -187,6 +188,7 @@
     <ClCompile Include="OGLTextureBuffer.cpp" />
     <ClCompile Include="OGLVertexArray.cpp" />
     <ClCompile Include="Shader.cpp" />
+    <ClCompile Include="TexturesManager.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
