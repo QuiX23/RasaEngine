@@ -92,10 +92,10 @@ Mesh Model::processMesh(aiMesh* mesh, const aiScene* scene)
 	{
 		aiMaterial* aMaterial = scene->mMaterials[mesh->mMaterialIndex];
 		vector<shared_ptr<Texture>> diffuseMaps = this->loadMaterialTextures(aMaterial,
-			aiTextureType_DIFFUSE, "texture_diffuse");
+			aiTextureType_DIFFUSE);
 		material.textures.insert(material.textures.end(), diffuseMaps.begin(), diffuseMaps.end());
 		vector<shared_ptr<Texture>> specularMaps = this->loadMaterialTextures(aMaterial,
-			aiTextureType_SPECULAR, "texture_specular");
+			aiTextureType_SPECULAR);
 		material.textures.insert(material.textures.end(), specularMaps.begin(), specularMaps.end());
 	}
 	material.temporarySetter();
@@ -103,7 +103,7 @@ Mesh Model::processMesh(aiMesh* mesh, const aiScene* scene)
 	return Mesh(vertices, indices, material);
 }
 
-vector<shared_ptr<Texture>> Model::loadMaterialTextures(aiMaterial* mat, aiTextureType type, string typeName)
+vector<shared_ptr<Texture>> Model::loadMaterialTextures(aiMaterial* mat, aiTextureType type)
 {
 	vector<shared_ptr<Texture>> textures;
 	for (int i = 0; i < mat->GetTextureCount(type); i++)
@@ -111,7 +111,7 @@ vector<shared_ptr<Texture>> Model::loadMaterialTextures(aiMaterial* mat, aiTextu
 		aiString aStr;
 		mat->GetTexture(type, i, &aStr);
 		string str(aStr.C_Str());
-		shared_ptr<Texture> texture = TexturesManager::getInstance().CreateTexture(str, this->directory, typeName);
+		shared_ptr<Texture> texture = TexturesManager::getInstance().CreateTexture(str, this->directory, (TextureType)type);
 		textures.push_back(texture);
 		
 	}

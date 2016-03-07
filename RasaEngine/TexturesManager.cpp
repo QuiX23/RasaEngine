@@ -20,7 +20,7 @@ unique_ptr<unsigned char> TexturesManager::TextureFromFile(const char* path, str
 	return move(temp);
 
 }
-shared_ptr<Texture> TexturesManager::CreateTexture(string path, string directory, std::string type)
+shared_ptr<Texture> TexturesManager::CreateTexture(string path, string directory, TextureType type)
 {
 
 	auto it = find_if(texturesBuffers.begin(), texturesBuffers.end(), [&path](const shared_ptr<Texture>& obj) {return obj->path == path; });

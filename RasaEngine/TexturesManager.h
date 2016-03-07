@@ -14,7 +14,7 @@ class TexturesManager
 		~TexturesManager();
 
 		vector <shared_ptr<Texture>> texturesBuffers;
-		shared_ptr<Texture> CreateTexture(string path, string directory, std::string type);
+		shared_ptr<Texture> CreateTexture(string path, string directory, TextureType type);
 
 	private:
 		unique_ptr<unsigned char> TexturesManager::TextureFromFile(const char* path, string directory, int &width, int &height);
