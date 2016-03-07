@@ -4,7 +4,8 @@
 
 void Material::addTextureToBuffer(shared_ptr<Texture> texturePtr)
 {
-
+	textures.push_back(texturePtr);
+	buffers.push_back(texturePtr->texturBuffer);
 }
 void Material::temporarySetter()
 {

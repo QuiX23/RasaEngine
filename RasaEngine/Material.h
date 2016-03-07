@@ -15,7 +15,7 @@ class Material
 	std::vector<shared_ptr<Texture>> textures;
 	std::vector <shared_ptr<ITextureBuffer>> buffers;
 
-	void addTexture(shared_ptr<Texture> texturePtr, string textureType);
+	void addTexture(shared_ptr<Texture> texturePtr);
 	void temporarySetter();
 	//Shader shader;
 	

@@ -107,6 +107,7 @@ int main()
 	IRenderer* renderer=new OGLRenderer();
 	// Load models
 	Model ourModel("Models/nanosuit/nanosuit.obj");
+	Model ourModel2("Models/nanosuit/nanosuit.obj");
 
 	// Setup and compile our shaders
 	Shader shader("Shaders/SimpleShader.vert", "Shaders/SimpleShader.frag");

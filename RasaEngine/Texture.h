@@ -1,5 +1,4 @@
 #pragma once
-#include <assimp\types.h>
 #include <memory>
 
 #include "ITextureBuffer.h"
@@ -9,9 +8,9 @@ struct Texture {
 	int width, height;
 	std::string type;
 	shared_ptr<ITextureBuffer> texturBuffer;
-	aiString path;
+	string path;
 
-	Texture(int width, int height, std::string type, aiString path, const unsigned char* const texture)
+	Texture(int width, int height, std::string type, string path, const unsigned char* const texture)
 	{
 		this->width = width;
 		this->height = height;

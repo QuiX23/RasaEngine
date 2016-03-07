@@ -1,8 +1,8 @@
 #pragma once
 #include "Texture.h"
-#include "ITextureBuffer.h"
 #include <vector>
 #include <memory>
+
 class TexturesManager
 {
 	public:
@@ -13,11 +13,11 @@ class TexturesManager
 		TexturesManager(TexturesManager const&) = delete;
 		~TexturesManager();
 
-
 		vector <shared_ptr<Texture>> texturesBuffers;
-		shared_ptr<Texture> CreateTexture(int width, int height, std::string type, aiString path, const unsigned char* const texture);
+		shared_ptr<Texture> CreateTexture(string path, string directory, std::string type);
 
 	private:
+		unique_ptr<unsigned char> TexturesManager::TextureFromFile(const char* path, string directory, int &width, int &height);
 		TexturesManager(){};
 };
 

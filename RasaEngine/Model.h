@@ -20,11 +20,9 @@ public:
 private:
 	/*  Model Data  */
 	std::vector<Mesh> meshes;
-	std::vector<shared_ptr<Texture>> textures_loaded;
 	std::string directory;
 	/*  Functions   */
 	void loadModel(std::string path);
-	unique_ptr<unsigned char> TextureFromFile(const char* path, string directory, int &width, int &height);
 	void processNode(aiNode* node, const aiScene* scene);
 	Mesh processMesh(aiMesh* mesh, const aiScene* scene);
 	std::vector<shared_ptr<Texture>>  loadMaterialTextures(aiMaterial* mat, aiTextureType type,

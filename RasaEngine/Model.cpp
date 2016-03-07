@@ -2,6 +2,7 @@
 #include <iostream>
 #include <boost/utility/binary.hpp>
 #include <SOIL.h>
+#include "TexturesManager.h"
 
 
 
@@ -102,47 +103,17 @@ Mesh Model::processMesh(aiMesh* mesh, const aiScene* scene)
 	return Mesh(vertices, indices, material);
 }
 
-unique_ptr<unsigned char> Model::TextureFromFile(const char* path, string directory, int &width, int &height)
-{
-	//Generate texture ID and load texture data 
-	string filename = string(path);
-	filename = directory + '/' + filename;
-	//Dangerous line could in future turn into memory leak!!!
-	//!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-	//SOIL_free_image_data(image);
-	unsigned char* image = SOIL_load_image(filename.c_str(), &width, &height, 0, SOIL_LOAD_RGB);
-	unique_ptr<unsigned char> temp (SOIL_load_image(filename.c_str(), &width, &height, 0, SOIL_LOAD_RGB));
-	SOIL_free_image_data(image);
-	return move(temp);
-
-}
-
-
 vector<shared_ptr<Texture>> Model::loadMaterialTextures(aiMaterial* mat, aiTextureType type, string typeName)
 {
 	vector<shared_ptr<Texture>> textures;
 	for (int i = 0; i < mat->GetTextureCount(type); i++)
 	{
-		aiString str;
-		mat->GetTexture(type, i, &str);
-		bool skip = false;
-		for (int j = 0; j < textures_loaded.size(); j++)
-		{
-			if (textures_loaded[j]->path == str)
-			{
-				textures.push_back(textures_loaded[j]);
-				skip = true;
-				break;
-			}
-		}
-		if (!skip)
-		{   
-			int width = 0, height = 0;
-			unique_ptr <unsigned char>tempImage =TextureFromFile(str.C_Str(), this->directory, width, height);
-			shared_ptr<Texture> texture = make_shared<Texture>(width, height, typeName,str, &*tempImage);
-			textures.push_back(texture);
-			this->textures_loaded.push_back(texture);  // Add to loaded textures
-		}
+		aiString aStr;
+		mat->GetTexture(type, i, &aStr);
+		string str(aStr.C_Str());
+		shared_ptr<Texture> texture = TexturesManager::getInstance().CreateTexture(str, this->directory, typeName);
+		textures.push_back(texture);
+		
 	}
 	return textures;
 }
