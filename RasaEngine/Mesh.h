@@ -1,11 +1,6 @@
 #pragma once
 #include <string>
 #include <vector>
-#include "Shader.h"
-
-#include "Context.h"
-#include "IRenderer.h"
-#include "IRenderable.h"
 
 //Core includes
 #include "Vertex.h"
@@ -13,7 +8,10 @@
 #include "Material.h"
 
 //Graphic engine includes
+#include "Shader.h"
 #include "Context.h"
+#include "IRenderer.h"
+#include "IRenderable.h"
 #include "IVertexArray.h"
 #include "OGLTextureBuffer.h"
 

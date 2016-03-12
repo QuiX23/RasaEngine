@@ -20,11 +20,16 @@ void addTextureToBuffer(shared_ptr<Texture> texturePtr)
 
 }
 
-Material::Material()
+
+Material::Material(Shader shader) :shader(shader)
 {
 
 }
 
+Material::Material()
+{
+
+}
 
 Material::~Material()
 {

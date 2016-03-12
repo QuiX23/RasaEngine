@@ -9,10 +9,18 @@
 using namespace std;
 
 /*  Functions   */
-Model::Model(GLchar* path)
+Model::Model(char* path) 
+{
+
+	this->loadModel(path);
+}
+
+Model::Model(char* path, Shader shader) : modelShader(shader)
 {
 	this->loadModel(path);
 }
+
+
 
 void Model::loadModel(std::string path){
 
@@ -100,6 +108,9 @@ Mesh Model::processMesh(aiMesh* mesh, const aiScene* scene)
 	}
 	material.temporarySetter();
 
+	if (modelShader.initialized)
+		material.shader = modelShader;
+
 	return Mesh(vertices, indices, material);
 }
 
@@ -123,8 +134,21 @@ vector<shared_ptr<Texture>> Model::loadMaterialTextures(aiMaterial* mat, aiTextu
 
 void Model::draw(IRenderer & renderer, Shader shader)
 {
+
 	for (GLuint i = 0; i < this->meshes.size(); i++)
+	{
 		this->meshes[i].draw(renderer, shader);
+	}
 }
+
+void Model::draw(IRenderer & renderer)
+{
+
+	if (modelShader.initialized)
+		draw(renderer, modelShader);
+	else throw exception("Renderable don't have any shader atached!");
+}
+
+
 
 

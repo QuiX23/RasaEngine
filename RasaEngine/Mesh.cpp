@@ -23,7 +23,7 @@ void Mesh::setupMesh()
 
 void Mesh::draw(IRenderer & renderer, Shader shader)
 {
-	int a = 0;
+	if (material.shader.initialized) shader = material.shader;
 	renderer.renderObject(*vertexArray, material.buffers, shader);
 
 }

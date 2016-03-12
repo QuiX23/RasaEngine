@@ -1,7 +1,5 @@
 #pragma once
 
-
-
 #include "IRenderable.h"
 
 #include "Mesh.h"
@@ -15,12 +13,15 @@ class Model:public IRenderable
 {
 public:
 	/*  Functions   */
-	Model(GLchar* path);
+	Model(char* path);
+	Model(char* path, Shader shader);
 	void draw(IRenderer & renderer, Shader shader);
+	void draw(IRenderer & renderer);
 private:
 	/*  Model Data  */
 	std::vector<Mesh> meshes;
 	std::string directory;
+	Shader modelShader;
 	/*  Functions   */
 	void loadModel(std::string path);
 	void processNode(aiNode* node, const aiScene* scene);

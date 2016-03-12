@@ -48,34 +48,13 @@ int main()
 {
 	
 	#pragma region OpenGlSetup
-	glfwInit();
-	glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
-	glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
-	glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
-	glfwWindowHint(GLFW_RESIZABLE, GL_FALSE);
-
-	GLFWwindow* window = glfwCreateWindow(screenWidth, screenHeight, "RasaEngine", nullptr, nullptr); // Windowed
-	glfwMakeContextCurrent(window);
+	Context::getInstance().setOGLContext();
 
 	// Set the required callback functions
-	glfwSetKeyCallback(window, key_callback);
-	glfwSetCursorPosCallback(window, mouse_callback);
-	glfwSetScrollCallback(window, scroll_callback);
+	glfwSetKeyCallback(Context::getInstance().window, key_callback);
+	glfwSetCursorPosCallback(Context::getInstance().window, mouse_callback);
+	glfwSetScrollCallback(Context::getInstance().window, scroll_callback);
 
-	// Options
-	//Disabling coursor in window
-	glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
-
-	// Initialize GLEW to setup the OpenGL Function pointers
-	glewExperimental = GL_TRUE;
-	glewInit();
-
-	// Define the viewport dimensions
-	glViewport(0, 0, screenWidth, screenHeight);
-
-	// Setup some OpenGL options
-	glEnable(GL_DEPTH_TEST);
-	#pragma endregion
 	
 	#pragma region BulletSetup
 	//Bullet Broadphase alghoritm configuration
@@ -104,21 +83,21 @@ int main()
 	}
 	#endif
 
-	IRenderer* renderer=new OGLRenderer();
 	// Load models
-	Model ourModel("Models/nanosuit/nanosuit.obj");
-	Model ourModel2("Models/nanosuit/nanosuit.obj");
+	
 
 	// Setup and compile our shaders
 	Shader shader("Shaders/SimpleShader.vert", "Shaders/SimpleShader.frag");
 	Shader lampShader("Shaders/LampShader.vert", "Shaders/LampShader.frag");
+
+	Model ourModel("Models/nanosuit/nanosuit.obj",shader);
 
 	glm::vec3 pointLightPositions[] = {
 		glm::vec3(2.3f, -1.6f, -3.0f),
 		glm::vec3(-1.7f, 0.9f, 1.0f)
 	};
 
-	while (!glfwWindowShouldClose(window))
+	while (!glfwWindowShouldClose(Context::getInstance().window))
 	{
 		// Set frame time
 		GLfloat currentFrame = glfwGetTime();
@@ -167,7 +146,7 @@ int main()
 		model = glm::translate(model, glm::vec3(0.0f, -1.75f, 0.0f)); // Translate it down a bit so it's at the center of the scene
 		model = glm::scale(model, glm::vec3(0.2f, 0.2f, 0.2f));	// It's a bit too big for our scene, so scale it down
 		glUniformMatrix4fv(glGetUniformLocation(shader.Program, "model"), 1, GL_FALSE, glm::value_ptr(model));
-		ourModel.draw(*renderer,shader);
+		ourModel.draw(*Context::getInstance().renderer);
 
 		// Draw the lamps
 		lampShader.Use();
@@ -183,7 +162,7 @@ int main()
 		}
 
 		// Swap the buffers
-		glfwSwapBuffers(window);
+		glfwSwapBuffers(Context::getInstance().window);
 	}
 
 

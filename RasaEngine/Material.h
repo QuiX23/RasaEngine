@@ -9,6 +9,7 @@
 #include "ITextureBuffer.h"
 #include "Shader.h"
 
+
 class Material
 {
 	public:
@@ -17,9 +18,10 @@ class Material
 
 	void addTexture(shared_ptr<Texture> texturePtr);
 	void temporarySetter();
-	//Shader shader;
+	Shader shader;
 	
 	Material();
+	Material(Shader shader);
 	~Material();
 
 	private:
