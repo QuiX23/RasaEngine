@@ -5,10 +5,10 @@
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
 
-#include "btBulletCollisionCommon.h"
-#include "btBulletCollisionCommon.h"
-#include "BulletDynamics\Dynamics\btDiscreteDynamicsWorld.h"
-#include "BulletDynamics\ConstraintSolver\btSequentialImpulseConstraintSolver.h"
+//#include "btBulletCollisionCommon.h"
+//#include "btBulletCollisionCommon.h"
+//#include "BulletDynamics\Dynamics\btDiscreteDynamicsWorld.h"
+//#include "BulletDynamics\ConstraintSolver\btSequentialImpulseConstraintSolver.h"
 
 #include "Shader.h"
 #include "Camera.h"
@@ -51,16 +51,16 @@ int main()
 	
 	#pragma region BulletSetup
 	//Bullet Broadphase alghoritm configuration
-	btBroadphaseInterface* broadphase = new btDbvtBroadphase();
-	
-	// Collision configuration for full  (not broadphase) collision detection
-	btDefaultCollisionConfiguration* collisionConfiguration = new btDefaultCollisionConfiguration();
-	btCollisionDispatcher* dispatcher = new btCollisionDispatcher(collisionConfiguration);
-	
-	//Setting up "solver" for Bullet 
-	btSequentialImpulseConstraintSolver* solver = new btSequentialImpulseConstraintSolver;
+	//btBroadphaseInterface* broadphase = new btDbvtBroadphase();
+	//
+	//// Collision configuration for full  (not broadphase) collision detection
+	//btDefaultCollisionConfiguration* collisionConfiguration = new btDefaultCollisionConfiguration();
+	//btCollisionDispatcher* dispatcher = new btCollisionDispatcher(collisionConfiguration);
+	//
+	////Setting up "solver" for Bullet 
+	//btSequentialImpulseConstraintSolver* solver = new btSequentialImpulseConstraintSolver;
 
-	btDiscreteDynamicsWorld* dynamicsWorld = new btDiscreteDynamicsWorld(dispatcher, broadphase, solver, collisionConfiguration);
+	//btDiscreteDynamicsWorld* dynamicsWorld = new btDiscreteDynamicsWorld(dispatcher, broadphase, solver, collisionConfiguration);
 	#pragma endregion
 
 	//If you have connected a MIDI controller, this will allow you to debug you code;
