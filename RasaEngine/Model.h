@@ -3,11 +3,13 @@
 #include "IRenderable.h"
 
 #include "Mesh.h"
-#include <assimp/Importer.hpp>
-#include <assimp/scene.h>
-#include <assimp/postprocess.h>
+#include"assimp\material.h"
 
 class Mesh;
+class aiNode;
+class aiMesh;
+class aiScene;
+class aiMaterial;
 
 class Model:public IRenderable
 {
@@ -15,8 +17,9 @@ public:
 	/*  Functions   */
 	Model(char* path);
 	Model(char* path, Shader shader);
-	void draw(IRenderer & renderer, Shader shader);
+	
 	void draw(IRenderer & renderer);
+	void draw(IRenderer & renderer, Shader shader);
 private:
 	/*  Model Data  */
 	std::vector<Mesh> meshes;

@@ -3,6 +3,10 @@
 #include "GL\glew.h"
 #include <GLFW\glfw3.h>
 
+#include "OGLRenderer.h"
+#include "OGLVertexArray.h"
+#include "OGLTextureBuffer.h"
+
 
 Context& Context::getInstance()
 {

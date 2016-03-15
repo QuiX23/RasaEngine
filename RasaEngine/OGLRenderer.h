@@ -1,7 +1,7 @@
 #pragma once
 #include "IRenderer.h"
-#include "OGLVertexArray.h"
-#include "OGLTextureBuffer.h"
+#include "IVertexArray.h"
+#include "ITextureBuffer.h"
 
 
 class OGLRenderer:public IRenderer

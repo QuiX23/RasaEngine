@@ -17,12 +17,15 @@ public:
 	void RegisterAttribute(const char* attrib);
 	void RegisterUniform(const char* uniform);
 
-	std::map<std::string, GLuint> _attribList;
-	std::map<std::string, GLuint> _unifLocationList;
 	GLuint GetAttribLocation(const char* attrib);
 	GLuint GetUniformLocation(const char* unif);
+
 	// Use the program
 	void Use();
+
+	private:
+	std::map<std::string, GLuint> _attribList;
+	std::map<std::string, GLuint> _unifLocationList;
 };
 
 #endif

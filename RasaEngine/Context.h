@@ -1,13 +1,9 @@
 #pragma once
-#include <iostream>
-#include <cstdlib>
-#include <windows.h>
+#include "IVertexArray.h";
+#include "IRenderer.h";
+#include "ITextureBuffer.h";
 
-#include "OGLRenderer.h"
-#include "OGLVertexArray.h"
-
-#include "GL\glew.h"
-#include <GLFW\glfw3.h>
+class GLFWwindow;
 
 class Context
 {
@@ -17,8 +13,8 @@ public:
 	void operator=(Context const&) = delete;
 	Context(Context const&) = delete;
 	~Context();
+	
 	GLFWwindow* window;
-
 	GLuint screenWidth = 800, screenHeight = 600;
 
 	void setOGLContext();

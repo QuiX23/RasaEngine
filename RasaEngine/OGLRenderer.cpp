@@ -4,10 +4,10 @@
 #include <fstream>
 #include <sstream>
 
+#include "OGLVertexArray.h"
+#include "OGLTextureBuffer.h"
+
 using namespace std;
-
-
-
 
 void OGLRenderer::renderObject(const IVertexArray & vertexArray, const vector<shared_ptr<ITextureBuffer>> & textureBuffer, Shader shader)
 {

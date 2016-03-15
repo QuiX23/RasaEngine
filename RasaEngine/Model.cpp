@@ -1,12 +1,16 @@
 #include "Model.h"
+
 #include <iostream>
 #include <boost/utility/binary.hpp>
+
+#include <assimp/Importer.hpp>
+#include <assimp/scene.h>
+#include <assimp/postprocess.h>
+
 #include <SOIL.h>
+
 #include "TexturesManager.h"
 
-
-
-using namespace std;
 
 /*  Functions   */
 Model::Model(char* path) 
