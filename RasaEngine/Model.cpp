@@ -12,6 +12,8 @@
 #include "TexturesManager.h"
 
 
+
+
 /*  Functions   */
 Model::Model(char* path) 
 {
@@ -19,7 +21,7 @@ Model::Model(char* path)
 	this->loadModel(path);
 }
 
-Model::Model(char* path, Shader shader) : modelShader(shader)
+Model::Model(char* path, Shader shader) : shader(shader)
 {
 	this->loadModel(path);
 }
@@ -112,8 +114,7 @@ Mesh Model::processMesh(aiMesh* mesh, const aiScene* scene)
 	}
 	material.temporarySetter();
 
-	if (modelShader.initialized)
-		material.shader = modelShader;
+	if (shader.initialized) material.shader = shader;
 
 	return Mesh(vertices, indices, material);
 }
@@ -148,8 +149,8 @@ void Model::draw(IRenderer & renderer, Shader shader)
 void Model::draw(IRenderer & renderer)
 {
 
-	if (modelShader.initialized)
-		draw(renderer, modelShader);
+	if (shader.initialized)
+		draw(renderer, shader);
 	else throw exception("Renderable don't have any shader atached!");
 }
 

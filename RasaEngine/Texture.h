@@ -1,5 +1,4 @@
 #pragma once
-#include <memory>
 
 #include "ITextureBuffer.h"
 #include "Context.h"

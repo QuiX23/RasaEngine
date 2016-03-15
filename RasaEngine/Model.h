@@ -2,8 +2,8 @@
 
 #include "IRenderable.h"
 
-#include "Mesh.h"
 #include"assimp\material.h"
+#include "Mesh.h"
 
 class Mesh;
 class aiNode;
@@ -22,13 +22,13 @@ public:
 	void draw(IRenderer & renderer, Shader shader);
 private:
 	/*  Model Data  */
-	std::vector<Mesh> meshes;
-	std::string directory;
-	Shader modelShader;
+	vector<Mesh> meshes;
+	string directory;
+	Shader shader;
 	/*  Functions   */
 	void loadModel(std::string path);
 	void processNode(aiNode* node, const aiScene* scene);
 	Mesh processMesh(aiMesh* mesh, const aiScene* scene);
-	std::vector<shared_ptr<Texture>>  loadMaterialTextures(aiMaterial* mat, aiTextureType type);
+	vector<shared_ptr<Texture>>  loadMaterialTextures(aiMaterial* mat, aiTextureType type);
 };
 

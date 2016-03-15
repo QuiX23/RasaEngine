@@ -24,6 +24,7 @@ public:
 	void Use();
 
 	private:
+	/*  Shader data  */
 	std::map<std::string, GLuint> _attribList;
 	std::map<std::string, GLuint> _unifLocationList;
 };

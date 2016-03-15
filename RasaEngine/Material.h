@@ -1,7 +1,5 @@
 #pragma once
-#include <string>
-#include <vector>
-#include <memory>
+
 //Core includes
 #include "Texture.h"
 
@@ -13,18 +11,20 @@
 class Material
 {
 	public:
-	std::vector<shared_ptr<Texture>> textures;
-	std::vector <shared_ptr<ITextureBuffer>> buffers;
-
+	/*  Material data  */
+	vector<shared_ptr<Texture>> textures;
+	vector <shared_ptr<ITextureBuffer>> buffers;
+	Shader shader;
+	/*  Functions  */
 	void addTexture(shared_ptr<Texture> texturePtr);
 	void temporarySetter();
-	Shader shader;
 	
 	Material();
 	Material(Shader shader);
 	~Material();
 
 	private:
+	
 	void addTextureToBuffer(shared_ptr<Texture> texturePtr);
 	
 };

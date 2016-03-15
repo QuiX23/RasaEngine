@@ -7,8 +7,9 @@
 class OGLVertexArray :public IVertexArray
 {
 public:
+	/*  Buffer data  */
 	GLuint VAO, VBO, EBO, indiciesNum;
-
+	/*  Functions  */
 	OGLVertexArray();
 	~OGLVertexArray();
 	void setVertexArray(const vector<Vertex> & vertices, const vector<int> & indices);

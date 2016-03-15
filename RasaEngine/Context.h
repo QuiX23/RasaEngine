@@ -13,10 +13,10 @@ public:
 	void operator=(Context const&) = delete;
 	Context(Context const&) = delete;
 	~Context();
-	
+	/*  Context data  */
 	GLFWwindow* window;
 	GLuint screenWidth = 800, screenHeight = 600;
-
+	/*  Functions  */
 	void setOGLContext();
 	unique_ptr <IRenderer> renderer;
 	shared_ptr<IVertexArray> CreateVertexArray(const vector<Vertex> & vertices, const vector<int> & indices) const;
