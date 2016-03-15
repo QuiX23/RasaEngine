@@ -2,8 +2,9 @@
 
 #include "Component.h"
 #include <glm/glm.hpp>
-#include <vector>
+#include <memory>
 #include <map>
+
 using namespace std;
 
 class GameObject

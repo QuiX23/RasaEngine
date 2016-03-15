@@ -1,9 +1,8 @@
 #pragma once
-#include <memory>
 
 enum ComponentType
 {
-	TextureType_NONE = 0x0, TextureType_DIFFUSE = 0x1
+	Renderable = 0x0, Light_Source = 0x1
 };
 
 class Component
