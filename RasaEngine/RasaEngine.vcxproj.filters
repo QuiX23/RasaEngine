@@ -111,6 +111,12 @@
     <ClInclude Include="TexturesManager.h">
       <Filter>Engine\Core\Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="GameObject.h">
+      <Filter>Engine\Core\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Component.h">
+      <Filter>Engine\Core\Interfaces</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Camera.cpp">
@@ -153,6 +159,9 @@
       <Filter>Engine\GraphicEngine\Source Files</Filter>
     </ClCompile>
     <ClCompile Include="TexturesManager.cpp">
+      <Filter>Engine\Core\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="GameObject.cpp">
       <Filter>Engine\Core\Source Files</Filter>
     </ClCompile>
   </ItemGroup>
