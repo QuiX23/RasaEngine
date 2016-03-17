@@ -12,13 +12,14 @@ class GameObject
 {
 
 public:
+	/*GameObject variables*/
 	glm::vec3 position;
 	glm::vec3 scale;
 	glm::vec3 rotation;
-
+	/*GameObject tree variables*/
 	shared_ptr<GameObject> parent;
 	vector <shared_ptr<GameObject>> children;
-
+	/*GameObject functions*/
 	shared_ptr<Component> GetComponent(ComponentType type);
 	void AddComponent(shared_ptr<Component> component);
 	bool HasComponent(ComponentType type);
