@@ -156,11 +156,13 @@
     <ClInclude Include="Camera.h" />
     <ClInclude Include="Component.h" />
     <ClInclude Include="Context.h" />
+    <ClInclude Include="DirectionalLight.h" />
     <ClInclude Include="GameObject.h" />
     <ClInclude Include="IRenderer.h" />
     <ClInclude Include="IRenderable.h" />
     <ClInclude Include="ITextureBuffer.h" />
     <ClInclude Include="IVertexArray.h" />
+    <ClInclude Include="Light.h" />
     <ClInclude Include="Material.h" />
     <ClInclude Include="Mesh.h" />
     <ClInclude Include="MidiDebugger.h" />
@@ -170,14 +172,19 @@
     <ClInclude Include="OGLRenderer.h" />
     <ClInclude Include="OGLTextureBuffer.h" />
     <ClInclude Include="OGLVertexArray.h" />
+    <ClInclude Include="Pointlight.h" />
+    <ClInclude Include="Scene.h" />
     <ClInclude Include="Shader.h" />
+    <ClInclude Include="Spotlight.h" />
     <ClInclude Include="Texture.h" />
     <ClInclude Include="TexturesManager.h" />
     <ClInclude Include="Vertex.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Camera.cpp" />
+    <ClCompile Include="DirectionalLight.cpp" />
     <ClCompile Include="GameObject.cpp" />
+    <ClCompile Include="Light.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Material.cpp" />
     <ClCompile Include="Mesh.cpp" />
@@ -189,7 +196,10 @@
     <ClCompile Include="OGLRenderer.cpp" />
     <ClCompile Include="OGLTextureBuffer.cpp" />
     <ClCompile Include="OGLVertexArray.cpp" />
+    <ClCompile Include="Pointlight.cpp" />
+    <ClCompile Include="Scene.cpp" />
     <ClCompile Include="Shader.cpp" />
+    <ClCompile Include="Spotlight.cpp" />
     <ClCompile Include="TexturesManager.cpp" />
   </ItemGroup>
   <ItemGroup>

@@ -5,12 +5,8 @@
 
 
 
-Mesh::Mesh(vector<Vertex> vertices, vector<int> indices, Material material)
+Mesh::Mesh(vector<Vertex> vertices, vector<int> indices, Material material) :vertices(vertices), indices(indices), material (material)
 {
-	this->vertices = vertices;
-	this->indices = indices;
-	this->material = material;
-
 	this->setupMesh();
 }
 
