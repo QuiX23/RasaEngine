@@ -1,10 +1,14 @@
 #pragma once
 
+
 #include "Component.h"
 #include <glm/glm.hpp>
 #include <memory>
 #include <map>
 #include <vector>
+
+#include <boost/uuid/uuid.hpp>            // uuid class
+
 
 using namespace std;
 
@@ -13,6 +17,8 @@ class GameObject
 
 public:
 	/*GameObject variables*/
+	boost::uuids::uuid  uid;
+	string name;
 	glm::vec3 position;
 	glm::vec3 scale;
 	glm::vec3 rotation;

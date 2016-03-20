@@ -3,8 +3,9 @@
 #include "IRenderer.h"
 #include "Component.h"
 
-class IRenderable:Component
+class IRenderable
 {
 	public:
-		virtual void draw(IRenderer & renderer, Shader shader) = 0;
+		Shader shader;
+		virtual void draw(IRenderer & renderer) = 0;
 };

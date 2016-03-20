@@ -1,15 +1,14 @@
 #include "Light.h"
 
 
-Light::Light(LightType type) :type(type)
+C_Light::C_Light(LightType typeL) :typeL(typeL),Component(ComponentType::Lights)
 {
-}
 
-Light::Light() : type(LightType::Directional)
-{
 }
 
 
-Light::~Light()
+
+
+C_Light::~C_Light()
 {
 }

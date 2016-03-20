@@ -11,9 +11,12 @@
 //#include "BulletDynamics\Dynamics\btDiscreteDynamicsWorld.h"
 //#include "BulletDynamics\ConstraintSolver\btSequentialImpulseConstraintSolver.h"
 
+#include "Scene.h"
 #include "Shader.h"
 #include "Camera.h"
 #include "Model.h"
+#include "Light.h"
+#include "DirectionalLight.h"
 #include "OGLRenderer.h"
 
 #include "MidiDebugger.h"
@@ -37,11 +40,15 @@ GLfloat deltaTime = 0.0f;
 GLfloat lastFrame = 0.0f;
 
 
+
+
+
 // The MAIN function, from here we start our application and run the Game loop
 int main()
 {
+
 	
-	#pragma region OpenGlSetup
+#pragma region OpenGlSetup
 	Context::getInstance().setOGLContext();
 
 	// Set the required callback functions
@@ -85,6 +92,16 @@ int main()
 	Shader lampShader("Shaders/LampShader.vert", "Shaders/LampShader.frag");
 
 	Model ourModel("Models/nanosuit/nanosuit.obj",shader);
+
+
+
+	boost::uuids::uuid gameObject = Scene::getInstance().addNewChild();
+	Scene::getInstance().addComponent(make_shared<Component>(ourModel), gameObject);
+	
+
+	DirectionalLight dl= DirectionalLight();
+
+	Scene::getInstance().addComponent(make_shared<Component>(dl), gameObject);
 
 	glm::vec3 pointLightPositions[] = {
 		glm::vec3(2.3f, -1.6f, -3.0f),

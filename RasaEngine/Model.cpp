@@ -15,14 +15,9 @@
 
 
 /*  Functions   */
-Model::Model(char* path) 
+Model::Model(char* path, Shader shader): Component(ComponentType::Renderable)
 {
-
-	this->loadModel(path);
-}
-
-Model::Model(char* path, Shader shader) : shader(shader)
-{
+	this->shader = shader;
 	this->loadModel(path);
 }
 
@@ -114,9 +109,7 @@ Mesh Model::processMesh(aiMesh* mesh, const aiScene* scene)
 	}
 	material.temporarySetter();
 
-	if (shader.initialized) material.shader = shader;
-
-	return Mesh(vertices, indices, material);
+	return Mesh(vertices, indices, material, shader);
 }
 
 vector<shared_ptr<Texture>> Model::loadMaterialTextures(aiMaterial* mat, aiTextureType type)
@@ -137,21 +130,16 @@ vector<shared_ptr<Texture>> Model::loadMaterialTextures(aiMaterial* mat, aiTextu
 
 
 
-void Model::draw(IRenderer & renderer, Shader shader)
-{
-
-	for (GLuint i = 0; i < this->meshes.size(); i++)
-	{
-		this->meshes[i].draw(renderer, shader);
-	}
-}
-
 void Model::draw(IRenderer & renderer)
 {
 
-	if (shader.initialized)
-		draw(renderer, shader);
-	else throw exception("Renderable don't have any shader atached!");
+	if (!shader.initialized) throw exception("Renderable don't have any shader atached!");
+	
+
+	for (GLuint i = 0; i < this->meshes.size(); i++)
+    {
+		this->meshes[i].draw(renderer);
+	}
 }
 
 

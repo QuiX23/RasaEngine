@@ -14,7 +14,6 @@ class Material
 	/*  Material data  */
 	vector<shared_ptr<Texture>> textures;
 	vector <shared_ptr<ITextureBuffer>> buffers;
-	Shader shader;
 	/*  Functions  */
 	void addTexture(shared_ptr<Texture> texturePtr);
 	void temporarySetter();

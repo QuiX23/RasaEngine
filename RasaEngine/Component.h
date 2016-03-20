@@ -1,13 +1,19 @@
 #pragma once
 
+
 enum ComponentType
 {
-	Renderable = 0x0, Light_Source = 0x1
+	Renderable = 0x0, Lights = 0x1,
 };
 
 class Component
 {
 public:
 	
-	ComponentType type;
+
+	 const ComponentType type;
+	 Component(const Component &temp) :type(temp.type) {};
+protected:
+	 Component(ComponentType type) :type(type) {};
+
 };

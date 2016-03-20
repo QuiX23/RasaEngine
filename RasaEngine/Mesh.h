@@ -18,8 +18,8 @@ public:
 	vector<int> indices;
 	Material material;
 	/*  Functions  */
-	Mesh(vector<Vertex> vertices, vector<int> indices, Material material);
-	void draw(IRenderer & renderer, Shader shader);
+	Mesh(vector<Vertex> vertices, vector<int> indices, Material material, Shader shader);
+	void draw(IRenderer & renderer);
 private:
 	/*  Render data  */
 	shared_ptr<IVertexArray> vertexArray;

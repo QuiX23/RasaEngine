@@ -20,11 +20,16 @@ bool GameObject::HasComponent(ComponentType type)
 
 GameObject::GameObject()
 {
+	position = glm::vec3(0, 0, 0);
+	rotation = glm::vec3(0, 0, 0);
+	scale = glm::vec3(1, 1, 1);
+	name = "default";
 }
 
 GameObject::GameObject(glm::vec3 position, glm::vec3 rotation, glm::vec3 scale)
 	: position(position), rotation(rotation), scale(scale)
 {
+	name = "default";
 }
 
 

@@ -1,6 +1,6 @@
 #pragma once
 #include "Light.h"
-class Spotlight:public Light
+class Spotlight:public C_Light
 {
 public:
 	float cutoff;

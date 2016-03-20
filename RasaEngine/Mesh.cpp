@@ -5,8 +5,9 @@
 
 
 
-Mesh::Mesh(vector<Vertex> vertices, vector<int> indices, Material material) :vertices(vertices), indices(indices), material (material)
+Mesh::Mesh(vector<Vertex> vertices, vector<int> indices, Material material, Shader shader) :vertices(vertices), indices(indices), material (material)
 {
+	this->shader = shader;
 	this->setupMesh();
 }
 
@@ -15,9 +16,9 @@ void Mesh::setupMesh()
 	vertexArray = Context::getInstance().CreateVertexArray(vertices, indices);
 }
 
-void Mesh::draw(IRenderer & renderer, Shader shader)
+void Mesh::draw(IRenderer & renderer)
 {
-	if (material.shader.initialized) shader = material.shader;
+	if (!shader.initialized) throw exception("Renderable don't have any shader atached!");
 	renderer.renderObject(*vertexArray, material.buffers, shader);
 
 }
