@@ -163,6 +163,7 @@
     <ClInclude Include="ITextureBuffer.h" />
     <ClInclude Include="IVertexArray.h" />
     <ClInclude Include="Light.h" />
+    <ClInclude Include="LightsManager.h" />
     <ClInclude Include="Material.h" />
     <ClInclude Include="Mesh.h" />
     <ClInclude Include="MidiDebugger.h" />
@@ -185,6 +186,7 @@
     <ClCompile Include="DirectionalLight.cpp" />
     <ClCompile Include="GameObject.cpp" />
     <ClCompile Include="Light.cpp" />
+    <ClCompile Include="LightsManager.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Material.cpp" />
     <ClCompile Include="Mesh.cpp" />

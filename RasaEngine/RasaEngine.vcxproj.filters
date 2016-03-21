@@ -132,6 +132,9 @@
     <ClInclude Include="Scene.h">
       <Filter>Engine\Core\Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="LightsManager.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Camera.cpp">
@@ -192,6 +195,9 @@
       <Filter>Engine\Core\Source Files</Filter>
     </ClCompile>
     <ClCompile Include="main.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="LightsManager.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

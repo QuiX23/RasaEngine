@@ -31,7 +31,7 @@ void mouse_callback(GLFWwindow* window, double xpos, double ypos);
 void Do_Movement();
 
 // Camera
-Camera camera(glm::vec3(0.0f, 0.0f, 3.0f));
+//Camera camera(glm::vec3(0.0f, 0.0f, 3.0f));
 bool keys[1024];
 GLfloat lastX = 400, lastY = 300;
 bool firstMouse = true;
@@ -84,29 +84,43 @@ int main()
 	}
 	#endif
 
-	// Load models
-	
 
 	// Setup and compile our shaders
 	Shader shader("Shaders/SimpleShader.vert", "Shaders/SimpleShader.frag");
-	Shader lampShader("Shaders/LampShader.vert", "Shaders/LampShader.frag");
 
-	Model ourModel("Models/nanosuit/nanosuit.obj",shader);
-
-
-
-	boost::uuids::uuid gameObject = Scene::getInstance().addNewChild();
-	Scene::getInstance().addComponent(make_shared<Component>(ourModel), gameObject);
+	//Model ourModel("Models/nanosuit/nanosuit.obj", shader);
+	shared_ptr <Model> ourModel=make_shared<Model>(Model("Models/nanosuit/nanosuit.obj",shader));
 	
+	int count = 7;
+	float x = -10;
 
-	DirectionalLight dl= DirectionalLight();
+	for (int i = 0; i < count; i++)
+	{
+		x += 2;
+		float z = -10;
+		for (int i = 0; i < count; i++)
+		{
+			 z += 2;
+			 boost::uuids::uuid gameObject = Scene::getInstance().addNewChild(glm::vec3(x, -1.75f, z),
+																			 glm::vec4(0.0f, 1.0f, 0.0f, 0.0f),
+																			 glm::vec3(0.2f, 0.2f, 0.2f));
+			 Scene::getInstance().addComponent(ourModel, gameObject);
+		}
+	}
 
-	Scene::getInstance().addComponent(make_shared<Component>(dl), gameObject);
+	
+	Pointlight pLight = Pointlight();
+	pLight.ambientColor= glm::vec3(0.05f, 0.05f, 0.05f);
+	pLight.diffuseColor = glm::vec3(1.0f, 1.0f, 1.0f);
+	pLight.specularColor= glm::vec3(1.0f, 1.0f, 1.0f);
+	pLight.constant = 1.0f;
+	pLight.linear = 0.009;
+	pLight.quadratic = 0.0032;
 
-	glm::vec3 pointLightPositions[] = {
-		glm::vec3(2.3f, -1.6f, -3.0f),
-		glm::vec3(-1.7f, 0.9f, 1.0f)
-	};
+	boost::uuids::uuid gameObject = Scene::getInstance().addNewChild(glm::vec3(2.3f, -1.6f, -3.0f),
+																	  glm::vec4(0.0f, 1.0f, 0.0f, 0.0f),
+																	  glm::vec3(0.2f, 0.2f, 0.2f));
+	Scene::getInstance().addComponent(make_shared<Pointlight>(pLight), gameObject);
 
 	while (!glfwWindowShouldClose(Context::getInstance().window))
 	{
@@ -123,42 +137,7 @@ int main()
 		glClearColor(0.05f, 0.05f, 0.05f, 1.0f);
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-
-		shader.Use();   
-
-		// Transformation matrices
-		glm::mat4 projection = glm::perspective(camera.Zoom, (float)screenWidth / (float)screenHeight, 0.1f, 100.0f);
-		glm::mat4 view = camera.GetViewMatrix();
-		glUniformMatrix4fv(glGetUniformLocation(shader.Program, "projection"), 1, GL_FALSE, glm::value_ptr(projection));
-		glUniformMatrix4fv(glGetUniformLocation(shader.Program, "view"), 1, GL_FALSE, glm::value_ptr(view));
-
-
-		// Set the lighting uniforms
-		glUniform3f(glGetUniformLocation(shader.Program, "viewPos"), camera.Position.x, camera.Position.y, camera.Position.z);
-		// Point light 1
-		glUniform3f(glGetUniformLocation(shader.Program, "pointLights[0].position"), pointLightPositions[0].x, pointLightPositions[0].y, pointLightPositions[0].z);
-		glUniform3f(glGetUniformLocation(shader.Program, "pointLights[0].ambient"), 0.05f, 0.05f, 0.05f);
-		glUniform3f(glGetUniformLocation(shader.Program, "pointLights[0].diffuse"), 1.0f, 1.0f, 1.0f);
-		glUniform3f(glGetUniformLocation(shader.Program, "pointLights[0].specular"), 1.0f, 1.0f, 1.0f);
-		glUniform1f(glGetUniformLocation(shader.Program, "pointLights[0].constant"), 1.0f);
-		glUniform1f(glGetUniformLocation(shader.Program, "pointLights[0].linear"), 0.009);
-		glUniform1f(glGetUniformLocation(shader.Program, "pointLights[0].quadratic"), 0.0032);
-		// Point light 2
-		glUniform3f(glGetUniformLocation(shader.Program, "pointLights[1].position"), pointLightPositions[1].x, pointLightPositions[1].y, pointLightPositions[1].z);
-		glUniform3f(glGetUniformLocation(shader.Program, "pointLights[1].ambient"), 0.05f, 0.05f, 0.05f);
-		glUniform3f(glGetUniformLocation(shader.Program, "pointLights[1].diffuse"), 1.0f, 1.0f, 1.0f);
-		glUniform3f(glGetUniformLocation(shader.Program, "pointLights[1].specular"), 1.0f, 1.0f, 1.0f);
-		glUniform1f(glGetUniformLocation(shader.Program, "pointLights[1].constant"), 1.0f);
-		glUniform1f(glGetUniformLocation(shader.Program, "pointLights[1].linear"), 0.009);
-		glUniform1f(glGetUniformLocation(shader.Program, "pointLights[1].quadratic"), 0.0032);
-
-		// Draw the loaded model
-		glm::mat4 model;
-		model = glm::translate(model, glm::vec3(0.0f, -1.75f, 0.0f)); // Translate it down a bit so it's at the center of the scene
-		model = glm::scale(model, glm::vec3(0.2f, 0.2f, 0.2f));	// It's a bit too big for our scene, so scale it down
-		glUniformMatrix4fv(glGetUniformLocation(shader.Program, "model"), 1, GL_FALSE, glm::value_ptr(model));
-		ourModel.draw(*Context::getInstance().renderer);
-
+		Scene::getInstance().update();
 
 		// Swap the buffers
 		glfwSwapBuffers(Context::getInstance().window);
@@ -177,13 +156,13 @@ void Do_Movement()
 {
 	// Camera controls
 	if (keys[GLFW_KEY_W])
-		camera.ProcessKeyboard(FORWARD, deltaTime);
+		Scene::getInstance().camera.ProcessKeyboard(FORWARD, deltaTime);
 	if (keys[GLFW_KEY_S])
-		camera.ProcessKeyboard(BACKWARD, deltaTime);
+		Scene::getInstance().camera.ProcessKeyboard(BACKWARD, deltaTime);
 	if (keys[GLFW_KEY_A])
-		camera.ProcessKeyboard(LEFT, deltaTime);
+		Scene::getInstance().camera.ProcessKeyboard(LEFT, deltaTime);
 	if (keys[GLFW_KEY_D])
-		camera.ProcessKeyboard(RIGHT, deltaTime);
+		Scene::getInstance().camera.ProcessKeyboard(RIGHT, deltaTime);
 }
 
 // Is called whenever a key is pressed/released via GLFW
@@ -213,12 +192,12 @@ void mouse_callback(GLFWwindow* window, double xpos, double ypos)
 	lastX = xpos;
 	lastY = ypos;
 
-	camera.ProcessMouseMovement(xoffset, yoffset);
+	Scene::getInstance().camera.ProcessMouseMovement(xoffset, yoffset);
 }
 
 void scroll_callback(GLFWwindow* window, double xoffset, double yoffset)
 {
-	camera.ProcessMouseScroll(yoffset);
+	Scene::getInstance().camera.ProcessMouseScroll(yoffset);
 }
 
 #pragma endregion

@@ -1,10 +1,10 @@
 #pragma once
 #include "GameObject.h"
-#include "Light.h"
-#include "IRenderable.h"
+#include "Camera.h"
+#include "LightsManager.h"
+
 #include <boost\container\map.hpp>
 #include <boost\container\set.hpp>
-
 #include <boost\functional\hash.hpp>
 
 
@@ -27,7 +27,7 @@ namespace std
 class Scene
 {
 public:
-	
+	static Camera camera;
 	/*Singleton pattern methods*/
 	static Scene& getInstance();
 	void operator=(Scene const&) = delete;
@@ -38,13 +38,15 @@ public:
 	void update();
 	void addComponent(shared_ptr<Component> component, const UUID & gameObject);
 	UUID addNewChild();
+	UUID addNewChild(glm::vec3 position, glm::vec4 rotation, glm::vec3 scale);
 	UUID addNewChildToParent(boost::uuids::uuid parentID);
 	
+
 private:
 	/*  Scene data  */
+	static LightsManager lightsManager;
 	static shared_ptr<GameObject> root;
 	static boost::container::map<UUID, shared_ptr<GameObject>> objectsCache;
-	static boost::container::set<UUID> lightCompts;
 	static boost::container::set<UUID> renderableCompts;
 
 	UUID addChild(shared_ptr<GameObject> parent);

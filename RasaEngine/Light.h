@@ -4,13 +4,13 @@
 
 enum class LightType
 {
-	Directional = 0x0, Point = 0x1, Area = 0x2
+	Directional = 0x0, Point = 0x1, Spot = 0x2
 };
 
 class C_Light : public Component
 {
 public:
-
+	glm::vec3 position;
 	glm::vec3 ambientColor;
 	glm::vec3 diffuseColor;
 	glm::vec3 specularColor;
