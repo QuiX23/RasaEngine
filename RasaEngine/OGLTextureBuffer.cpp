@@ -4,7 +4,7 @@ void OGLTextureBuffer::setTextureBuffer(const unsigned char* const texture, cons
 {
 
 	glGenTextures(1, &id);
-	// Assign texture to ID
+	// Assign texture to IDvfc
 	glBindTexture(GL_TEXTURE_2D, id);
 	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, GL_RGB, GL_UNSIGNED_BYTE, texture);
 	glGenerateMipmap(GL_TEXTURE_2D);
@@ -18,12 +18,9 @@ void OGLTextureBuffer::setTextureBuffer(const unsigned char* const texture, cons
 
 }
 
-
 OGLTextureBuffer::OGLTextureBuffer()
 {
-
 }
-
 
 OGLTextureBuffer::~OGLTextureBuffer()
 {

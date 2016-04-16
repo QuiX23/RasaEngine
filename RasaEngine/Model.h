@@ -26,6 +26,6 @@ private:
 	void loadModel(std::string path);
 	void processNode(aiNode* node, const aiScene* scene);
 	Mesh processMesh(aiMesh* mesh, const aiScene* scene);
-	vector<shared_ptr<Texture>>  loadMaterialTextures(aiMaterial* mat, aiTextureType type);
+	void loadMaterialColors(aiMaterial* aiMat, Material* mat);
+	void loadMaterialTextures(aiMaterial* aiMat, Material* mat);
 };
-

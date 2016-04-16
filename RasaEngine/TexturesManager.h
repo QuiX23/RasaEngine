@@ -13,7 +13,7 @@ class TexturesManager
 		/*  Textures data   */
 		vector <shared_ptr<Texture>> texturesBuffers;
 		/*  Functions  */
-		shared_ptr<Texture> CreateTexture(string path, string directory, TextureType type);
+		shared_ptr<Texture> CreateTexture(string path, string directory, TextureType type, unsigned int uv, float blend, TextureBlendOperation op);
 
 	private:
 		/*  Functions  */

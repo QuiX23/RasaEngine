@@ -62,9 +62,10 @@ Mesh Model::processMesh(aiMesh* mesh, const aiScene* scene)
 	for (int i = 0; i < mesh->mNumVertices; i++)
 	{
 		Vertex vertex;
-		vertex.Type = BOOST_BINARY(111);
+		vertex.Type = BOOST_BINARY(0011);
 
 		glm::vec3 vector;
+
 		vector.x = mesh->mVertices[i].x;
 		vector.y = mesh->mVertices[i].y;
 		vector.z = mesh->mVertices[i].z;
@@ -75,18 +76,26 @@ Mesh Model::processMesh(aiMesh* mesh, const aiScene* scene)
 		vector.z = mesh->mNormals[i].z;
 		vertex.Normal = vector;
 
-
 		if (mesh->mTextureCoords[0]) // Does the mesh contain texture coordinates?
 		{
 			glm::vec2 vec;
 			vec.x = mesh->mTextureCoords[0][i].x;
 			vec.y = mesh->mTextureCoords[0][i].y;
 			vertex.TexCoords = vec;
+			vertex.Type[VertexFlag_TEXCOORDS] = 1;
 		}
-		else
-		{
-			vertex.TexCoords = glm::vec2(0.0f, 0.0f);
-		}
+		
+		for (int j(0); j < AI_MAX_NUMBER_OF_COLOR_SETS; j++)
+			if (mesh->HasVertexColors(j))
+			{
+				glm::vec4 vec;
+				vec.r = mesh->mColors[j][i].r;
+				vec.g = mesh->mColors[j][i].g;
+				vec.b = mesh->mColors[j][i].b;
+				vec.a = mesh->mColors[j][i].a;
+				vertex.Color = vec;
+				vertex.Type[VertexFlag_COLOR] = 1;
+			}
 		vertices.push_back(vertex);
 	}
 
@@ -100,48 +109,77 @@ Mesh Model::processMesh(aiMesh* mesh, const aiScene* scene)
 	if (mesh->mMaterialIndex >= 0)
 	{
 		aiMaterial* aMaterial = scene->mMaterials[mesh->mMaterialIndex];
-		vector<shared_ptr<Texture>> diffuseMaps = this->loadMaterialTextures(aMaterial,
-			aiTextureType_DIFFUSE);
-		material.textures.insert(material.textures.end(), diffuseMaps.begin(), diffuseMaps.end());
-		vector<shared_ptr<Texture>> specularMaps = this->loadMaterialTextures(aMaterial,
-			aiTextureType_SPECULAR);
-		material.textures.insert(material.textures.end(), specularMaps.begin(), specularMaps.end());
+		this->loadMaterialColors(aMaterial, &material);
+		this->loadMaterialTextures(aMaterial, &material);
 	}
-	material.temporarySetter();
 
 	return Mesh(vertices, indices, material, shader);
 }
 
-vector<shared_ptr<Texture>> Model::loadMaterialTextures(aiMaterial* mat, aiTextureType type)
+void Model::loadMaterialTextures(aiMaterial* aiMat, Material* mat)
 {
-	vector<shared_ptr<Texture>> textures;
-	for (int i = 0; i < mat->GetTextureCount(type); i++)
+	aiString aStr;
+	unsigned int uv = 0;
+	float blend = 0.f;
+	aiTextureOp op = aiTextureOp_SmoothAdd;
+
+	for (int i = 0; i < aiMat->GetTextureCount(aiTextureType_DIFFUSE); i++)
 	{
-		aiString aStr;
-		mat->GetTexture(type, i, &aStr);
+		aiMat->GetTexture(aiTextureType_DIFFUSE, i, &aStr, NULL, &uv, &blend, &op, NULL);
 		string str(aStr.C_Str());
-		shared_ptr<Texture> texture = TexturesManager::getInstance().CreateTexture(str, this->directory, (TextureType)type);
-		textures.push_back(texture);
-		
+		cout << str << ": ";
+		if (uv != NULL)
+			cout << "uv: " + to_string(uv);
+		if (blend != NULL)
+			cout << " blend: " + to_string(blend);
+		if (op != NULL)
+			cout << " op: " + to_string(op);
+		cout<< endl;
+
+		shared_ptr<Texture> texture = TexturesManager::getInstance().CreateTexture(str, this->directory, (TextureType)aiTextureType_DIFFUSE, uv, blend, (TextureBlendOperation) op);
+		mat->addTexture(texture);
 	}
-	return textures;
+
+	for (int i = 0; i < aiMat->GetTextureCount(aiTextureType_SPECULAR); i++)
+	{
+		aiMat->GetTexture(aiTextureType_SPECULAR, i, &aStr);
+		string str(aStr.C_Str());
+		shared_ptr<Texture> texture = TexturesManager::getInstance().CreateTexture(str, this->directory, (TextureType)aiTextureType_SPECULAR, uv, blend, (TextureBlendOperation)op);
+		mat->addTexture(texture);
+	}
 }
 
+void Model::loadMaterialColors(aiMaterial* aiMat, Material* mat)
+{
+	aiColor4D aColor(0.f,0.f,0.f,0.f);
+	aiGetMaterialColor(aiMat, AI_MATKEY_COLOR_DIFFUSE, &aColor);
+	if(!aColor.IsBlack())
+	{
+		shared_ptr<Color> color = make_shared<Color>(aColor.r, aColor.g, aColor.b, aColor.a, ColorType_DIFFUSE);
+		mat->addColor(color);
+		cout << "Base color: " << color->r << "," << color->g << "," << color->b << endl;
+	}
 
-
+	aiGetMaterialColor(aiMat, AI_MATKEY_COLOR_SPECULAR, &aColor);
+	if(!aColor.IsBlack())
+	{
+		shared_ptr<Color> color = make_shared<Color>(aColor.r, aColor.g, aColor.b, aColor.a, ColorType_SPECULAR);
+		mat->addColor(color);
+	}
+	aiGetMaterialColor(aiMat, AI_MATKEY_COLOR_AMBIENT, &aColor);
+	if (!aColor.IsBlack())
+	{
+		shared_ptr<Color> color = make_shared<Color>(aColor.r, aColor.g, aColor.b, aColor.a, ColorType_AMBIENT);
+		mat->addColor(color);
+	}
+}
 
 void Model::draw(IRenderer & renderer)
 {
-
 	if (!shader.initialized) throw exception("Renderable don't have any shader atached!");
 	
-
 	for (GLuint i = 0; i < this->meshes.size(); i++)
     {
 		this->meshes[i].draw(renderer);
 	}
 }
-
-
-
-

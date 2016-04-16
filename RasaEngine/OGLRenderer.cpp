@@ -20,17 +20,19 @@ void OGLRenderer::renderObject(const IVertexArray & vertexArray, const vector<sh
 		const OGLTextureBuffer &tBuffer = static_cast <const OGLTextureBuffer&>(*textureBuffer[i]);
 		glActiveTexture(GL_TEXTURE0 + i); // Activate proper texture unit before binding
 		// Retrieve texture number (the N in diffuse_textureN)
-		stringstream ss;
-		string number;
-		//string name = tBuffer.type;
-		string name = "texture_diffuse";
-		if (name == "texture_diffuse")
-			ss << diffuseNr++; // Transfer GLuint to stream
-		else if (name == "texture_specular")
-			ss << specularNr++; // Transfer GLuint to stream
-		number = ss.str();
+		
+		string name;
+		switch (tBuffer.type)
+		{
+		case BufferedTextureType_DIFFUSE:
+			name = "texture_diffuse"+to_string(diffuseNr++);
+			break;
+		case BufferedTextureType_SPECULAR:
+			name = "texture_specular"+to_string(specularNr++);
+			break;
+		}
 
-		glUniform1f(glGetUniformLocation(shader.Program, ("material." + name + number).c_str()), i);
+		glUniform1f(glGetUniformLocation(shader.Program, ("material." + name).c_str()), i);
 		glBindTexture(GL_TEXTURE_2D, tBuffer.id);
 	}
 	glUniform1f(glGetUniformLocation(shader.Program, "material.shininess"), 16.0f);
@@ -52,8 +54,6 @@ OGLRenderer::OGLRenderer()
 {
 }
 
-
 OGLRenderer::~OGLRenderer()
 {
 }
-

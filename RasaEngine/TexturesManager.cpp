@@ -20,7 +20,7 @@ unique_ptr<unsigned char> TexturesManager::TextureFromFile(const char* path, str
 	return move(temp);
 
 }
-shared_ptr<Texture> TexturesManager::CreateTexture(string path, string directory, TextureType type)
+shared_ptr<Texture> TexturesManager::CreateTexture(string path, string directory, TextureType type, unsigned int uv, float blend, TextureBlendOperation op)
 {
 
 	auto it = find_if(texturesBuffers.begin(), texturesBuffers.end(), [&path](const shared_ptr<Texture>& obj) {return obj->path == path; });
@@ -35,7 +35,7 @@ shared_ptr<Texture> TexturesManager::CreateTexture(string path, string directory
 	//It's a new texture
 	int width = 0, height = 0;
 	unique_ptr <unsigned char>tempImage = TextureFromFile(path.c_str(), directory, width, height);
-	shared_ptr<Texture> texturePtr = make_shared<Texture>(width, height, type, path, &*tempImage);
+	shared_ptr<Texture> texturePtr = make_shared<Texture>(width, height, type, path, &*tempImage, uv, blend, op);
 	texturesBuffers.push_back(texturePtr);
 	return texturePtr;
 
