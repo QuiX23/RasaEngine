@@ -2,8 +2,6 @@
 #include <GLFW\glfw3.h>
 
 #include <glm/glm.hpp>
-#include <glm/gtc/matrix_transform.hpp>
-#include <glm/gtc/type_ptr.hpp>
 
 //Bullet includes
 //#include "btBulletCollisionCommon.h"
@@ -16,13 +14,9 @@
 #include "Camera.h"
 #include "Model.h"
 #include "Light.h"
-#include "DirectionalLight.h"
-#include "OGLRenderer.h"
 
 #include "MidiDebugger.h"
 
-//Wywal to potem
-#include <boost/utility/binary.hpp>
 
 // Properties
 GLuint screenWidth = 800, screenHeight = 600;
@@ -87,25 +81,25 @@ int main()
 
 	// Setup and compile our shaders
 	Shader shader("Shaders/SimpleShader.vert", "Shaders/SimpleShader.frag");
-	/*//Model ourModel("Models/nanosuit/nanosuit.obj", shader);
-	shared_ptr <Model> ourModel=make_shared<Model>(Model("Models/nanosuit/nanosuit.obj",shader));
-	
-	int count = 7;
+	//Model ourModel("Models/nanosuit/nanosuit.obj", shader);
+	auto ourModel=make_shared<Model>(Model("Models/nanosuit/nanosuit.obj",shader));
+
+	auto count = 7;
 	float x = -10;
 
-	for (int i = 0; i < count; i++)
+	for (auto i = 0; i < count; i++)
 	{
 		x += 2;
 		float z = -10;
-		for (int i = 0; i < count; i++)
+		for (auto i = 0; i < count; i++)
 		{
 			 z += 2;
-			 boost::uuids::uuid gameObject = Scene::getInstance().addNewChild(glm::vec3(x, -1.75f, z),
+			auto gameObject = Scene::getInstance().addNewChild(glm::vec3(x, -1.75f, z),
 																			 glm::vec4(0.0f, 1.0f, 0.0f, 0.0f),
 																			 glm::vec3(0.2f, 0.2f, 0.2f));
 			 Scene::getInstance().addComponent(ourModel, gameObject);
 		}
-	}*/
+	}
 
 	char* sciezka;
 	sciezka = "Models/HTC/HTC Evo low poly.obj";
@@ -116,7 +110,7 @@ int main()
 	//sciezka = "Models/De Sede Tet-a-tet/sede.obj";
 	rysuj(sciezka, shader);
 
-	Pointlight pLight = Pointlight();
+	auto pLight = Pointlight();
 	pLight.ambientColor= glm::vec3(1.0f, 1.0f, 1.0f);
 	pLight.diffuseColor = glm::vec3(1.0f, 1.0f, 1.0f);
 	pLight.specularColor= glm::vec3(1.0f, 1.0f, 1.0f);
@@ -124,7 +118,7 @@ int main()
 	pLight.linear = 0.009;
 	pLight.quadratic = 0.0032;
 
-	boost::uuids::uuid gameObject = Scene::getInstance().addNewChild(glm::vec3(2.3f, -1.6f, -3.0f),
+	auto gameObject = Scene::getInstance().addNewChild(glm::vec3(2.3f, -1.6f, -3.0f),
 																	  glm::vec4(0.0f, 1.0f, 0.0f, 0.0f),
 																	  glm::vec3(0.2f, 0.2f, 0.2f));
 	Scene::getInstance().addComponent(make_shared<Pointlight>(pLight), gameObject);
@@ -158,8 +152,8 @@ int main()
 
 void rysuj(char* path, Shader shader)
 {
-	shared_ptr <Model> benchModel = make_shared<Model>(Model(path, shader));
-	boost::uuids::uuid benchObject = Scene::getInstance().addNewChild(glm::vec3(0.0f, 0.0f, 0.0f),
+	auto benchModel = make_shared<Model>(Model(path, shader));
+	auto benchObject = Scene::getInstance().addNewChild(glm::vec3(0.0f, 0.0f, 0.0f),
 		glm::vec4(0.0f, 1.0f, 0.0f, 0.0f),
 		glm::vec3(0.2f, 0.2f, 0.2f));
 	Scene::getInstance().addComponent(benchModel, benchObject);

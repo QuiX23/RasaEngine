@@ -1,6 +1,7 @@
 #pragma once
 #include <memory>
-#include "RtMidi.h"
+
+#include "MIDI/RtMidi.h"
 
 #pragma region portValues
 	#define KNOB1 ((unsigned char)0)

@@ -8,5 +8,7 @@
 class IRenderer
 {
 public:
+	virtual ~IRenderer(){}
+
 	virtual void renderObject(const IVertexArray & vertexArray, const vector<shared_ptr<ITextureBuffer>> & textureBuffer, Shader shader) = 0;
 };

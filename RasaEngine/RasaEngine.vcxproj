@@ -115,7 +115,7 @@
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalLibraryDirectories>..\glew-1.13.0\lib\Release\Win32;..\glfw-3.1.2.bin.WIN32\lib-vc2013;..\Simple OpenGL Image Library\projects\VC9\Debug;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>SOIL.lib;glfw3.lib;opengl32.lib;glew32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>SOIL.lib;opengl32.lib;glew32.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -223,6 +223,7 @@
     <Import Project="..\packages\boost.1.60.0.0\build\native\boost.targets" Condition="Exists('..\packages\boost.1.60.0.0\build\native\boost.targets')" />
     <Import Project="..\packages\glfw.redist.3.1.2\build\native\glfw.redist.targets" Condition="Exists('..\packages\glfw.redist.3.1.2\build\native\glfw.redist.targets')" />
     <Import Project="..\packages\glfw.3.1.2\build\native\glfw.targets" Condition="Exists('..\packages\glfw.3.1.2\build\native\glfw.targets')" />
+    <Import Project="..\packages\glew.v140.1.12.0\build\native\glew.v140.targets" Condition="Exists('..\packages\glew.v140.1.12.0\build\native\glew.v140.targets')" />
   </ImportGroup>
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>
@@ -234,5 +235,6 @@
     <Error Condition="!Exists('..\packages\boost.1.60.0.0\build\native\boost.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\boost.1.60.0.0\build\native\boost.targets'))" />
     <Error Condition="!Exists('..\packages\glfw.redist.3.1.2\build\native\glfw.redist.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\glfw.redist.3.1.2\build\native\glfw.redist.targets'))" />
     <Error Condition="!Exists('..\packages\glfw.3.1.2\build\native\glfw.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\glfw.3.1.2\build\native\glfw.targets'))" />
+    <Error Condition="!Exists('..\packages\glew.v140.1.12.0\build\native\glew.v140.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\glew.v140.1.12.0\build\native\glew.v140.targets'))" />
   </Target>
 </Project>

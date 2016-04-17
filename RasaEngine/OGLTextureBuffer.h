@@ -10,7 +10,7 @@ public:
 	/*  Buffer data  */
 	GLuint id;
 	/*  Functions  */
-	void setTextureBuffer(const unsigned char* const texture, const int & width, const int & height);
+	void setTextureBuffer(const unsigned char* const texture, const int & width, const int & height) override;
 	OGLTextureBuffer();
 	~OGLTextureBuffer();
 

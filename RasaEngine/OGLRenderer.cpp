@@ -1,8 +1,6 @@
 #include "OGLRenderer.h"
 
 #include <string>
-#include <fstream>
-#include <sstream>
 
 #include "OGLVertexArray.h"
 #include "OGLTextureBuffer.h"
