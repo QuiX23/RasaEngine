@@ -1,25 +1,15 @@
 #include "Material.h"
 
-
-
-void Material::addTextureToBuffer(shared_ptr<Texture> texturePtr)
+void Material::addTexture(shared_ptr<Texture> texturePtr)
 {
 	textures.push_back(texturePtr);
 	buffers.push_back(texturePtr->texturBuffer);
 }
-void Material::temporarySetter()
+
+void Material::addColor(shared_ptr<Color> colorPtr)
 {
-	for (int i = 0; i < textures.size(); i++)
-	{
-		buffers.push_back(textures[i]->texturBuffer);
-	}
+	colors.push_back(colorPtr);
 }
-
-void addTextureToBuffer(shared_ptr<Texture> texturePtr)
-{
-
-}
-
 
 Material::Material()
 {

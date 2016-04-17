@@ -11,20 +11,45 @@ enum TextureType
 	TextureType_UNKNOWN = 0xC
 };
 
+enum TextureBlendOperation
+{
+	/** T = T1 * T2 */
+	TextureBlendOperation_MUL = 0x0,
+	/** T = T1 + T2 */
+	TextureBlendOperation_ADD = 0x1,
+	/** T = T1 - T2 */
+	TextureBlendOperation_SUB = 0x2,
+	/** T = T1 / T2 */
+	TextureBlendOperation_DIV = 0x3,
+	/** T = (T1 + T2) - (T1 * T2) */
+	TextureBlendOperation_SMOOTH_ADD = 0x4,
+	/** T = T1 + (T2-0.5) */
+	TextureBlendOperation_SIGNED_ADD = 0x5
+};
+
 struct Texture {
 	int width, height;
 	TextureType type;
 	shared_ptr<ITextureBuffer> texturBuffer;
 	string path;
 
-	Texture(int width, int height, TextureType type, string path, const unsigned char* const texture)
+	//?
+	unsigned int uv;
+
+	//Defines blend strength and blend operation with other textures
+	float blend;
+	TextureBlendOperation op;
+
+	Texture(int width, int height, TextureType type, string path, const unsigned char* const texture, unsigned int uv, float blend, TextureBlendOperation op)
 	{
 		this->width = width;
 		this->height = height;
 		this->type = type;
 		this->path = path;
 		this->texturBuffer = Context::getInstance().CreateTextureBuffer(texture, width, height);
+		this->texturBuffer->type = (BufferedTextureType) type;
+		this->uv = uv;
+		this->blend = blend;
+		this->op = op;
 	}
-
 };
-

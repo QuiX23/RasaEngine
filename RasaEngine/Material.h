@@ -2,6 +2,7 @@
 
 //Core includes
 #include "Texture.h"
+#include "Color.h"
 
 //Graphic engine includes
 #include "ITextureBuffer.h"
@@ -13,18 +14,15 @@ class Material
 	public:
 	/*  Material data  */
 	vector<shared_ptr<Texture>> textures;
-	vector <shared_ptr<ITextureBuffer>> buffers;
+	vector<shared_ptr<Color>> colors;
+	vector<shared_ptr<ITextureBuffer>> buffers;
 	/*  Functions  */
 	void addTexture(shared_ptr<Texture> texturePtr);
-	void temporarySetter();
+	void addColor(shared_ptr<Color> colorPtr);
 	
 	Material();
 	Material(Shader shader);
 	~Material();
 
-	private:
-	
-	void addTextureToBuffer(shared_ptr<Texture> texturePtr);
-	
 };
 

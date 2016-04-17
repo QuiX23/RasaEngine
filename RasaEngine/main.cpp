@@ -3,7 +3,7 @@
 
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
-#include <glm/gtc/type_ptr.hpp>e
+#include <glm/gtc/type_ptr.hpp>
 
 //Bullet includes
 //#include "btBulletCollisionCommon.h"
@@ -21,7 +21,11 @@
 
 #include "MidiDebugger.h"
 
+//Wywal to potem
+#include <boost/utility/binary.hpp>
 
+// Properties
+GLuint screenWidth = 800, screenHeight = 600;
 
 // Function prototypes
 void key_callback(GLFWwindow* window, int key, int scancode, int action, int mode);
@@ -29,6 +33,8 @@ void scroll_callback(GLFWwindow* window, double xoffset, double yoffset);
 void mouse_callback(GLFWwindow* window, double xpos, double ypos);
 void Do_Movement();
 
+// Camera
+//Camera camera(glm::vec3(0.0f, 0.0f, 3.0f));
 bool keys[1024];
 GLfloat lastX = 400, lastY = 300;
 bool firstMouse = true;
@@ -36,13 +42,13 @@ bool firstMouse = true;
 GLfloat deltaTime = 0.0f;
 GLfloat lastFrame = 0.0f;
 
+void rysuj(char* path, Shader shader);
 
 // The MAIN function, from here we start our application and run the Game loop
 int main()
 {
-
 	
-#pragma region OpenGlSetup
+	#pragma region OpenGlSetup
 	Context::getInstance().setOGLContext();
 
 	// Set the required callback functions
@@ -81,12 +87,9 @@ int main()
 
 	// Setup and compile our shaders
 	Shader shader("Shaders/SimpleShader.vert", "Shaders/SimpleShader.frag");
-	Shader bulbShader("Shaders/LampShader.vert", "Shaders/LampShader.frag");
-
-	//Model ourModel("Models/nanosuit/nanosuit.obj", shader);
+	/*//Model ourModel("Models/nanosuit/nanosuit.obj", shader);
 	shared_ptr <Model> ourModel=make_shared<Model>(Model("Models/nanosuit/nanosuit.obj",shader));
-	shared_ptr <Model> bulb = make_shared<Model>(Model("Models/Bulb/Bulb.3DS", bulbShader));
-
+	
 	int count = 7;
 	float x = -10;
 
@@ -102,22 +105,29 @@ int main()
 																			 glm::vec3(0.2f, 0.2f, 0.2f));
 			 Scene::getInstance().addComponent(ourModel, gameObject);
 		}
-	}
+	}*/
 
-	
+	char* sciezka;
+	sciezka = "Models/HTC/HTC Evo low poly.obj";
+	//sciezka = "Models/horse-obj/horse-obj.obj";
+	//sciezka = "Models/nanosuit/nanosuit.obj";
+	//sciezka = "Models/bench/bench.obj";
+	//sciezka = "Models/dragon/BGE_Dragon_2.5_Blender_Game_Engine.obj";
+	//sciezka = "Models/De Sede Tet-a-tet/sede.obj";
+	rysuj(sciezka, shader);
+
 	Pointlight pLight = Pointlight();
-	pLight.ambientColor= glm::vec3(0.05f, 0.05f, 0.05f);
+	pLight.ambientColor= glm::vec3(1.0f, 1.0f, 1.0f);
 	pLight.diffuseColor = glm::vec3(1.0f, 1.0f, 1.0f);
 	pLight.specularColor= glm::vec3(1.0f, 1.0f, 1.0f);
 	pLight.constant = 1.0f;
 	pLight.linear = 0.009;
 	pLight.quadratic = 0.0032;
 
-	boost::uuids::uuid gameObject = Scene::getInstance().addNewChild(glm::vec3(2.3f, 4, -3.0f),
-																	  glm::vec4(0.0f, 0.0f, 1.0f, 3.141592f),
+	boost::uuids::uuid gameObject = Scene::getInstance().addNewChild(glm::vec3(2.3f, -1.6f, -3.0f),
+																	  glm::vec4(0.0f, 1.0f, 0.0f, 0.0f),
 																	  glm::vec3(0.2f, 0.2f, 0.2f));
 	Scene::getInstance().addComponent(make_shared<Pointlight>(pLight), gameObject);
-	Scene::getInstance().addComponent(bulb, gameObject);
 
 	while (!glfwWindowShouldClose(Context::getInstance().window))
 	{
@@ -144,6 +154,15 @@ int main()
 	glfwTerminate();
 	return 0;
 	
+}
+
+void rysuj(char* path, Shader shader)
+{
+	shared_ptr <Model> benchModel = make_shared<Model>(Model(path, shader));
+	boost::uuids::uuid benchObject = Scene::getInstance().addNewChild(glm::vec3(0.0f, 0.0f, 0.0f),
+		glm::vec4(0.0f, 1.0f, 0.0f, 0.0f),
+		glm::vec3(0.2f, 0.2f, 0.2f));
+	Scene::getInstance().addComponent(benchModel, benchObject);
 }
 
 #pragma region "User input"
