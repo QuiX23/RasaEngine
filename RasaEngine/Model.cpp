@@ -62,7 +62,6 @@ Mesh Model::processMesh(aiMesh* mesh, const aiScene* scene)
 	for (int i = 0; i < mesh->mNumVertices; i++)
 	{
 		Vertex vertex;
-		vertex.Type = BOOST_BINARY(111);
 
 		glm::vec3 vector;
 		vector.x = mesh->mVertices[i].x;
@@ -74,10 +73,11 @@ Mesh Model::processMesh(aiMesh* mesh, const aiScene* scene)
 		vector.y = mesh->mNormals[i].y;
 		vector.z = mesh->mNormals[i].z;
 		vertex.Normal = vector;
-
+		
 
 		if (mesh->mTextureCoords[0]) // Does the mesh contain texture coordinates?
 		{
+			vertex.Type = BOOST_BINARY(1110);
 			glm::vec2 vec;
 			vec.x = mesh->mTextureCoords[0][i].x;
 			vec.y = mesh->mTextureCoords[0][i].y;
@@ -85,6 +85,13 @@ Mesh Model::processMesh(aiMesh* mesh, const aiScene* scene)
 		}
 		else
 		{
+			vertex.Type = BOOST_BINARY(1101);
+			
+			vertex.Color.x = mesh->mColors[i]->r;
+			vertex.Color.x = mesh->mColors[i]->g;
+			vertex.Color.x = mesh->mColors[i]->b;
+			vertex.Color.x = mesh->mColors[i]->a;
+			
 			vertex.TexCoords = glm::vec2(0.0f, 0.0f);
 		}
 		vertices.push_back(vertex);

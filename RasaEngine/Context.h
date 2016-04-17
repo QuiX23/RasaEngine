@@ -15,7 +15,7 @@ public:
 	~Context();
 	/*  Context data  */
 	GLFWwindow* window;
-	GLuint screenWidth = 800, screenHeight = 600;
+	GLuint screenWidth = 1200, screenHeight = 800;
 	/*  Functions  */
 	void setOGLContext();
 	unique_ptr <IRenderer> renderer;

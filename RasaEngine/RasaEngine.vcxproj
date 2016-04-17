@@ -205,6 +205,8 @@
     <ClCompile Include="TexturesManager.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="ClassDiagram.cd" />
+    <None Include="ClassDiagram1.cd" />
     <None Include="packages.config" />
     <None Include="Shaders\LampShader.frag" />
     <None Include="Shaders\LampShader.vert" />

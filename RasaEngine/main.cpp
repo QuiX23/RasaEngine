@@ -3,7 +3,7 @@
 
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
-#include <glm/gtc/type_ptr.hpp>
+#include <glm/gtc/type_ptr.hpp>e
 
 //Bullet includes
 //#include "btBulletCollisionCommon.h"
@@ -21,8 +21,7 @@
 
 #include "MidiDebugger.h"
 
-// Properties
-GLuint screenWidth = 800, screenHeight = 600;
+
 
 // Function prototypes
 void key_callback(GLFWwindow* window, int key, int scancode, int action, int mode);
@@ -30,17 +29,12 @@ void scroll_callback(GLFWwindow* window, double xoffset, double yoffset);
 void mouse_callback(GLFWwindow* window, double xpos, double ypos);
 void Do_Movement();
 
-// Camera
-//Camera camera(glm::vec3(0.0f, 0.0f, 3.0f));
 bool keys[1024];
 GLfloat lastX = 400, lastY = 300;
 bool firstMouse = true;
 
 GLfloat deltaTime = 0.0f;
 GLfloat lastFrame = 0.0f;
-
-
-
 
 
 // The MAIN function, from here we start our application and run the Game loop
@@ -87,10 +81,12 @@ int main()
 
 	// Setup and compile our shaders
 	Shader shader("Shaders/SimpleShader.vert", "Shaders/SimpleShader.frag");
+	Shader bulbShader("Shaders/LampShader.vert", "Shaders/LampShader.frag");
 
 	//Model ourModel("Models/nanosuit/nanosuit.obj", shader);
 	shared_ptr <Model> ourModel=make_shared<Model>(Model("Models/nanosuit/nanosuit.obj",shader));
-	
+	shared_ptr <Model> bulb = make_shared<Model>(Model("Models/Bulb/Bulb.3DS", bulbShader));
+
 	int count = 7;
 	float x = -10;
 
@@ -117,10 +113,11 @@ int main()
 	pLight.linear = 0.009;
 	pLight.quadratic = 0.0032;
 
-	boost::uuids::uuid gameObject = Scene::getInstance().addNewChild(glm::vec3(2.3f, -1.6f, -3.0f),
-																	  glm::vec4(0.0f, 1.0f, 0.0f, 0.0f),
+	boost::uuids::uuid gameObject = Scene::getInstance().addNewChild(glm::vec3(2.3f, 4, -3.0f),
+																	  glm::vec4(0.0f, 0.0f, 1.0f, 3.141592f),
 																	  glm::vec3(0.2f, 0.2f, 0.2f));
 	Scene::getInstance().addComponent(make_shared<Pointlight>(pLight), gameObject);
+	Scene::getInstance().addComponent(bulb, gameObject);
 
 	while (!glfwWindowShouldClose(Context::getInstance().window))
 	{

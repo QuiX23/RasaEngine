@@ -133,7 +133,7 @@
       <Filter>Engine\Core\Header Files</Filter>
     </ClInclude>
     <ClInclude Include="LightsManager.h">
-      <Filter>Header Files</Filter>
+      <Filter>Engine\Core\Header Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -198,7 +198,7 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="LightsManager.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Engine\Core\Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -224,5 +224,7 @@
     <None Include="Shaders\LampShader.frag">
       <Filter>Shaders</Filter>
     </None>
+    <None Include="ClassDiagram.cd" />
+    <None Include="ClassDiagram1.cd" />
   </ItemGroup>
 </Project>

@@ -1,0 +1,212 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="Camera">
+    <Position X="15" Y="4.25" Width="1.25" />
+    <TypeIdentifier>
+      <HashCode>AAACEBAAAEAAAAEoEABAAAABACgAAAAAAADQAAAAAAI=</HashCode>
+      <FileName>Camera.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DirectionalLight" Collapsed="true">
+    <Position X="5.5" Y="7.75" Width="1.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAAQAAAAAAIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>DirectionalLight.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="GameObject">
+    <Position X="9.25" Y="0.5" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>ABCAAAAAAAAIEARAAACAJAACAACEAAAAACAAAAIAAAA=</HashCode>
+      <FileName>GameObject.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="C_Light">
+    <Position X="7.75" Y="4.5" Width="1.25" />
+    <TypeIdentifier>
+      <HashCode>AACAAAAAAAAAAAAAAAAQIAAAAIBAAAAAQAAAABAAAAA=</HashCode>
+      <FileName>Light.h</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="typeL" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="Material">
+    <Position X="0.5" Y="7.75" Width="1.25" />
+    <TypeIdentifier>
+      <HashCode>IEAAAAAAAEAEAAAAAAAAAAABAAAAAAQAAAAAAAAEAAA=</HashCode>
+      <FileName>Material.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Mesh">
+    <Position X="1.75" Y="4.5" Width="1.25" />
+    <TypeIdentifier>
+      <HashCode>AAAgQAAAAAAAAAAAAAIAAAAAAAAQIAAAAQAAAABAAAA=</HashCode>
+      <FileName>Mesh.h</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="material" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="Model">
+    <Position X="4" Y="4.25" Width="1.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAQAAAAAAQACgAAAKAAAAAAAAAAAACAAgAAAAAAAA=</HashCode>
+      <FileName>Model.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Pointlight" Collapsed="true">
+    <Position X="10" Y="7.75" Width="1.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAIAAAAAAAAAAAAAAAAAAAAAAIICAAAAA=</HashCode>
+      <FileName>Pointlight.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Scene">
+    <Position X="12" Y="0.5" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AAAIACAAAgAABAAgiBAoAAQAQAAAACQAABAgAAAEAAA=</HashCode>
+      <FileName>Scene.h</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="camera" />
+      <Field Name="lightsManager" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="Spotlight" Collapsed="true">
+    <Position X="7.75" Y="7.75" Width="1.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAIAAEAAAAAAAAAAAAAIAAAAAAAAAAAAA=</HashCode>
+      <FileName>Spotlight.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TexturesManager">
+    <Position X="3.75" Y="10.5" Width="1.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAEAIIBAAAAAAAAAAAAAAAAAAQAAAAoAAAAAAA=</HashCode>
+      <FileName>TexturesManager.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="LightsManager">
+    <Position X="13" Y="6.25" Width="1.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAACAAACAACAAEAAIAQgAAAAABAAAAAAAAA=</HashCode>
+      <FileName>LightsManager.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Component">
+    <Position X="5.5" Y="2.5" Width="1.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAABAAAAAAAA=</HashCode>
+      <FileName>Component.h</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="type" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="IRenderable">
+    <Position X="2.5" Y="2.75" Width="1.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAIAAAAAAAAAAAAAAAAAAEAAAAA=</HashCode>
+      <FileName>IRenderable.h</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="shader" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="Context">
+    <Position X="8.25" Y="9.25" Width="1.25" />
+    <TypeIdentifier>
+      <HashCode>AAIAAAAAIgBAAAAAAAAAAAAAAAAAAAQIIAAgQAAggAA=</HashCode>
+      <FileName>Context.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="OGLRenderer" Collapsed="true">
+    <Position X="6" Y="11.25" Width="1.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAEAAgAAAAAAAAAACAA=</HashCode>
+      <FileName>OGLRenderer.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="OGLTextureBuffer" Collapsed="true">
+    <Position X="0.5" Y="12.25" Width="1.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAQAAAAACAAAACAAAAAAAAAAAAAAAAAAAAAAgA=</HashCode>
+      <FileName>OGLTextureBuffer.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="OGLVertexArray" Collapsed="true">
+    <Position X="3.5" Y="9" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAgACAAAAAAAAAAAAAAAAIAAAAAAAAAAgAAgEACA=</HashCode>
+      <FileName>OGLVertexArray.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Shader" Collapsed="true">
+    <Position X="2.5" Y="1.5" Width="1.25" />
+    <TypeIdentifier>
+      <HashCode>QACAASAAABAAAAAIABAACAAAABAEAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Shader.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="IRenderer">
+    <Position X="6" Y="9.25" Width="1.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACAA=</HashCode>
+      <FileName>IRenderer.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ITextureBuffer" Collapsed="true">
+    <Position X="0.5" Y="11" Width="1.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAACAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>ITextureBuffer.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="IVertexArray" Collapsed="true">
+    <Position X="3.5" Y="8" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAgAAAAAAA=</HashCode>
+      <FileName>IVertexArray.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Struct Name="Texture">
+    <Position X="2" Y="11" Width="1.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAQAQAACAAAAAABBAAAAAAIAAAAAAAA=</HashCode>
+      <FileName>Texture.h</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="type" />
+    </ShowAsAssociation>
+  </Struct>
+  <Struct Name="Vertex">
+    <Position X="2" Y="8" Width="1.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAgAAIAAAAAAAAIAAAAAQAAgAAAAAA=</HashCode>
+      <FileName>Vertex.h</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Enum Name="LightType">
+    <Position X="10" Y="5.5" Width="1.25" />
+    <TypeIdentifier>
+      <HashCode>AAEAAAAAAAAAgAAAAAAAAAAAAAAAAAAAAAgAAAAAAAA=</HashCode>
+      <FileName>Light.h</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="ComponentType">
+    <Position X="5.5" Y="0.75" Width="1.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAQAAAAAAAAAAgAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Component.h</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="TextureType" Collapsed="true">
+    <Position X="2" Y="14" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AEAgAAAABAAACBBAAAQAAQAAAAAABABAAQAAAACAEAA=</HashCode>
+      <FileName>Texture.h</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>
