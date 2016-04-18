@@ -19,7 +19,7 @@ void Mesh::setupMesh()
 void Mesh::draw(IRenderer & renderer)
 {
 	if (!shader.initialized) throw exception("Renderable don't have any shader atached!");
-	renderer.renderObject(*vertexArray, material.buffers, shader);
+	renderer.renderObject(*vertexArray, material.textures, shader);
 
 }
 

@@ -53,7 +53,7 @@ private:
 	void addLight(shared_ptr<Component> component, const UUID & gameObject);
 	void addRenderable(shared_ptr<Component> component, const UUID & gameObject);
 	void lightUpdate();
-	void renderUpdate();
+	void renderUpdate() const;
 
 	Scene() {};
 

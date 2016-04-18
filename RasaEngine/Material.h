@@ -15,7 +15,7 @@ class Material
 	/*  Material data  */
 	vector<shared_ptr<Texture>> textures;
 	vector<shared_ptr<Color>> colors;
-	vector<shared_ptr<ITextureBuffer>> buffers;
+	
 	/*  Functions  */
 	void addTexture(shared_ptr<Texture> texturePtr);
 	void addColor(shared_ptr<Color> colorPtr);

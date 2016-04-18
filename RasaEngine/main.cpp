@@ -16,6 +16,7 @@
 #include "Light.h"
 
 #include "MidiDebugger.h"
+#include "Context.h"
 
 
 // Properties

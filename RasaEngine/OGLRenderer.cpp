@@ -7,15 +7,15 @@
 
 using namespace std;
 
-void OGLRenderer::renderObject(const IVertexArray & vertexArray, const vector<shared_ptr<ITextureBuffer>> & textureBuffer, Shader shader)
+void OGLRenderer::renderObject(const IVertexArray & vertexArray, const vector<shared_ptr<Texture>> & textures, Shader shader)
 {
 	const OGLVertexArray &vArray = static_cast <const OGLVertexArray&>(vertexArray);
 	//OGLVertexArray &vArray = dynamic_cast < OGLVertexArray&>(const_cast < IVertexArray&>(vertexArray));
 	GLuint diffuseNr = 1;
 	GLuint specularNr = 1;
-	for (GLuint i = 0; i < textureBuffer.size(); i++)
+	for (GLuint i = 0; i < textures.size(); i++)
 	{
-		const OGLTextureBuffer &tBuffer = static_cast <const OGLTextureBuffer&>(*textureBuffer[i]);
+		const OGLTextureBuffer &tBuffer = static_cast <const OGLTextureBuffer&>(*textures[i]->texturBuffer);
 		glActiveTexture(GL_TEXTURE0 + i); // Activate proper texture unit before binding
 		// Retrieve texture number (the N in diffuse_textureN)
 		
@@ -41,7 +41,7 @@ void OGLRenderer::renderObject(const IVertexArray & vertexArray, const vector<sh
 
 
 	// Always good practice to set everything back to defaults once configured.
-	for (GLuint i = 0; i < textureBuffer.size(); i++)
+	for (GLuint i = 0; i < textures.size(); i++)
 	{
 		glActiveTexture(GL_TEXTURE0 + i);
 		glBindTexture(GL_TEXTURE_2D, 0);

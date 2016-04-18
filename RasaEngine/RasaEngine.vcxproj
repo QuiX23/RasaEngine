@@ -203,6 +203,7 @@
     <ClCompile Include="Scene.cpp" />
     <ClCompile Include="Shader.cpp" />
     <ClCompile Include="Spotlight.cpp" />
+    <ClCompile Include="Texture.cpp" />
     <ClCompile Include="TexturesManager.cpp" />
   </ItemGroup>
   <ItemGroup>

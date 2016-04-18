@@ -9,10 +9,8 @@
 #include <glm/gtc/type_ptr.hpp>
 
 #include <boost/uuid/uuid_generators.hpp> // generators
-#include <boost/uuid/uuid_io.hpp>  
 #include <assert.h> 
-
-
+#include "Context.h"
 
 
 Camera Scene::camera = Camera(glm::vec3(0.0f, 0.0f, 3.0f));
@@ -102,7 +100,7 @@ void Scene::update()
 	renderUpdate();
 }
 
-void Scene::renderUpdate()
+void Scene::renderUpdate() const
 {
 	for each (UUID var in renderableCompts)
 	{

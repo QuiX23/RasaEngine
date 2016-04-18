@@ -3,12 +3,12 @@
 
 #include "Shader.h"
 #include "IVertexArray.h"
-#include "ITextureBuffer.h"
+#include "Texture.h"
 
 class IRenderer
 {
 public:
 	virtual ~IRenderer(){}
 
-	virtual void renderObject(const IVertexArray & vertexArray, const vector<shared_ptr<ITextureBuffer>> & textureBuffer, Shader shader) = 0;
+	virtual void renderObject(const IVertexArray & vertexArray, const vector<shared_ptr<Texture>> & textures, Shader shader) = 0;
 };
