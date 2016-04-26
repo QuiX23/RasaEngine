@@ -4,6 +4,7 @@
 
 #include"assimp\material.h"
 #include "Mesh.h"
+#include "Component.h"
 
 class Mesh;
 class aiNode;

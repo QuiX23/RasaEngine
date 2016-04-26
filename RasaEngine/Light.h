@@ -1,6 +1,7 @@
 #pragma once
 #include "Component.h"
 #include <glm/glm.hpp>
+#include "IFrameBuffer.h"
 
 enum class LightType
 {
@@ -10,6 +11,8 @@ enum class LightType
 class C_Light : public Component
 {
 public:
+	glm::mat4 lightProjection;
+
 	glm::vec3 position;
 	glm::vec3 ambientColor;
 	glm::vec3 diffuseColor;

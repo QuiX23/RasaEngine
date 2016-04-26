@@ -1,7 +1,7 @@
 #pragma once
 
 #include "IRenderer.h"
-#include "Component.h"
+#include "Shader.h"
 
 class IRenderable
 {

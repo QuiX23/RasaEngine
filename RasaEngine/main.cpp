@@ -3,24 +3,27 @@
 
 #include <glm/glm.hpp>
 
+
 //Bullet includes
 //#include "btBulletCollisionCommon.h"
 //#include "btBulletCollisionCommon.h"
 //#include "BulletDynamics\Dynamics\btDiscreteDynamicsWorld.h"
 //#include "BulletDynamics\ConstraintSolver\btSequentialImpulseConstraintSolver.h"
 
-#include "Scene.h"
+
 #include "Shader.h"
 #include "Camera.h"
 #include "Model.h"
 #include "Light.h"
 
+
 #include "MidiDebugger.h"
 #include "Context.h"
+#include "Pointlight.h"
+#include <boost/uuid/uuid.hpp>
+#include "DirectionalLight.h"
+#include "Scene.h"
 
-
-// Properties
-GLuint screenWidth = 800, screenHeight = 600;
 
 // Function prototypes
 void key_callback(GLFWwindow* window, int key, int scancode, int action, int mode);
@@ -28,8 +31,6 @@ void scroll_callback(GLFWwindow* window, double xoffset, double yoffset);
 void mouse_callback(GLFWwindow* window, double xpos, double ypos);
 void Do_Movement();
 
-// Camera
-//Camera camera(glm::vec3(0.0f, 0.0f, 3.0f));
 bool keys[1024];
 GLfloat lastX = 400, lastY = 300;
 bool firstMouse = true;
@@ -37,21 +38,21 @@ bool firstMouse = true;
 GLfloat deltaTime = 0.0f;
 GLfloat lastFrame = 0.0f;
 
-void rysuj(char* path, Shader shader);
+Scene* scene;
 
 // The MAIN function, from here we start our application and run the Game loop
 int main()
 {
-	
-	#pragma region OpenGlSetup
+#pragma region OpenGlSetup
 	Context::getInstance().setOGLContext();
+	scene = new Scene();
 
 	// Set the required callback functions
 	glfwSetKeyCallback(Context::getInstance().window, key_callback);
 	glfwSetCursorPosCallback(Context::getInstance().window, mouse_callback);
 	glfwSetScrollCallback(Context::getInstance().window, scroll_callback);
 
-	
+
 	//#pragma region BulletSetup
 	////Bullet Broadphase alghoritm configuration
 	//btBroadphaseInterface* broadphase = new btDbvtBroadphase();
@@ -67,7 +68,7 @@ int main()
 	//#pragma endregion
 
 	//If you have connected a MIDI controller, this will allow you to debug you code;
-	#if _DEBUG
+#if _DEBUG
 	std::unique_ptr<MidiDebugger> midiDebug;
 	try
 	{
@@ -77,52 +78,63 @@ int main()
 	{
 		std::cout << "No MIDI port found!";
 	}
-	#endif
+#endif
 
-
+#pragma region RenderTests
 	// Setup and compile our shaders
 	Shader shader("Shaders/SimpleShader.vert", "Shaders/SimpleShader.frag");
-	//Model ourModel("Models/nanosuit/nanosuit.obj", shader);
-	auto ourModel=make_shared<Model>(Model("Models/nanosuit/nanosuit.obj",shader));
+	Shader bulbShader("Shaders/LampShader.vert", "Shaders/LampShader.frag");
 
-	auto count = 7;
+	//Model ourModel("Models/nanosuit/nanosuit.obj", shader);
+	shared_ptr <Model> ourModel = make_shared<Model>(Model("Models/nanosuit/nanosuit.obj", shader));
+	shared_ptr <Model> bulb = make_shared<Model>(Model("Models/Bulb/Bulb.3DS", bulbShader));
+
+	int count = 7;
 	float x = -10;
 
-	for (auto i = 0; i < count; i++)
+	for (int i = 0; i < count; i++)
 	{
 		x += 2;
 		float z = -10;
-		for (auto i = 0; i < count; i++)
+		for (int i = 0; i < count; i++)
 		{
-			 z += 2;
-			auto gameObject = Scene::getInstance().addNewChild(glm::vec3(x, -1.75f, z),
-																			 glm::vec4(0.0f, 1.0f, 0.0f, 0.0f),
-																			 glm::vec3(0.2f, 0.2f, 0.2f));
-			 Scene::getInstance().addComponent(ourModel, gameObject);
+			z += 2;
+			boost::uuids::uuid gameObject = scene->addNewChild(glm::vec3(x, -1.75f, z),
+				glm::vec4(0.0f, 1.0f, 0.0f, 0.0f),
+				glm::vec3(0.2f, 0.2f, 0.2f));
+			scene->addComponent(ourModel, gameObject);
 		}
 	}
+#pragma endregion
 
-	char* sciezka;
-	sciezka = "Models/HTC/HTC Evo low poly.obj";
-	//sciezka = "Models/horse-obj/horse-obj.obj";
-	//sciezka = "Models/nanosuit/nanosuit.obj";
-	//sciezka = "Models/bench/bench.obj";
-	//sciezka = "Models/dragon/BGE_Dragon_2.5_Blender_Game_Engine.obj";
-	//sciezka = "Models/De Sede Tet-a-tet/sede.obj";
-	rysuj(sciezka, shader);
-
-	auto pLight = Pointlight();
-	pLight.ambientColor= glm::vec3(1.0f, 1.0f, 1.0f);
+#pragma region LightTests
+	Pointlight pLight = Pointlight();
+	pLight.ambientColor = glm::vec3(0.05f, 0.05f, 0.05f);
 	pLight.diffuseColor = glm::vec3(1.0f, 1.0f, 1.0f);
-	pLight.specularColor= glm::vec3(1.0f, 1.0f, 1.0f);
+	pLight.specularColor = glm::vec3(1.0f, 1.0f, 1.0f);
 	pLight.constant = 1.0f;
 	pLight.linear = 0.009;
 	pLight.quadratic = 0.0032;
 
-	auto gameObject = Scene::getInstance().addNewChild(glm::vec3(2.3f, -1.6f, -3.0f),
-																	  glm::vec4(0.0f, 1.0f, 0.0f, 0.0f),
-																	  glm::vec3(0.2f, 0.2f, 0.2f));
-	Scene::getInstance().addComponent(make_shared<Pointlight>(pLight), gameObject);
+	boost::uuids::uuid pLight1 = scene->addNewChild(glm::vec3(2.3f, 4, -3.0f),
+		glm::vec4(0.0f, 0.0f, 1.0f, 3.141592f),
+		glm::vec3(0.2f, 0.2f, 0.2f));
+	//scene->addComponent(make_shared<Pointlight>(pLight), pLight1);
+	//scene->addComponent(bulb, pLight1);
+
+	DirectionalLight dLight = DirectionalLight();
+	dLight.position = glm::vec3(0.0f, 0.5f, -2.0f);
+	dLight.ambientColor = glm::vec3(0.1f, 0.1f, 0.1f);
+	dLight.diffuseColor = glm::vec3(1.0f, 1.0f, 1.0f);
+	dLight.specularColor = glm::vec3(1.0f, 1.0f, 1.0f);
+	dLight.direction = glm::vec3(0.2f, -0.3f, 1.0f);
+
+
+	boost::uuids::uuid dLight1 = scene->addNewChild(glm::vec3(0.0f, 0.5f, -12.0f),
+		glm::vec4(0.0f, 0.0f, 1.0f, 3.141592f),
+		glm::vec3(0.2f, 0.2f, 0.2f));
+	scene->addComponent(make_shared<DirectionalLight>(dLight), dLight1);
+#pragma endregion
 
 	while (!glfwWindowShouldClose(Context::getInstance().window))
 	{
@@ -139,25 +151,16 @@ int main()
 		glClearColor(0.05f, 0.05f, 0.05f, 1.0f);
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-		Scene::getInstance().update();
+		scene->update();
 
 		// Swap the buffers
 		glfwSwapBuffers(Context::getInstance().window);
 	}
 
-
+	delete scene;
 	glfwTerminate();
 	return 0;
-	
-}
 
-void rysuj(char* path, Shader shader)
-{
-	auto benchModel = make_shared<Model>(Model(path, shader));
-	auto benchObject = Scene::getInstance().addNewChild(glm::vec3(0.0f, 0.0f, 0.0f),
-		glm::vec4(0.0f, 1.0f, 0.0f, 0.0f),
-		glm::vec3(0.2f, 0.2f, 0.2f));
-	Scene::getInstance().addComponent(benchModel, benchObject);
 }
 
 #pragma region "User input"
@@ -167,13 +170,13 @@ void Do_Movement()
 {
 	// Camera controls
 	if (keys[GLFW_KEY_W])
-		Scene::getInstance().camera.ProcessKeyboard(FORWARD, deltaTime);
+		scene->camera.ProcessKeyboard(FORWARD, deltaTime);
 	if (keys[GLFW_KEY_S])
-		Scene::getInstance().camera.ProcessKeyboard(BACKWARD, deltaTime);
+		scene->camera.ProcessKeyboard(BACKWARD, deltaTime);
 	if (keys[GLFW_KEY_A])
-		Scene::getInstance().camera.ProcessKeyboard(LEFT, deltaTime);
+		scene->camera.ProcessKeyboard(LEFT, deltaTime);
 	if (keys[GLFW_KEY_D])
-		Scene::getInstance().camera.ProcessKeyboard(RIGHT, deltaTime);
+		scene->camera.ProcessKeyboard(RIGHT, deltaTime);
 }
 
 // Is called whenever a key is pressed/released via GLFW
@@ -203,12 +206,12 @@ void mouse_callback(GLFWwindow* window, double xpos, double ypos)
 	lastX = xpos;
 	lastY = ypos;
 
-	Scene::getInstance().camera.ProcessMouseMovement(xoffset, yoffset);
+	scene->camera.ProcessMouseMovement(xoffset, yoffset);
 }
 
 void scroll_callback(GLFWwindow* window, double xoffset, double yoffset)
 {
-	Scene::getInstance().camera.ProcessMouseScroll(yoffset);
+	scene->camera.ProcessMouseScroll(yoffset);
 }
 
 #pragma endregion

@@ -1,6 +1,7 @@
 #pragma once
 #include "Texture.h"
-
+#include "vector"
+using namespace std;
 class TexturesManager
 {
 	public:
@@ -13,7 +14,7 @@ class TexturesManager
 		/*  Textures data   */
 		vector <shared_ptr<Texture>> texturesBuffers;
 		/*  Functions  */
-		shared_ptr<Texture> CreateTexture(string path, string directory, TextureType type, unsigned int uv, float blend, TextureBlendOperation op);
+		shared_ptr<Texture> CreateTexture(string path, string directory, TextureType type,  float blend, TextureBlendOperation op);
 
 	private:
 		/*  Functions  */

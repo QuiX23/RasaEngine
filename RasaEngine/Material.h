@@ -5,9 +5,10 @@
 #include "Color.h"
 
 //Graphic engine includes
-#include "ITextureBuffer.h"
 #include "Shader.h"
+#include <vector>
 
+using namespace std;
 
 class Material
 {

@@ -7,15 +7,13 @@
 #include <assimp/scene.h>
 #include <assimp/postprocess.h>
 
-#include <SOIL.h>
 
 #include "TexturesManager.h"
-
-
+#include "Component.h"
 
 
 /*  Functions   */
-Model::Model(char* path, Shader shader): Component(ComponentType::Renderable)
+Model::Model(char* path, Shader shader): Component(Renderable)
 {
 	this->shader = shader;
 	this->loadModel(path);
@@ -136,7 +134,7 @@ void Model::loadMaterialTextures(aiMaterial* aiMat, Material* mat)
 			cout << " op: " + to_string(op);
 		cout<< endl;
 
-		shared_ptr<Texture> texture = TexturesManager::getInstance().CreateTexture(str, this->directory, (TextureType)aiTextureType_DIFFUSE, uv, blend, (TextureBlendOperation) op);
+		shared_ptr<Texture> texture = TexturesManager::getInstance().CreateTexture(str, this->directory, (TextureType)aiTextureType_DIFFUSE,  blend, (TextureBlendOperation) op);
 		mat->addTexture(texture);
 	}
 
@@ -144,7 +142,7 @@ void Model::loadMaterialTextures(aiMaterial* aiMat, Material* mat)
 	{
 		aiMat->GetTexture(aiTextureType_SPECULAR, i, &aStr);
 		string str(aStr.C_Str());
-		shared_ptr<Texture> texture = TexturesManager::getInstance().CreateTexture(str, this->directory, (TextureType)aiTextureType_SPECULAR, uv, blend, (TextureBlendOperation)op);
+		shared_ptr<Texture> texture = TexturesManager::getInstance().CreateTexture(str, this->directory, (TextureType)aiTextureType_SPECULAR,  blend, (TextureBlendOperation)op);
 		mat->addTexture(texture);
 	}
 }

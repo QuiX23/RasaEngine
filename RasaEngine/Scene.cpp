@@ -4,6 +4,7 @@
 #include "Model.h"
 #include "Component.h"
 
+
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
@@ -11,24 +12,57 @@
 #include <boost/uuid/uuid_generators.hpp> // generators
 #include <assert.h> 
 #include "Context.h"
+#include "OGLTextureBuffer.h"
 
 
-Camera Scene::camera = Camera(glm::vec3(0.0f, 0.0f, 3.0f));
-
-Scene& Scene::getInstance()
+// RenderQuad() Renders a 1x1 quad in NDC, best used for framebuffer color targets
+// and post-processing effects.
+GLuint quadVAO = 0;
+GLuint quadVBO;
+Shader debugDepthQuad;
+void RenderQuad()
 {
-	static Scene  instance; // Guaranteed to be destroyed.
-							// Instantiated on first use.
-	return instance;
+	if (quadVAO == 0)
+	{
+		GLfloat quadVertices[] = {
+			// Positions        // Texture Coords
+			-1.0f,  1.0f, 0.0f,  0.0f, 1.0f,
+			-1.0f, -1.0f, 0.0f,  0.0f, 0.0f,
+			1.0f,  1.0f, 0.0f,  1.0f, 1.0f,
+			1.0f, -1.0f, 0.0f,  1.0f, 0.0f,
+		};
+		// Setup plane VAO
+		glGenVertexArrays(1, &quadVAO);
+		glGenBuffers(1, &quadVBO);
+		glBindVertexArray(quadVAO);
+		glBindBuffer(GL_ARRAY_BUFFER, quadVBO);
+		glBufferData(GL_ARRAY_BUFFER, sizeof(quadVertices), &quadVertices, GL_STATIC_DRAW);
+		glEnableVertexAttribArray(0);
+		glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 5 * sizeof(GLfloat), (GLvoid*)0);
+		glEnableVertexAttribArray(1);
+		glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 5 * sizeof(GLfloat), (GLvoid*)(3 * sizeof(GLfloat)));
+	}
+	glBindVertexArray(quadVAO);
+	glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);
+	glBindVertexArray(0);
 }
 
-shared_ptr<GameObject> Scene::root = make_shared<GameObject>(GameObject(glm::vec3(0, 0, 0), glm::vec4(0, 0, 0, 0), glm::vec3(1, 1, 1)));
-
-boost::container::map<UUID, shared_ptr<GameObject>> Scene::objectsCache;
-boost::container::set<UUID> Scene::renderableCompts;
 
 
-LightsManager Scene::lightsManager = LightsManager();
+
+Scene::Scene()
+{
+	debugDepthQuad = Shader("Quad.vert", "Quad.frag");
+
+	auto camera = Camera(glm::vec3(0.0f, 0.0f, 3.0f));
+	root = make_shared<GameObject>(GameObject(glm::vec3(0, 0, 0), glm::vec4(0, 0, 0, 0), glm::vec3(1, 1, 1)));
+	lightsManager = LightsManager();
+}
+
+Scene::~Scene()
+{
+	
+};
 
 UUID Scene::addNewChild()
 {
@@ -38,7 +72,7 @@ UUID Scene::addNewChild()
 
 UUID Scene::addNewChild(glm::vec3 position, glm::vec4 rotation, glm::vec3 scale)
 {
-	UUID id = addChild(root);
+	auto id = addChild(root);
 	objectsCache[id]->position = position;
 	objectsCache[id]->rotation = rotation;
 	objectsCache[id]->scale = scale;
@@ -48,21 +82,21 @@ UUID Scene::addNewChild(glm::vec3 position, glm::vec4 rotation, glm::vec3 scale)
 void Scene::addComponent(shared_ptr<Component> component, const UUID & gameObject)
 {
 	
-		if (component->type==ComponentType::Lights)
+		if (component->type==Lights)
 		{
 			addLight(component, gameObject);
 		}
-		else if (component->type == ComponentType::Renderable)
+		else if (component->type == Renderable)
 		{
 			addRenderable(component,gameObject);
 		}
 }
 
-void Scene::addLight(shared_ptr<Component> component, const UUID & gameObject)
+void Scene::addLight(shared_ptr<Component> component, const UUID & gameObject) 
 {
-	if (objectsCache[gameObject]->HasComponent(ComponentType::Lights)) return;
+	if (objectsCache[gameObject]->HasComponent(Lights)) return;
 
-	shared_ptr<C_Light> m = static_pointer_cast<C_Light>(component);
+	auto m = static_pointer_cast<C_Light>(component);
 	m->position = objectsCache[gameObject]->position;
 
 	objectsCache[gameObject]->AddComponent(component);
@@ -70,11 +104,11 @@ void Scene::addLight(shared_ptr<Component> component, const UUID & gameObject)
 	lightsManager.addLight(static_pointer_cast<C_Light>(component));
 }
 
-void Scene::addRenderable(shared_ptr<Component> component, const UUID & gameObject)
+void Scene::addRenderable(shared_ptr<Component> component, const UUID & gameObject) 
 {
 	if (objectsCache[gameObject]->HasComponent(ComponentType::Renderable)) return;
 
-	shared_ptr<Model> m = static_pointer_cast<Model>(component);
+	auto m = static_pointer_cast<Model>(component);
 
 	objectsCache[gameObject]->AddComponent(component);
 	renderableCompts.insert(gameObject);
@@ -98,24 +132,68 @@ UUID Scene::addChild(shared_ptr<GameObject> parent)
 void Scene::update()
 {
 	renderUpdate();
+}   
+
+
+
+void Scene::renderUpdate() 
+{
+	
+	shared_ptr<ITextureBuffer> tb=lightsManager.calcShadows(renderableCompts, objectsCache);
+
+#pragma region Transformation matrices 
+	
+	auto projection = glm::perspective(camera.Zoom, (float)(Context::getInstance().screenWidth) / (float)(float)(Context::getInstance().screenHeight), 0.1f, 100.0f);
+	auto view = camera.GetViewMatrix();
+
+	GLuint uboMatrices;
+	glGenBuffers(1, &uboMatrices);
+
+	glBindBuffer(GL_UNIFORM_BUFFER, uboMatrices);
+	//Reserve memory
+	glBufferData(GL_UNIFORM_BUFFER, 2 * sizeof(glm::mat4), NULL, GL_STATIC_DRAW);
+	
+	//Fill buffers with data
+	glBufferSubData(GL_UNIFORM_BUFFER, 0, sizeof(glm::mat4), glm::value_ptr(projection));
+	glBufferSubData(GL_UNIFORM_BUFFER, sizeof(glm::mat4), sizeof(glm::mat4), glm::value_ptr(view));
+
+	glBindBuffer(GL_UNIFORM_BUFFER, 0);
+
+	//BindBuffer to binding point
+	glBindBufferRange(GL_UNIFORM_BUFFER, 0, uboMatrices, 0, 2 * sizeof(glm::mat4));
+#pragma endregion 
+	
+
+	renderObjects();
+
+	// Render Depth map to quad
+	//OGLTextureBuffer otb = *static_pointer_cast<OGLTextureBuffer>(tb);
+
+	//Context::getInstance().renderer->unSetFrameBuffer();
+	//debugDepthQuad.Use();
+	//glUniform1f(glGetUniformLocation(debugDepthQuad.Program, "near_plane"), 1.0);
+	//glUniform1f(glGetUniformLocation(debugDepthQuad.Program, "far_plane"), 20.0);
+	//glActiveTexture(GL_TEXTURE0);
+	//glBindTexture(GL_TEXTURE_2D, otb.id);
+	//RenderQuad();
+
 }
 
-void Scene::renderUpdate() const
+void Scene::renderObjects() 
 {
 	for each (UUID var in renderableCompts)
 	{
-		
-		shared_ptr<Model> ptr = static_pointer_cast<Model>(objectsCache[var]->GetComponent(ComponentType::Renderable));
+		auto ptr = static_pointer_cast<Model>(objectsCache[var]->GetComponent(Renderable));
 		ptr->shader.Use();
 
 		// Transformation matrices
-		glm::mat4 projection = glm::perspective(camera.Zoom, (float)(Context::getInstance().screenWidth) / (float)(float)(Context::getInstance().screenHeight), 0.1f, 100.0f);
-		glm::mat4 view = camera.GetViewMatrix();
-		glUniformMatrix4fv(glGetUniformLocation(ptr->shader.Program, "projection"), 1, GL_FALSE, glm::value_ptr(projection));
-		glUniformMatrix4fv(glGetUniformLocation(ptr->shader.Program, "view"), 1, GL_FALSE, glm::value_ptr(view));
-		
-		glUniform3f(glGetUniformLocation(ptr ->shader.Program, "viewPos"), camera.Position.x, camera.Position.y, camera.Position.z);
-	
+		GLuint uniformBlock = glGetUniformBlockIndex(ptr->shader.Program, "Matrices");
+		glUniformBlockBinding(ptr->shader.Program, uniformBlock, 0);
+
+		glUniform3f(glGetUniformLocation(ptr->shader.Program, "viewPos"), camera.Position.x, camera.Position.y, camera.Position.z);
+
+		glUniformMatrix4fv(glGetUniformLocation(ptr->shader.Program, "lightSpaceMatrix"), 1, GL_FALSE, glm::value_ptr(lightsManager.lightSpaceMatrix));
+
 		lightsManager.activateLights(ptr->shader);
 
 		glm::mat4 model;
@@ -134,6 +212,3 @@ void Scene::lightUpdate()
 }
 
 
-Scene::~Scene()
-{
-}

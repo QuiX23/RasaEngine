@@ -138,6 +138,12 @@
     <ClInclude Include="Color.h">
       <Filter>Engine\CommonConcepts</Filter>
     </ClInclude>
+    <ClInclude Include="IFrameBuffer.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="OGLFrameBuffer.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Camera.cpp">
@@ -206,6 +212,9 @@
     <ClCompile Include="Texture.cpp">
       <Filter>Engine\CommonConcepts</Filter>
     </ClCompile>
+    <ClCompile Include="OGLFrameBuffer.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
@@ -228,6 +237,18 @@
       <Filter>Shaders</Filter>
     </None>
     <None Include="Shaders\LampShader.frag">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="Shadow.vert">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="Shadow.frag">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="Quad.frag">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="Quad.vert">
       <Filter>Shaders</Filter>
     </None>
   </ItemGroup>

@@ -159,6 +159,7 @@
     <ClInclude Include="Context.h" />
     <ClInclude Include="DirectionalLight.h" />
     <ClInclude Include="GameObject.h" />
+    <ClInclude Include="IFrameBuffer.h" />
     <ClInclude Include="IRenderer.h" />
     <ClInclude Include="IRenderable.h" />
     <ClInclude Include="ITextureBuffer.h" />
@@ -171,6 +172,7 @@
     <ClInclude Include="MIDI\RtMidi.h" />
     <ClInclude Include="MIDI\rtmidi_c.h" />
     <ClInclude Include="Model.h" />
+    <ClInclude Include="OGLFrameBuffer.h" />
     <ClInclude Include="OGLRenderer.h" />
     <ClInclude Include="OGLTextureBuffer.h" />
     <ClInclude Include="OGLVertexArray.h" />
@@ -196,6 +198,7 @@
     <ClCompile Include="MIDI\rtmidi_c.cpp" />
     <ClCompile Include="Model.cpp" />
     <ClCompile Include="Context.cpp" />
+    <ClCompile Include="OGLFrameBuffer.cpp" />
     <ClCompile Include="OGLRenderer.cpp" />
     <ClCompile Include="OGLTextureBuffer.cpp" />
     <ClCompile Include="OGLVertexArray.cpp" />
@@ -208,6 +211,8 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
+    <None Include="Quad.frag" />
+    <None Include="Quad.vert" />
     <None Include="Shaders\LampShader.frag" />
     <None Include="Shaders\LampShader.vert" />
     <None Include="Shaders\SimpleShader.frag" />
@@ -215,6 +220,8 @@
     <None Include="Shaders\TutorialShader.frag" />
     <None Include="Shaders\TutorialShader.vert" />
     <None Include="Shaders\TutorialShader2.frag" />
+    <None Include="Shadow.frag" />
+    <None Include="Shadow.vert" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
