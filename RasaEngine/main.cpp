@@ -40,7 +40,6 @@ GLfloat lastFrame = 0.0f;
 
 Scene* scene;
 
-// The MAIN function, from here we start our application and run the Game loop
 int main()
 {
 #pragma region OpenGlSetup
@@ -81,7 +80,7 @@ int main()
 #endif
 
 #pragma region RenderTests
-	// Setup and compile our shaders
+	// Setup and compile shaders
 	Shader shader("Shaders/SimpleShader.vert", "Shaders/SimpleShader.frag");
 	Shader bulbShader("Shaders/LampShader.vert", "Shaders/LampShader.frag");
 
@@ -92,6 +91,8 @@ int main()
 	int count = 7;
 	float x = -10;
 
+	//Temporary creating multiple objects from the same model
+	// without use ofinstantiation. Will be implemented later.
 	for (int i = 0; i < count; i++)
 	{
 		x += 2;

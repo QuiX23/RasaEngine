@@ -12,9 +12,9 @@
 #include <boost/uuid/uuid_generators.hpp> // generators
 #include <assert.h> 
 #include "Context.h"
-#include "OGLTextureBuffer.h"
 
 
+#pragma region Quad Dedub
 // RenderQuad() Renders a 1x1 quad in NDC, best used for framebuffer color targets
 // and post-processing effects.
 GLuint quadVAO = 0;
@@ -46,6 +46,8 @@ void RenderQuad()
 	glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);
 	glBindVertexArray(0);
 }
+
+#pragma endregion 
 
 
 
@@ -139,32 +141,18 @@ void Scene::update()
 void Scene::renderUpdate() 
 {
 	
-	shared_ptr<ITextureBuffer> tb=lightsManager.calcShadows(renderableCompts, objectsCache);
+	lightsManager.calcShadows(*this);
 
 #pragma region Transformation matrices 
 	
 	auto projection = glm::perspective(camera.Zoom, (float)(Context::getInstance().screenWidth) / (float)(float)(Context::getInstance().screenHeight), 0.1f, 100.0f);
 	auto view = camera.GetViewMatrix();
 
-	GLuint uboMatrices;
-	glGenBuffers(1, &uboMatrices);
-
-	glBindBuffer(GL_UNIFORM_BUFFER, uboMatrices);
-	//Reserve memory
-	glBufferData(GL_UNIFORM_BUFFER, 2 * sizeof(glm::mat4), NULL, GL_STATIC_DRAW);
 	
-	//Fill buffers with data
-	glBufferSubData(GL_UNIFORM_BUFFER, 0, sizeof(glm::mat4), glm::value_ptr(projection));
-	glBufferSubData(GL_UNIFORM_BUFFER, sizeof(glm::mat4), sizeof(glm::mat4), glm::value_ptr(view));
-
-	glBindBuffer(GL_UNIFORM_BUFFER, 0);
-
-	//BindBuffer to binding point
-	glBindBufferRange(GL_UNIFORM_BUFFER, 0, uboMatrices, 0, 2 * sizeof(glm::mat4));
 #pragma endregion 
 	
 
-	renderObjects();
+	renderObjects(projection, view);
 
 	// Render Depth map to quad
 	//OGLTextureBuffer otb = *static_pointer_cast<OGLTextureBuffer>(tb);
@@ -179,8 +167,29 @@ void Scene::renderUpdate()
 
 }
 
-void Scene::renderObjects() 
+void Scene::setViewProjection(glm::mat4 projection, glm::mat4 view)
 {
+	GLuint uboMatrices;
+	glGenBuffers(1, &uboMatrices);
+
+	glBindBuffer(GL_UNIFORM_BUFFER, uboMatrices);
+	//Reserve memory
+	glBufferData(GL_UNIFORM_BUFFER, 2 * sizeof(glm::mat4), NULL, GL_STATIC_DRAW);
+
+	//Fill buffers with data
+	glBufferSubData(GL_UNIFORM_BUFFER, 0, sizeof(glm::mat4), glm::value_ptr(projection));
+	glBufferSubData(GL_UNIFORM_BUFFER, sizeof(glm::mat4), sizeof(glm::mat4), glm::value_ptr(view));
+
+	glBindBuffer(GL_UNIFORM_BUFFER, 0);
+
+	//BindBuffer to binding point
+	glBindBufferRange(GL_UNIFORM_BUFFER, 0, uboMatrices, 0, 2 * sizeof(glm::mat4));
+}
+
+void Scene::renderObjects(glm::mat4 projection, glm::mat4 view)
+{
+	setViewProjection(projection, view);
+
 	for each (UUID var in renderableCompts)
 	{
 		auto ptr = static_pointer_cast<Model>(objectsCache[var]->GetComponent(Renderable));
@@ -192,8 +201,6 @@ void Scene::renderObjects()
 
 		glUniform3f(glGetUniformLocation(ptr->shader.Program, "viewPos"), camera.Position.x, camera.Position.y, camera.Position.z);
 
-		glUniformMatrix4fv(glGetUniformLocation(ptr->shader.Program, "lightSpaceMatrix"), 1, GL_FALSE, glm::value_ptr(lightsManager.lightSpaceMatrix));
-
 		lightsManager.activateLights(ptr->shader);
 
 		glm::mat4 model;
@@ -202,6 +209,34 @@ void Scene::renderObjects()
 		model = glm::rotate(model, objectsCache[var]->rotation.w, glm::vec3(objectsCache[var]->rotation));	// It's a bit too big for our scene, so scale it down
 
 		glUniformMatrix4fv(glGetUniformLocation(ptr->shader.Program, "model"), 1, GL_FALSE, glm::value_ptr(model));
+		ptr->draw(*Context::getInstance().renderer);
+	}
+}
+
+void Scene::renderObjects(glm::mat4 projection, glm::mat4 view, Shader shader)
+{
+	setViewProjection(projection, view);
+
+	for each (UUID var in renderableCompts)
+	{
+		auto ptr = static_pointer_cast<Model>(objectsCache[var]->GetComponent(Renderable));
+		shader.Use();
+
+		// Transformation matrices
+		GLuint uniformBlock = glGetUniformBlockIndex(shader.Program, "Matrices");
+		glUniformBlockBinding(shader.Program, uniformBlock, 0);
+
+		glUniform3f(glGetUniformLocation(shader.Program, "viewPos"), camera.Position.x, camera.Position.y, camera.Position.z);
+
+
+		lightsManager.activateLights(shader);
+
+		glm::mat4 model;
+		model = glm::translate(model, objectsCache[var]->position); // Translate it down a bit so it's at the center of the scene
+		model = glm::scale(model, objectsCache[var]->scale);	// It's a bit too big for our scene, so scale it down
+		model = glm::rotate(model, objectsCache[var]->rotation.w, glm::vec3(objectsCache[var]->rotation));	// It's a bit too big for our scene, so scale it down
+
+		glUniformMatrix4fv(glGetUniformLocation(shader.Program, "model"), 1, GL_FALSE, glm::value_ptr(model));
 		ptr->draw(*Context::getInstance().renderer);
 	}
 }

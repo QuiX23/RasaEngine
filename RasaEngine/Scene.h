@@ -38,6 +38,9 @@ public:
 	UUID addNewChild();
 	UUID addNewChild(glm::vec3 position, glm::vec4 rotation, glm::vec3 scale);
 	UUID addNewChildToParent(UUID parentID);
+
+	void renderObjects(glm::mat4 projection, glm::mat4 view);
+	void renderObjects(glm::mat4 projection, glm::mat4 view, Shader shader);
 	
 
 private:
@@ -46,12 +49,16 @@ private:
 	shared_ptr<GameObject> root;
 	boost::container::map<UUID, shared_ptr<GameObject>> objectsCache;
 	boost::container::set<UUID> renderableCompts;
+	
 
 	UUID addChild(shared_ptr<GameObject> parent);
 	void addLight(shared_ptr<Component> component, const UUID & gameObject) ;
 	void addRenderable(shared_ptr<Component> component, const UUID & gameObject) ;
 	void lightUpdate();
 	void renderUpdate() ;
-	void renderObjects();
+	
+
+	void setViewProjection(glm::mat4 projection, glm::mat4 view);
+	
 };
 

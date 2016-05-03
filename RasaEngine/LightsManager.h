@@ -11,7 +11,7 @@
 #include <boost\container\set.hpp>
 
 
-
+class Scene;
 typedef boost::uuids::uuid UUID;
 
 
@@ -25,7 +25,7 @@ public:
 	~LightsManager();
 	void activateLights(const Shader& shader);
 	void addLight( shared_ptr<C_Light> light);
-	shared_ptr<ITextureBuffer>calcShadows(boost::container::set<UUID> renderableCompts, boost::container::map<UUID, shared_ptr<GameObject>> objectsCach);
+	shared_ptr<ITextureBuffer>calcShadows(Scene scene);
 
 	void renderObjects(boost::container::set<UUID> renderableCompts, boost::container::map<UUID, shared_ptr<GameObject>> objectsCach);
 

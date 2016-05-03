@@ -24,14 +24,12 @@ void OGLRenderer::renderObject(const IVertexArray & vertexArray, const vector<sh
 	GLuint diffuseNr = 1;
 	GLuint specularNr = 1;
 
-	glActiveTexture(GL_TEXTURE0+0);
-	glUniform1i(glGetUniformLocation(shader.Program, "shadowMap"), 0);
-	glBindTexture(GL_TEXTURE_2D, shadowMap.id);
+	
 
 	for (GLuint i = 0; i < textures.size(); i++)
 	{
 		const OGLTextureBuffer &tBuffer = static_cast <const OGLTextureBuffer&>(*textures[i]->texturBuffer);
-		glActiveTexture(GL_TEXTURE0 + i+1); // Activate proper texture unit before binding
+		glActiveTexture(GL_TEXTURE0 + i); // Activate proper texture unit before binding
 		// Retrieve texture number (the N in diffuse_textureN)
 		string name;
 		switch (textures[i]->type)
@@ -44,9 +42,13 @@ void OGLRenderer::renderObject(const IVertexArray & vertexArray, const vector<sh
 			break;
 		}
 
-		glUniform1i(glGetUniformLocation(shader.Program, ("material." + name).c_str()), i + 1);
+		glUniform1f(glGetUniformLocation(shader.Program, ("material." + name).c_str()), i );
 		glBindTexture(GL_TEXTURE_2D, tBuffer.id);
 	}
+
+	glActiveTexture(GL_TEXTURE0 + textures.size());
+	glUniform1i(glGetUniformLocation(shader.Program, "shadowMap"), textures.size());
+	glBindTexture(GL_TEXTURE_2D, shadowMap.id);
 
 	glUniform1f(glGetUniformLocation(shader.Program, "material.shininess"), 16.0f);
 
@@ -55,15 +57,17 @@ void OGLRenderer::renderObject(const IVertexArray & vertexArray, const vector<sh
 	glBindVertexArray(0);
 
 	
-	glActiveTexture(GL_TEXTURE0+0);
-	glBindTexture(GL_TEXTURE_2D, 0);
 
 	// Always good practice to set everything back to defaults once configured.
 	for (GLuint i = 0; i < textures.size(); i++)
 	{
-		glActiveTexture(GL_TEXTURE0 + i+1);
+		glActiveTexture(GL_TEXTURE0 + i);
 		glBindTexture(GL_TEXTURE_2D, 0);
 	}
+
+
+	glActiveTexture(GL_TEXTURE0+ textures.size());
+	glBindTexture(GL_TEXTURE_2D, textures.size());
 
 	
 }
