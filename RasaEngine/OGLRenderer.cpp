@@ -12,23 +12,33 @@
 using namespace std;
 
 
-
-
-
 void OGLRenderer::renderObject(const IVertexArray & vertexArray, const vector<shared_ptr<Texture>> & textures, Shader shader)
 {
-
-
 	const OGLVertexArray &vArray = static_cast <const OGLVertexArray&>(vertexArray);
+	
+	if (textures[0]->type == TextureType_CUBEMAP)
+	{
+		const OGLTextureBuffer &tBuffer = static_cast <const OGLTextureBuffer&>(*textures[0]->textureBuffer);
+		
+		glDepthFunc(GL_LEQUAL);
+		glBindVertexArray(vArray.VAO);
+		glActiveTexture(GL_TEXTURE0);
+		glUniform1i(glGetUniformLocation(shader.Program, "skybox"), 0);
+		glBindTexture(GL_TEXTURE_CUBE_MAP, tBuffer.id);
+		glDrawArrays(GL_TRIANGLES, 0, 36);
+		glBindVertexArray(0);
+		glDepthFunc(GL_LESS);
+
+		return;
+	}
+	
 	//OGLVertexArray &vArray = dynamic_cast < OGLVertexArray&>(const_cast < IVertexArray&>(vertexArray));
 	GLuint diffuseNr = 1;
 	GLuint specularNr = 1;
 
-	
-
 	for (GLuint i = 0; i < textures.size(); i++)
 	{
-		const OGLTextureBuffer &tBuffer = static_cast <const OGLTextureBuffer&>(*textures[i]->texturBuffer);
+		const OGLTextureBuffer &tBuffer = static_cast <const OGLTextureBuffer&>(*textures[i]->textureBuffer);
 		glActiveTexture(GL_TEXTURE0 + i); // Activate proper texture unit before binding
 		// Retrieve texture number (the N in diffuse_textureN)
 		string name;
@@ -56,8 +66,6 @@ void OGLRenderer::renderObject(const IVertexArray & vertexArray, const vector<sh
 	glDrawElements(GL_TRIANGLES, vArray.indiciesNum, GL_UNSIGNED_INT, 0);
 	glBindVertexArray(0);
 
-	
-
 	// Always good practice to set everything back to defaults once configured.
 	for (GLuint i = 0; i < textures.size(); i++)
 	{
@@ -65,10 +73,8 @@ void OGLRenderer::renderObject(const IVertexArray & vertexArray, const vector<sh
 		glBindTexture(GL_TEXTURE_2D, 0);
 	}
 
-
 	glActiveTexture(GL_TEXTURE0+ textures.size());
 	glBindTexture(GL_TEXTURE_2D, textures.size());
-
 	
 }
 
@@ -88,8 +94,7 @@ void OGLRenderer::setFrameBuffer(const IFrameBuffer & frameBuffer)
 
 		glBindFramebuffer(GL_FRAMEBUFFER, fb.FBO);
 			glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-	
-	
+		
 }
 
  void OGLRenderer::setShadowMap(const ITextureBuffer & sMap)

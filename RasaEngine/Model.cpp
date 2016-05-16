@@ -13,7 +13,7 @@
 
 
 /*  Functions   */
-Model::Model(char* path, Shader shader): Component(Renderable)
+Model::Model(char* path, Shader shader): Component(ComponentType_RENDERABLE)
 {
 	this->shader = shader;
 	this->loadModel(path);
@@ -134,7 +134,7 @@ void Model::loadMaterialTextures(aiMaterial* aiMat, Material* mat)
 			cout << " op: " + to_string(op);
 		cout<< endl;
 
-		shared_ptr<Texture> texture = TexturesManager::getInstance().CreateTexture(str, this->directory, (TextureType)aiTextureType_DIFFUSE,  blend, (TextureBlendOperation) op);
+		shared_ptr<Texture> texture = TexturesManager::getInstance().CreateTexture2D(str, this->directory, (TextureType)aiTextureType_DIFFUSE,  blend, (TextureBlendOperation) op);
 		mat->addTexture(texture);
 	}
 
@@ -142,7 +142,7 @@ void Model::loadMaterialTextures(aiMaterial* aiMat, Material* mat)
 	{
 		aiMat->GetTexture(aiTextureType_SPECULAR, i, &aStr);
 		string str(aStr.C_Str());
-		shared_ptr<Texture> texture = TexturesManager::getInstance().CreateTexture(str, this->directory, (TextureType)aiTextureType_SPECULAR,  blend, (TextureBlendOperation)op);
+		shared_ptr<Texture> texture = TexturesManager::getInstance().CreateTexture2D(str, this->directory, (TextureType)aiTextureType_SPECULAR,  blend, (TextureBlendOperation)op);
 		mat->addTexture(texture);
 	}
 }

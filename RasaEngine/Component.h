@@ -3,7 +3,7 @@
 
 enum ComponentType
 {
-	Renderable = 0x0, Lights = 0x1,
+	ComponentType_RENDERABLE = 0x0, ComponentType_LIGHTS = 0x1, ComponentType_SKYBOX = 0x2
 };
 
 class Component

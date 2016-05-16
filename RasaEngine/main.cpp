@@ -15,6 +15,7 @@
 #include "Camera.h"
 #include "Model.h"
 #include "Light.h"
+#include "Skybox.h"
 
 
 #include "MidiDebugger.h"
@@ -82,11 +83,29 @@ int main()
 #pragma region RenderTests
 	// Setup and compile shaders
 	Shader shader("Shaders/SimpleShader.vert", "Shaders/SimpleShader.frag");
-	Shader bulbShader("Shaders/LampShader.vert", "Shaders/LampShader.frag");
+	//Shader bulbShader("Shaders/LampShader.vert", "Shaders/LampShader.frag");
 
-	//Model ourModel("Models/nanosuit/nanosuit.obj", shader);
+	/*
+	Shader skyboxShader("Shaders/SkyboxShader.vert", "Shaders/SkyboxShader.frag");
+	
+	string skyboxTex[] = { 
+		"Models/skybox/right.jpg", 
+		"Models/skybox/left.jpg", 
+		"Models/skybox/top.jpg",
+		"Models/skybox/bottom.jpg",
+		"Models/skybox/back.jpg",
+		"Models/skybox/front.jpg" 
+	};
+
+	shared_ptr <Skybox> skybox = make_shared<Skybox>(Skybox(skyboxTex, skyboxShader));
+	boost::uuids::uuid gameObject = scene->addNewChild(glm::vec3(0.0f, 0.0f, 0.0f),
+		glm::vec4(0.0f, 1.0f, 0.0f, 0.0f),
+		glm::vec3(40.0f, 40.0f, 40.0f));
+	scene->addComponent(skybox, gameObject);
+	*/
+
 	shared_ptr <Model> ourModel = make_shared<Model>(Model("Models/nanosuit/nanosuit.obj", shader));
-	shared_ptr <Model> bulb = make_shared<Model>(Model("Models/Bulb/Bulb.3DS", bulbShader));
+	//shared_ptr <Model> bulb = make_shared<Model>(Model("Models/Bulb/Bulb.3DS", bulbShader));
 
 	int count = 7;
 	float x = -10;
