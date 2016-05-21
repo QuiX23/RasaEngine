@@ -84,19 +84,21 @@ UUID Scene::addNewChild(glm::vec3 position, glm::vec4 rotation, glm::vec3 scale)
 void Scene::addComponent(shared_ptr<Component> component, const UUID & gameObject)
 {
 	
-		if (component->type==Lights)
+		if (component->type==ComponentType_LIGHTS)
 		{
 			addLight(component, gameObject);
 		}
-		else if (component->type == Renderable)
+		else if (component->type == ComponentType_RENDERABLE)
 		{
-			addRenderable(component,gameObject);
+			addRenderable(component, gameObject);
 		}
+		else if (component->type == ComponentType_SKYBOX)
+			addSkybox(component, gameObject);
 }
 
 void Scene::addLight(shared_ptr<Component> component, const UUID & gameObject) 
 {
-	if (objectsCache[gameObject]->HasComponent(Lights)) return;
+	if (objectsCache[gameObject]->HasComponent(ComponentType_LIGHTS)) return;
 
 	auto m = static_pointer_cast<C_Light>(component);
 	m->position = objectsCache[gameObject]->position;
@@ -108,7 +110,7 @@ void Scene::addLight(shared_ptr<Component> component, const UUID & gameObject)
 
 void Scene::addRenderable(shared_ptr<Component> component, const UUID & gameObject) 
 {
-	if (objectsCache[gameObject]->HasComponent(ComponentType::Renderable)) return;
+	if (objectsCache[gameObject]->HasComponent(ComponentType::ComponentType_RENDERABLE)) return;
 
 	auto m = static_pointer_cast<Model>(component);
 
@@ -116,7 +118,13 @@ void Scene::addRenderable(shared_ptr<Component> component, const UUID & gameObje
 	renderableCompts.insert(gameObject);
 }
 
+void Scene::addSkybox(shared_ptr<Component> component, const UUID & gameObject)
+{
+	if (objectsCache[gameObject]->HasComponent(ComponentType::ComponentType_SKYBOX)) return;
 
+	objectsCache[gameObject]->AddComponent(component);
+	skybox = gameObject;//= static_pointer_cast<Skybox>(component);
+}
 
 UUID Scene::addChild(shared_ptr<GameObject> parent)
 {
@@ -136,8 +144,6 @@ void Scene::update()
 	renderUpdate();
 }   
 
-
-
 void Scene::renderUpdate() 
 {
 	
@@ -151,7 +157,6 @@ void Scene::renderUpdate()
 	
 #pragma endregion 
 	
-
 	renderObjects(projection, view);
 
 	// Render Depth map to quad
@@ -165,6 +170,7 @@ void Scene::renderUpdate()
 	//glBindTexture(GL_TEXTURE_2D, otb.id);
 	//RenderQuad();
 
+	renderSkybox(projection, view);
 }
 
 void Scene::setViewProjection(glm::mat4 projection, glm::mat4 view)
@@ -186,13 +192,34 @@ void Scene::setViewProjection(glm::mat4 projection, glm::mat4 view)
 	glBindBufferRange(GL_UNIFORM_BUFFER, 0, uboMatrices, 0, 2 * sizeof(glm::mat4));
 }
 
+void Scene::renderSkybox(glm::mat4 projection, glm::mat4 view)
+{
+	if (!skybox.is_nil())
+	{
+		auto ptr = static_pointer_cast<Skybox>(objectsCache[skybox]->GetComponent(ComponentType_SKYBOX));
+
+		ptr->shader.Use();
+		glUniformMatrix4fv(glGetUniformLocation(ptr->shader.Program, "view"), 1, GL_FALSE, glm::value_ptr(view));
+		glUniformMatrix4fv(glGetUniformLocation(ptr->shader.Program, "projection"), 1, GL_FALSE, glm::value_ptr(projection));
+
+		glm::mat4 model;
+		model = glm::translate(model, objectsCache[skybox]->position); // Translate it down a bit so it's at the center of the scene
+		model = glm::scale(model, objectsCache[skybox]->scale);	// It's a bit too big for our scene, so scale it down
+		model = glm::rotate(model, objectsCache[skybox]->rotation.w, glm::vec3(objectsCache[skybox]->rotation));	// It's a bit too big for our scene, so scale it down
+
+		glUniformMatrix4fv(glGetUniformLocation(ptr->shader.Program, "model"), 1, GL_FALSE, glm::value_ptr(model));
+
+		ptr->draw(*Context::getInstance().renderer);
+	}
+}
+
 void Scene::renderObjects(glm::mat4 projection, glm::mat4 view)
 {
 	setViewProjection(projection, view);
 
 	for each (UUID var in renderableCompts)
 	{
-		auto ptr = static_pointer_cast<Model>(objectsCache[var]->GetComponent(Renderable));
+		auto ptr = static_pointer_cast<Model>(objectsCache[var]->GetComponent(ComponentType_RENDERABLE));
 		ptr->shader.Use();
 
 		// Transformation matrices
@@ -219,7 +246,7 @@ void Scene::renderObjects(glm::mat4 projection, glm::mat4 view, Shader shader)
 
 	for each (UUID var in renderableCompts)
 	{
-		auto ptr = static_pointer_cast<Model>(objectsCache[var]->GetComponent(Renderable));
+		auto ptr = static_pointer_cast<Model>(objectsCache[var]->GetComponent(ComponentType_RENDERABLE));
 		shader.Use();
 
 		// Transformation matrices

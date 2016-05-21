@@ -8,4 +8,5 @@ public:
 
 
 	virtual void setVertexArray(const vector<Vertex> & vertices, const vector<int> & indices) = 0;
+	virtual void generateSkyboxVertexArray() = 0;
 };
