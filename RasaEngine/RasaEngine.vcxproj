@@ -90,7 +90,7 @@
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;_LIB;__WINDOWS_MM__;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <SDLCheck>true</SDLCheck>
       <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
-      <AdditionalIncludeDirectories>MIDI\;..\Simple OpenGL Image Library\src;..\glew-1.13.0\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>D:\Downloads\bullet3-2.83.7\src;MIDI\;..\Simple OpenGL Image Library\src;..\glew-1.13.0\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -180,6 +180,7 @@
     <ClInclude Include="Scene.h" />
     <ClInclude Include="Shader.h" />
     <ClInclude Include="Spotlight.h" />
+    <ClInclude Include="TerrainGenerator.h" />
     <ClInclude Include="Texture.h" />
     <ClInclude Include="TexturesManager.h" />
     <ClInclude Include="Vertex.h" />
@@ -206,6 +207,7 @@
     <ClCompile Include="Scene.cpp" />
     <ClCompile Include="Shader.cpp" />
     <ClCompile Include="Spotlight.cpp" />
+    <ClCompile Include="TerrainGenerator.cpp" />
     <ClCompile Include="Texture.cpp" />
     <ClCompile Include="TexturesManager.cpp" />
   </ItemGroup>
@@ -222,6 +224,17 @@
     <None Include="Shaders\TutorialShader2.frag" />
     <None Include="Shadow.frag" />
     <None Include="Shadow.vert" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Buller2013\src\BulletCollision\BulletCollision.vcxproj">
+      <Project>{5dbffc6c-8012-36de-b7da-f2428441afe6}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\Buller2013\src\BulletDynamics\BulletDynamics.vcxproj">
+      <Project>{e92df62b-f113-3c4d-b223-cda60b09c8cf}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\Buller2013\src\LinearMath\LinearMath.vcxproj">
+      <Project>{338eba43-c6ab-301a-a3d1-a9835ee51e78}</Project>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

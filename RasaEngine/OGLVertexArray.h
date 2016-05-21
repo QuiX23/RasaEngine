@@ -12,6 +12,6 @@ public:
 	/*  Functions  */
 	OGLVertexArray();
 	~OGLVertexArray();
-	void setVertexArray(const vector<Vertex> & vertices, const vector<int> & indices);
+	void setVertexArray(const vector<Vertex> & vertices, const vector<int> & indices) override;
 };
 

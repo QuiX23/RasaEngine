@@ -5,10 +5,12 @@
 
 
 //Bullet includes
+
 //#include "btBulletCollisionCommon.h"
-//#include "btBulletCollisionCommon.h"
-//#include "BulletDynamics\Dynamics\btDiscreteDynamicsWorld.h"
-//#include "BulletDynamics\ConstraintSolver\btSequentialImpulseConstraintSolver.h"
+#include <BulletCollision/BroadphaseCollision/btDbvtBroadphase.h>
+#include "btBulletDynamicsCommon.h"
+#include "BulletDynamics\Dynamics\btDiscreteDynamicsWorld.h"
+#include "BulletDynamics\ConstraintSolver\btSequentialImpulseConstraintSolver.h"
 
 
 #include "Shader.h"
@@ -42,30 +44,33 @@ Scene* scene;
 
 int main()
 {
+
 #pragma region OpenGlSetup
 	Context::getInstance().setOGLContext();
 	scene = new Scene();
+
+
 
 	// Set the required callback functions
 	glfwSetKeyCallback(Context::getInstance().window, key_callback);
 	glfwSetCursorPosCallback(Context::getInstance().window, mouse_callback);
 	glfwSetScrollCallback(Context::getInstance().window, scroll_callback);
 
-
+	
 	//#pragma region BulletSetup
 	////Bullet Broadphase alghoritm configuration
-	//btBroadphaseInterface* broadphase = new btDbvtBroadphase();
+	btBroadphaseInterface* broadphase = new btDbvtBroadphase();
 	//
 	//// Collision configuration for full  (not broadphase) collision detection
-	//btDefaultCollisionConfiguration* collisionConfiguration = new btDefaultCollisionConfiguration();
-	//btCollisionDispatcher* dispatcher = new btCollisionDispatcher(collisionConfiguration);
+	btDefaultCollisionConfiguration* collisionConfiguration = new btDefaultCollisionConfiguration();
+	btCollisionDispatcher* dispatcher = new btCollisionDispatcher(collisionConfiguration);
 	//
 	////Setting up "solver" for Bullet 
-	//btSequentialImpulseConstraintSolver* solver = new btSequentialImpulseConstraintSolver;
+	btSequentialImpulseConstraintSolver* solver = new btSequentialImpulseConstraintSolver;
 
-	//btDiscreteDynamicsWorld* dynamicsWorld = new btDiscreteDynamicsWorld(dispatcher, broadphase, solver, collisionConfiguration);
+	btDiscreteDynamicsWorld* dynamicsWorld = new btDiscreteDynamicsWorld(dispatcher, broadphase, solver, collisionConfiguration);
 	//#pragma endregion
-
+	
 	//If you have connected a MIDI controller, this will allow you to debug you code;
 #if _DEBUG
 	std::unique_ptr<MidiDebugger> midiDebug;
@@ -80,6 +85,7 @@ int main()
 #endif
 
 #pragma region RenderTests
+	/*
 	// Setup and compile shaders
 	Shader shader("Shaders/SimpleShader.vert", "Shaders/SimpleShader.frag");
 	Shader bulbShader("Shaders/LampShader.vert", "Shaders/LampShader.frag");
@@ -106,6 +112,7 @@ int main()
 			scene->addComponent(ourModel, gameObject);
 		}
 	}
+	*/
 #pragma endregion
 
 #pragma region LightTests
