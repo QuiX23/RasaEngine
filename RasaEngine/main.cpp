@@ -84,8 +84,6 @@ int main()
 	// Setup and compile shaders
 	Shader shader("Shaders/SimpleShader.vert", "Shaders/SimpleShader.frag");
 	//Shader bulbShader("Shaders/LampShader.vert", "Shaders/LampShader.frag");
-
-	/*
 	Shader skyboxShader("Shaders/SkyboxShader.vert", "Shaders/SkyboxShader.frag");
 	
 	string skyboxTex[] = { 
@@ -98,11 +96,7 @@ int main()
 	};
 
 	shared_ptr <Skybox> skybox = make_shared<Skybox>(Skybox(skyboxTex, skyboxShader));
-	boost::uuids::uuid gameObject = scene->addNewChild(glm::vec3(0.0f, 0.0f, 0.0f),
-		glm::vec4(0.0f, 1.0f, 0.0f, 0.0f),
-		glm::vec3(40.0f, 40.0f, 40.0f));
-	scene->addComponent(skybox, gameObject);
-	*/
+	scene->addSkybox(skybox);
 
 	shared_ptr <Model> ourModel = make_shared<Model>(Model("Models/nanosuit/nanosuit.obj", shader));
 	//shared_ptr <Model> bulb = make_shared<Model>(Model("Models/Bulb/Bulb.3DS", bulbShader));

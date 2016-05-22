@@ -49,9 +49,6 @@ void RenderQuad()
 
 #pragma endregion 
 
-
-
-
 Scene::Scene()
 {
 	debugDepthQuad = Shader("Quad.vert", "Quad.frag");
@@ -92,8 +89,6 @@ void Scene::addComponent(shared_ptr<Component> component, const UUID & gameObjec
 		{
 			addRenderable(component, gameObject);
 		}
-		else if (component->type == ComponentType_SKYBOX)
-			addSkybox(component, gameObject);
 }
 
 void Scene::addLight(shared_ptr<Component> component, const UUID & gameObject) 
@@ -118,12 +113,10 @@ void Scene::addRenderable(shared_ptr<Component> component, const UUID & gameObje
 	renderableCompts.insert(gameObject);
 }
 
-void Scene::addSkybox(shared_ptr<Component> component, const UUID & gameObject)
+void Scene::addSkybox(shared_ptr<Skybox> component)
 {
-	if (objectsCache[gameObject]->HasComponent(ComponentType::ComponentType_SKYBOX)) return;
-
-	objectsCache[gameObject]->AddComponent(component);
-	skybox = gameObject;//= static_pointer_cast<Skybox>(component);
+	if(skybox) return;
+	skybox = component;
 }
 
 UUID Scene::addChild(shared_ptr<GameObject> parent)
@@ -194,22 +187,20 @@ void Scene::setViewProjection(glm::mat4 projection, glm::mat4 view)
 
 void Scene::renderSkybox(glm::mat4 projection, glm::mat4 view)
 {
-	if (!skybox.is_nil())
+	if (skybox)
 	{
-		auto ptr = static_pointer_cast<Skybox>(objectsCache[skybox]->GetComponent(ComponentType_SKYBOX));
-
-		ptr->shader.Use();
-		glUniformMatrix4fv(glGetUniformLocation(ptr->shader.Program, "view"), 1, GL_FALSE, glm::value_ptr(view));
-		glUniformMatrix4fv(glGetUniformLocation(ptr->shader.Program, "projection"), 1, GL_FALSE, glm::value_ptr(projection));
+		skybox->shader.Use();
+		glUniformMatrix4fv(glGetUniformLocation(skybox->shader.Program, "view"), 1, GL_FALSE, glm::value_ptr(view));
+		glUniformMatrix4fv(glGetUniformLocation(skybox->shader.Program, "projection"), 1, GL_FALSE, glm::value_ptr(projection));
 
 		glm::mat4 model;
-		model = glm::translate(model, objectsCache[skybox]->position); // Translate it down a bit so it's at the center of the scene
-		model = glm::scale(model, objectsCache[skybox]->scale);	// It's a bit too big for our scene, so scale it down
-		model = glm::rotate(model, objectsCache[skybox]->rotation.w, glm::vec3(objectsCache[skybox]->rotation));	// It's a bit too big for our scene, so scale it down
+		model = glm::translate(model, camera.Position);
+		//model = glm::scale(model, objectsCache[skybox]->scale);	// It's a bit too big for our scene, so scale it down
+		//model = glm::rotate(model, objectsCache[skybox]->rotation.w, glm::vec3(objectsCache[skybox]->rotation));	// It's a bit too big for our scene, so scale it down
 
-		glUniformMatrix4fv(glGetUniformLocation(ptr->shader.Program, "model"), 1, GL_FALSE, glm::value_ptr(model));
+		glUniformMatrix4fv(glGetUniformLocation(skybox->shader.Program, "model"), 1, GL_FALSE, glm::value_ptr(model));
 
-		ptr->draw(*Context::getInstance().renderer);
+		skybox->draw(*Context::getInstance().renderer);
 	}
 }
 

@@ -23,13 +23,6 @@ shared_ptr<IVertexArray> Context::CreateVertexArray(const vector<Vertex> & verti
 	return vertexArray;
 }
 
-shared_ptr<IVertexArray> Context::CreateSkyBoxVertexArray()const
-{
-	shared_ptr<IVertexArray> vertexArray = make_shared<OGLVertexArray>();
-	vertexArray->generateSkyboxVertexArray();
-	return vertexArray;
-}
-
 shared_ptr<ITextureBuffer> Context::CreateTextureBuffer(const unsigned char* const texture, const int& width, const int& height,TextureType type)const
 {
 	shared_ptr<ITextureBuffer> textureBuffer = make_shared<OGLTextureBuffer>();

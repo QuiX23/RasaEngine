@@ -16,4 +16,5 @@ private:
 	shared_ptr<IVertexArray> vertexArray;
 
 	void loadSkybox(string* paths);
+	void generateVertexArray();
 };
