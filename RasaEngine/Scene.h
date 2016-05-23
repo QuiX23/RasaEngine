@@ -36,6 +36,8 @@ public:
 	/*  Scene Functions  */
 	void update();
 	void addComponent(shared_ptr<Component> component, const UUID & gameObject);
+	void addSkybox(shared_ptr<Skybox> skybox);
+
 	UUID addNewChild();
 	UUID addNewChild(glm::vec3 position, glm::vec4 rotation, glm::vec3 scale);
 	UUID addNewChildToParent(UUID parentID);
@@ -47,9 +49,7 @@ private:
 	/*  Scene data  */
 	LightsManager lightsManager;
 	shared_ptr<GameObject> root;
-	//shared_ptr<GameObject> skybox;
-	//shared_ptr<Skybox> skybox;
-	UUID skybox;
+	shared_ptr<Skybox> skybox;
 
 	boost::container::map<UUID, shared_ptr<GameObject>> objectsCache;
 	boost::container::set<UUID> renderableCompts;
@@ -57,7 +57,6 @@ private:
 	UUID addChild(shared_ptr<GameObject> parent);
 	void addLight(shared_ptr<Component> component, const UUID & gameObject);
 	void addRenderable(shared_ptr<Component> component, const UUID & gameObject);
-	void addSkybox(shared_ptr<Component> skybox, const UUID & gameObject);
 	void lightUpdate();
 	void renderUpdate();
 	void renderSkybox(glm::mat4 projection, glm::mat4 view);

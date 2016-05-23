@@ -25,7 +25,7 @@ public:
 	shared_ptr<ITextureBuffer> CreateTextureBuffer(const unsigned char* const texture, const int& width, const int& height, TextureType type)const;
 	shared_ptr<ITextureBuffer> CreateTextureBuffer(vector<const unsigned char*> & textures, const int* widths, const int* heights)const;
 	shared_ptr<IFrameBuffer> CreateFrameBuffer(const int & width, const int & height)const;
-	shared_ptr<IVertexArray> Context::CreateSkyBoxVertexArray() const;
+
 private:
 	Context(){};
 

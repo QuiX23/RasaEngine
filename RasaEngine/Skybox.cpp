@@ -10,8 +10,8 @@ Skybox::Skybox(string* paths, Shader shader) : Component(ComponentType_SKYBOX)
 
 void Skybox::loadSkybox(string* paths)
 {
-	this->vertexArray = Context::getInstance().CreateSkyBoxVertexArray();
 	this->textures.push_back(TexturesManager::getInstance().CreateCubeMap(paths));
+	generateVertexArray();
 }
 
 void Skybox::draw(IRenderer& renderer)
@@ -20,3 +20,67 @@ void Skybox::draw(IRenderer& renderer)
 	renderer.renderObject(*vertexArray, textures, shader);
 }
 
+void Skybox::generateVertexArray()
+{
+	GLfloat skyboxVertices[] = {
+		// Positions          
+		-1.0f,  1.0f, -1.0f,
+		-1.0f, -1.0f, -1.0f,
+		1.0f, -1.0f, -1.0f,
+		1.0f, -1.0f, -1.0f,
+		1.0f,  1.0f, -1.0f,
+		-1.0f,  1.0f, -1.0f,
+
+		-1.0f, -1.0f,  1.0f,
+		-1.0f, -1.0f, -1.0f,
+		-1.0f,  1.0f, -1.0f,
+		-1.0f,  1.0f, -1.0f,
+		-1.0f,  1.0f,  1.0f,
+		-1.0f, -1.0f,  1.0f,
+
+		1.0f, -1.0f, -1.0f,
+		1.0f, -1.0f,  1.0f,
+		1.0f,  1.0f,  1.0f,
+		1.0f,  1.0f,  1.0f,
+		1.0f,  1.0f, -1.0f,
+		1.0f, -1.0f, -1.0f,
+
+		-1.0f, -1.0f,  1.0f,
+		-1.0f,  1.0f,  1.0f,
+		1.0f,  1.0f,  1.0f,
+		1.0f,  1.0f,  1.0f,
+		1.0f, -1.0f,  1.0f,
+		-1.0f, -1.0f,  1.0f,
+
+		-1.0f,  1.0f, -1.0f,
+		1.0f,  1.0f, -1.0f,
+		1.0f,  1.0f,  1.0f,
+		1.0f,  1.0f,  1.0f,
+		-1.0f,  1.0f,  1.0f,
+		-1.0f,  1.0f, -1.0f,
+
+		-1.0f, -1.0f, -1.0f,
+		-1.0f, -1.0f,  1.0f,
+		1.0f, -1.0f, -1.0f,
+		1.0f, -1.0f, -1.0f,
+		-1.0f, -1.0f,  1.0f,
+		1.0f, -1.0f,  1.0f
+	};
+
+	vector<Vertex> vertices;
+
+	for (int i = 0; i < 36; i++)
+	{
+		Vertex vertex;
+		vertex.Type[VertexFlag_POSITION] = 1;
+
+		glm::vec3 vector;
+
+		vector.x = skyboxVertices[3*i];
+		vector.y = skyboxVertices[3*i + 1];
+		vector.z = skyboxVertices[3*i + 2];
+		vertex.Position = vector;
+		vertices.push_back(vertex);
+	}
+	vertexArray = Context::getInstance().CreateVertexArray(vertices, vector<int>());
+}

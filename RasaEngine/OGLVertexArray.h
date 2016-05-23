@@ -13,6 +13,5 @@ public:
 	OGLVertexArray();
 	~OGLVertexArray();
 	void setVertexArray(const vector<Vertex> & vertices, const vector<int> & indices);
-	void OGLVertexArray::generateSkyboxVertexArray();
 };
 
