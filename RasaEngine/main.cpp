@@ -7,6 +7,7 @@
 //Bullet includes
 
 //#include "btBulletCollisionCommon.h"
+
 #include <BulletCollision/BroadphaseCollision/btDbvtBroadphase.h>
 #include "btBulletDynamicsCommon.h"
 #include "BulletDynamics\Dynamics\btDiscreteDynamicsWorld.h"
@@ -17,7 +18,6 @@
 #include "Camera.h"
 #include "Model.h"
 #include "Light.h"
-#include "Skybox.h"
 
 
 #include "MidiDebugger.h"
@@ -57,7 +57,7 @@ int main()
 	glfwSetCursorPosCallback(Context::getInstance().window, mouse_callback);
 	glfwSetScrollCallback(Context::getInstance().window, scroll_callback);
 
-	
+
 	//#pragma region BulletSetup
 	////Bullet Broadphase alghoritm configuration
 	btBroadphaseInterface* broadphase = new btDbvtBroadphase();
@@ -71,7 +71,7 @@ int main()
 
 	btDiscreteDynamicsWorld* dynamicsWorld = new btDiscreteDynamicsWorld(dispatcher, broadphase, solver, collisionConfiguration);
 	//#pragma endregion
-	
+
 	//If you have connected a MIDI controller, this will allow you to debug you code;
 #if _DEBUG
 	std::unique_ptr<MidiDebugger> midiDebug;
@@ -89,29 +89,11 @@ int main()
 	/*
 	// Setup and compile shaders
 	Shader shader("Shaders/SimpleShader.vert", "Shaders/SimpleShader.frag");
-	//Shader bulbShader("Shaders/LampShader.vert", "Shaders/LampShader.frag");
+	Shader bulbShader("Shaders/LampShader.vert", "Shaders/LampShader.frag");
 
-	/*
-	Shader skyboxShader("Shaders/SkyboxShader.vert", "Shaders/SkyboxShader.frag");
-	
-	string skyboxTex[] = { 
-		"Models/skybox/right.jpg", 
-		"Models/skybox/left.jpg", 
-		"Models/skybox/top.jpg",
-		"Models/skybox/bottom.jpg",
-		"Models/skybox/back.jpg",
-		"Models/skybox/front.jpg" 
-	};
-
-	shared_ptr <Skybox> skybox = make_shared<Skybox>(Skybox(skyboxTex, skyboxShader));
-	boost::uuids::uuid gameObject = scene->addNewChild(glm::vec3(0.0f, 0.0f, 0.0f),
-		glm::vec4(0.0f, 1.0f, 0.0f, 0.0f),
-		glm::vec3(40.0f, 40.0f, 40.0f));
-	scene->addComponent(skybox, gameObject);
-	*/
-
+	//Model ourModel("Models/nanosuit/nanosuit.obj", shader);
 	shared_ptr <Model> ourModel = make_shared<Model>(Model("Models/nanosuit/nanosuit.obj", shader));
-	//shared_ptr <Model> bulb = make_shared<Model>(Model("Models/Bulb/Bulb.3DS", bulbShader));
+	shared_ptr <Model> bulb = make_shared<Model>(Model("Models/Bulb/Bulb.3DS", bulbShader));
 
 	int count = 7;
 	float x = -10;
@@ -120,16 +102,16 @@ int main()
 	// without use ofinstantiation. Will be implemented later.
 	for (int i = 0; i < count; i++)
 	{
-		x += 2;
-		float z = -10;
-		for (int i = 0; i < count; i++)
-		{
-			z += 2;
-			boost::uuids::uuid gameObject = scene->addNewChild(glm::vec3(x, -1.75f, z),
-				glm::vec4(0.0f, 1.0f, 0.0f, 0.0f),
-				glm::vec3(0.2f, 0.2f, 0.2f));
-			scene->addComponent(ourModel, gameObject);
-		}
+	x += 2;
+	float z = -10;
+	for (int i = 0; i < count; i++)
+	{
+	z += 2;
+	boost::uuids::uuid gameObject = scene->addNewChild(glm::vec3(x, -1.75f, z),
+	glm::vec4(0.0f, 1.0f, 0.0f, 0.0f),
+	glm::vec3(0.2f, 0.2f, 0.2f));
+	scene->addComponent(ourModel, gameObject);
+	}
 	}
 	*/
 #pragma endregion

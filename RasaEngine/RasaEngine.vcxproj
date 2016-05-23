@@ -107,7 +107,7 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>C:\Users\skarp\Desktop\ProjektGrupowy\RasaEngine\MIDI;C:\Users\skarp\Desktop\ProjektGrupowy\Bullet\bullet3-2.83.6\bullet3-2.83.6\src;..\glew-1.13.0\include;..\glfw-3.1.2.bin.WIN64\include;..\Simple OpenGL Image Library\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\Users\skarp\Desktop\ProjektGrupowy\RasaEngine\MIDI;D:\Downloads\bullet3-2.83.7\src;..\glew-1.13.0\include;..\glfw-3.1.2.bin.WIN64\include;..\Simple OpenGL Image Library\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <SDLCheck>true</SDLCheck>
       <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
     </ClCompile>
@@ -153,10 +153,13 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="BoxCollider.h" />
     <ClInclude Include="Camera.h" />
+    <ClInclude Include="Collider.h" />
     <ClInclude Include="Color.h" />
     <ClInclude Include="Component.h" />
     <ClInclude Include="Context.h" />
+    <ClInclude Include="CubeMap.h" />
     <ClInclude Include="DirectionalLight.h" />
     <ClInclude Include="GameObject.h" />
     <ClInclude Include="IFrameBuffer.h" />
@@ -176,17 +179,23 @@
     <ClInclude Include="OGLRenderer.h" />
     <ClInclude Include="OGLTextureBuffer.h" />
     <ClInclude Include="OGLVertexArray.h" />
+    <ClInclude Include="PlaneCollider.h" />
     <ClInclude Include="Pointlight.h" />
     <ClInclude Include="Scene.h" />
     <ClInclude Include="Shader.h" />
+    <ClInclude Include="Skybox.h" />
     <ClInclude Include="Spotlight.h" />
     <ClInclude Include="TerrainGenerator.h" />
     <ClInclude Include="Texture.h" />
+    <ClInclude Include="Texture2D.h" />
     <ClInclude Include="TexturesManager.h" />
     <ClInclude Include="Vertex.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="BoxCollider.cpp" />
     <ClCompile Include="Camera.cpp" />
+    <ClCompile Include="Collider.cpp" />
+    <ClCompile Include="CubeMap.cpp" />
     <ClCompile Include="DirectionalLight.cpp" />
     <ClCompile Include="GameObject.cpp" />
     <ClCompile Include="Light.cpp" />
@@ -203,12 +212,14 @@
     <ClCompile Include="OGLRenderer.cpp" />
     <ClCompile Include="OGLTextureBuffer.cpp" />
     <ClCompile Include="OGLVertexArray.cpp" />
+    <ClCompile Include="PlaneCollider.cpp" />
     <ClCompile Include="Pointlight.cpp" />
     <ClCompile Include="Scene.cpp" />
     <ClCompile Include="Shader.cpp" />
+    <ClCompile Include="Skybox.cpp" />
     <ClCompile Include="Spotlight.cpp" />
     <ClCompile Include="TerrainGenerator.cpp" />
-    <ClCompile Include="Texture.cpp" />
+    <ClCompile Include="Texture2D.cpp" />
     <ClCompile Include="TexturesManager.cpp" />
   </ItemGroup>
   <ItemGroup>
