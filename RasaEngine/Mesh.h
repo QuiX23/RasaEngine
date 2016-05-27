@@ -19,7 +19,8 @@ public:
 	Material material;
 	/*  Functions  */
 	Mesh(vector<Vertex> vertices, vector<int> indices, Material material, Shader shader);
-	void draw(IRenderer & renderer);
+	static Mesh genericPlane();
+	void draw(IRenderer & renderer) override;
 private:
 	/*  Render data  */
 	shared_ptr<IVertexArray> vertexArray;

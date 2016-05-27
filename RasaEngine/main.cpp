@@ -3,17 +3,6 @@
 
 #include <glm/glm.hpp>
 
-
-//Bullet includes
-
-//#include "btBulletCollisionCommon.h"
-
-#include <BulletCollision/BroadphaseCollision/btDbvtBroadphase.h>
-#include "btBulletDynamicsCommon.h"
-#include "BulletDynamics\Dynamics\btDiscreteDynamicsWorld.h"
-#include "BulletDynamics\ConstraintSolver\btSequentialImpulseConstraintSolver.h"
-
-
 #include "Shader.h"
 #include "Camera.h"
 #include "Model.h"
@@ -26,6 +15,11 @@
 #include <boost/uuid/uuid.hpp>
 #include "DirectionalLight.h"
 #include "Scene.h"
+#include "Collider.h"
+#include "PlaneCollider.h"
+#include "SphereCollider.h"
+#include "RigidBody.h"
+
 
 
 // Function prototypes
@@ -58,23 +52,36 @@ int main()
 	glfwSetScrollCallback(Context::getInstance().window, scroll_callback);
 
 
-	//#pragma region BulletSetup
-	////Bullet Broadphase alghoritm configuration
-	btBroadphaseInterface* broadphase = new btDbvtBroadphase();
-	//
-	//// Collision configuration for full  (not broadphase) collision detection
-	btDefaultCollisionConfiguration* collisionConfiguration = new btDefaultCollisionConfiguration();
-	btCollisionDispatcher* dispatcher = new btCollisionDispatcher(collisionConfiguration);
-	//
-	////Setting up "solver" for Bullet 
-	btSequentialImpulseConstraintSolver* solver = new btSequentialImpulseConstraintSolver;
+#pragma region BulletTest
 
-	btDiscreteDynamicsWorld* dynamicsWorld = new btDiscreteDynamicsWorld(dispatcher, broadphase, solver, collisionConfiguration);
-	//#pragma endregion
+	Shader shader("Shaders/SimpleShader.vert", "Shaders/SimpleShader.frag");
+	//Model ourModel("Models/nanosuit/nanosuit.obj", shader);
+	shared_ptr <Model> ourModel = make_shared<Model>(Model("Models/nanosuit/nanosuit.obj", shader));
+	shared_ptr <Model> plane = make_shared<Model>(Model::genericPlane());
+
+
+	auto floor = scene->addNewChild(glm::vec3(0.0f, -5.0f, 0.0f),
+		glm::vec4(0.0f, 0.0f, 0.0f, 1.0f),
+		glm::vec3(1.0f, 1.0f, 1.0f));
+	shared_ptr<Collider> floorPlane = make_shared<PlaneCollider>(btVector3(0, 1, 0), 1);
+	scene->addRigidBody(floorPlane, floor);
+	//scene->addComponent(plane, floor);
+
+	auto ball = scene->addNewChild(glm::vec3(0.0f, 10.0f, -10.0f),
+		glm::vec4(0.0f, 0.0f, 0.0f, 1.0f),
+		glm::vec3(0.2f, 0.2f, 0.2f));
+	shared_ptr<Collider> ballSphere = make_shared<SphereCollider>(1);
+	scene->addRigidBody(ballSphere, ball);
+	auto rb= static_pointer_cast<RigidBody>(scene->getGameObject(ball)->GetComponent(ComponentType_RigidBody));
+	rb->setAsDynamic();
+
+	scene->addComponent(ourModel, ball);
+
+#pragma endregion 
 
 	//If you have connected a MIDI controller, this will allow you to debug you code;
 #if _DEBUG
-	std::unique_ptr<MidiDebugger> midiDebug;
+	unique_ptr<MidiDebugger> midiDebug;
 	try
 	{
 		midiDebug = std::make_unique<MidiDebugger>();
@@ -86,6 +93,19 @@ int main()
 #endif
 
 #pragma region RenderTests
+	Shader skyboxShader("Shaders/SkyboxShader.vert", "Shaders/SkyboxShader.frag");
+
+	string skyboxTex[] = {
+		"Models/skybox/right.jpg",
+		"Models/skybox/left.jpg",
+		"Models/skybox/top.jpg",
+		"Models/skybox/bottom.jpg",
+		"Models/skybox/back.jpg",
+		"Models/skybox/front.jpg"
+	};
+
+	shared_ptr <Skybox> skybox = make_shared<Skybox>(Skybox(skyboxTex, skyboxShader));
+	scene->addSkybox(skybox);
 	/*
 	// Setup and compile shaders
 	Shader shader("Shaders/SimpleShader.vert", "Shaders/SimpleShader.frag");
@@ -125,6 +145,7 @@ int main()
 	pLight.linear = 0.009;
 	pLight.quadratic = 0.0032;
 
+
 	boost::uuids::uuid pLight1 = scene->addNewChild(glm::vec3(2.3f, 4, -3.0f),
 		glm::vec4(0.0f, 0.0f, 1.0f, 3.141592f),
 		glm::vec3(0.2f, 0.2f, 0.2f));
@@ -133,7 +154,7 @@ int main()
 
 	DirectionalLight dLight = DirectionalLight();
 	dLight.position = glm::vec3(0.0f, 0.5f, -2.0f);
-	dLight.ambientColor = glm::vec3(0.1f, 0.1f, 0.1f);
+	dLight.ambientColor = glm::vec3(0.4f, 0.4f, 0.4f);
 	dLight.diffuseColor = glm::vec3(1.0f, 1.0f, 1.0f);
 	dLight.specularColor = glm::vec3(1.0f, 1.0f, 1.0f);
 	dLight.direction = glm::vec3(0.2f, -0.3f, 1.0f);

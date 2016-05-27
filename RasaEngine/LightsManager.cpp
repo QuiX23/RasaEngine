@@ -38,7 +38,7 @@ void LightsManager::addLight( shared_ptr<C_Light> light)
 	}
 }
 
-shared_ptr<ITextureBuffer>  LightsManager::calcShadows(Scene scene)
+shared_ptr<ITextureBuffer>  LightsManager::calcShadows(Scene* scene)
 {
 	Context::getInstance().renderer->setFrameBuffer(*fbo);
 	
@@ -52,7 +52,7 @@ shared_ptr<ITextureBuffer>  LightsManager::calcShadows(Scene scene)
 		
 		lightSpaceMatrix = lightProjection*lightView;
 
-		scene.renderObjects(lightProjection, lightView,shader);
+		scene->renderObjects(lightProjection, lightView,shader);
 	}
 
 	Context::getInstance().renderer->unSetFrameBuffer();

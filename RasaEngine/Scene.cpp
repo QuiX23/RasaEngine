@@ -8,10 +8,15 @@
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
+#include <glm/gtx/quaternion.hpp>
+#include <glm/gtc/quaternion.hpp>
 
 #include <boost/uuid/uuid_generators.hpp> // generators
 #include <assert.h> 
+#include <iostream>
 #include "Context.h"
+#include "Collider.h"
+#include "RigidBody.h"
 
 
 #pragma region Quad Dedub
@@ -49,7 +54,7 @@ void RenderQuad()
 
 #pragma endregion 
 
-Scene::Scene()
+Scene::Scene() :physicsWordl()
 {
 	debugDepthQuad = Shader("Quad.vert", "Quad.frag");
 
@@ -113,6 +118,15 @@ void Scene::addRenderable(shared_ptr<Component> component, const UUID & gameObje
 	renderableCompts.insert(gameObject);
 }
 
+void Scene::addRigidBody(std::shared_ptr<Collider>  collider, const UUID& gameObject)
+{
+	if (objectsCache[gameObject]->HasComponent(ComponentType::ComponentType_RigidBody)) return;
+
+	objectsCache[gameObject]->AddRigidBody(collider, &physicsWordl);
+	rigidBodies.insert(gameObject);
+}
+
+
 void Scene::addSkybox(shared_ptr<Skybox> component)
 {
 	if(skybox) return;
@@ -135,12 +149,31 @@ UUID Scene::addChild(shared_ptr<GameObject> parent)
 void Scene::update()
 {
 	renderUpdate();
+	physicsWordl.stepSimulation();
+
+
+	for each (UUID var in rigidBodies)
+	{
+		auto ptr = static_pointer_cast<RigidBody>(objectsCache[var]->GetComponent(ComponentType_RigidBody));
+		auto ptr2 = static_pointer_cast<RigidBody>(objectsCache[var]->GetComponent(ComponentType_RENDERABLE));
+		if (ptr->isDynamic())
+		{
+			float x = ptr->getTransform().getOrigin().getX();
+			float y = ptr->getTransform().getOrigin().getY();
+			float z = ptr->getTransform().getOrigin().getZ();
+			getGameObject(var)->position= glm::vec3(x,y,z);
+			cout << getGameObject(var)->position.x<< " "<< getGameObject(var)->position.y<<" "<< getGameObject(var)->position.z<<endl;
+			//cout << "sphere height: " << ptr->getTransform().getOrigin().getY() << std::endl;
+		}
+		//else
+		//	cout << "floor height: " << ptr->getTransform().getOrigin().getY() << std::endl;
+	}
 }   
 
 void Scene::renderUpdate() 
 {
 	
-	lightsManager.calcShadows(*this);
+	lightsManager.calcShadows(this);
 
 #pragma region Transformation matrices 
 	
@@ -204,6 +237,11 @@ void Scene::renderSkybox(glm::mat4 projection, glm::mat4 view)
 	}
 }
 
+shared_ptr<GameObject> Scene::getGameObject(UUID goID)
+{
+	return objectsCache[goID];
+}
+
 void Scene::renderObjects(glm::mat4 projection, glm::mat4 view)
 {
 	setViewProjection(projection, view);
@@ -224,7 +262,9 @@ void Scene::renderObjects(glm::mat4 projection, glm::mat4 view)
 		glm::mat4 model;
 		model = glm::translate(model, objectsCache[var]->position); // Translate it down a bit so it's at the center of the scene
 		model = glm::scale(model, objectsCache[var]->scale);	// It's a bit too big for our scene, so scale it down
-		model = glm::rotate(model, objectsCache[var]->rotation.w, glm::vec3(objectsCache[var]->rotation));	// It's a bit too big for our scene, so scale it down
+		//model = glm::rotate(model, objectsCache[var]->rotation.w, glm::vec3(objectsCache[var]->rotation));
+
+		//glm::mat4 RotationMatrix = glm::toMat4(glm::rotation);
 
 		glUniformMatrix4fv(glGetUniformLocation(ptr->shader.Program, "model"), 1, GL_FALSE, glm::value_ptr(model));
 		ptr->draw(*Context::getInstance().renderer);

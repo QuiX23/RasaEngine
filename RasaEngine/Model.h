@@ -17,9 +17,10 @@ class Model:public IRenderable,public Component
 public:
 	/*  Functions   */
 	Model(char* path, Shader shader);
-	
+	static Model genericPlane();
 	void draw(IRenderer & renderer);
 private:
+	Model(vector<Mesh> meshes);
 	/*  Model Data  */
 	vector<Mesh> meshes;
 	string directory;

@@ -10,6 +10,8 @@
 #include <boost/uuid/uuid.hpp>            // uuid class
 
 
+class PhysicsWorld;
+class Collider;
 using namespace std;
 
 class GameObject
@@ -28,6 +30,7 @@ public:
 	/*GameObject functions*/
 	shared_ptr<Component> GetComponent(ComponentType type);
 	void AddComponent(shared_ptr<Component> component);
+	void AddRigidBody(std::shared_ptr<Collider> collider, PhysicsWorld* physicsWorld);
 	bool HasComponent(ComponentType type);
 
 	GameObject();

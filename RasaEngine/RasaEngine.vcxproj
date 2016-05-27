@@ -179,11 +179,14 @@
     <ClInclude Include="OGLRenderer.h" />
     <ClInclude Include="OGLTextureBuffer.h" />
     <ClInclude Include="OGLVertexArray.h" />
+    <ClInclude Include="PhysicsWorld.h" />
     <ClInclude Include="PlaneCollider.h" />
     <ClInclude Include="Pointlight.h" />
+    <ClInclude Include="RigidBody.h" />
     <ClInclude Include="Scene.h" />
     <ClInclude Include="Shader.h" />
     <ClInclude Include="Skybox.h" />
+    <ClInclude Include="SphereCollider.h" />
     <ClInclude Include="Spotlight.h" />
     <ClInclude Include="TerrainGenerator.h" />
     <ClInclude Include="Texture.h" />
@@ -212,17 +215,22 @@
     <ClCompile Include="OGLRenderer.cpp" />
     <ClCompile Include="OGLTextureBuffer.cpp" />
     <ClCompile Include="OGLVertexArray.cpp" />
+    <ClCompile Include="PhysicsWorld.cpp" />
     <ClCompile Include="PlaneCollider.cpp" />
     <ClCompile Include="Pointlight.cpp" />
+    <ClCompile Include="RigidBody.cpp" />
     <ClCompile Include="Scene.cpp" />
     <ClCompile Include="Shader.cpp" />
     <ClCompile Include="Skybox.cpp" />
+    <ClCompile Include="SphereCollider.cpp" />
     <ClCompile Include="Spotlight.cpp" />
     <ClCompile Include="TerrainGenerator.cpp" />
     <ClCompile Include="Texture2D.cpp" />
     <ClCompile Include="TexturesManager.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="GenericShader.frag" />
+    <None Include="GenericShader.vert" />
     <None Include="packages.config" />
     <None Include="Quad.frag" />
     <None Include="Quad.vert" />

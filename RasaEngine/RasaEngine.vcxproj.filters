@@ -165,6 +165,15 @@
     <ClInclude Include="PlaneCollider.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="RigidBody.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="PhysicsWorld.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="SphereCollider.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Camera.cpp">
@@ -254,6 +263,15 @@
     <ClCompile Include="PlaneCollider.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="RigidBody.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="PhysicsWorld.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="SphereCollider.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
@@ -288,6 +306,12 @@
       <Filter>Shaders</Filter>
     </None>
     <None Include="Quad.vert">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="GenericShader.frag">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="GenericShader.vert">
       <Filter>Shaders</Filter>
     </None>
   </ItemGroup>

@@ -19,6 +19,16 @@ Model::Model(char* path, Shader shader): Component(ComponentType_RENDERABLE)
 	this->loadModel(path);
 }
 
+Model Model::genericPlane()
+{
+	vector<Mesh> m = { Mesh::genericPlane() };
+	return Model(m);
+}
+
+Model::Model(vector<Mesh> meshes) : Component(ComponentType_RENDERABLE)
+{
+	this->meshes = meshes;
+}
 
 
 void Model::loadModel(std::string path){
@@ -174,7 +184,7 @@ void Model::loadMaterialColors(aiMaterial* aiMat, Material* mat)
 
 void Model::draw(IRenderer & renderer)
 {
-	if (!shader.initialized) throw exception("Renderable don't have any shader atached!");
+	//if (!shader.initialized) throw exception("Renderable don't have any shader atached!");
 	
 	for (GLuint i = 0; i < this->meshes.size(); i++)
     {

@@ -41,6 +41,11 @@ void OGLVertexArray::setVertexArray(const vector<Vertex> & vertices, const vecto
 		glEnableVertexAttribArray(index);
 		glVertexAttribPointer(index++, 2, GL_FLOAT, GL_FALSE, sizeof(Vertex), (GLvoid*)offsetof(Vertex, TexCoords));
 	}
+	else if (vertices[0].Type[VertexFlag_COLOR])
+	{
+		glEnableVertexAttribArray(index);
+		glVertexAttribPointer(index++, 4, GL_FLOAT, GL_FALSE, sizeof(Vertex), (GLvoid*)offsetof(Vertex, Color));
+	}
 
 	glBindVertexArray(0);
 }

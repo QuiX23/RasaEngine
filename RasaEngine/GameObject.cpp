@@ -1,4 +1,6 @@
 #include "GameObject.h"
+#include "Collider.h"
+#include "RigidBody.h"
 
 shared_ptr<Component> GameObject::GetComponent(ComponentType type)
 {
@@ -9,6 +11,15 @@ void GameObject::AddComponent( shared_ptr<Component> component)
 {
 	m_components[component->type] = component;
 }
+
+void GameObject::AddRigidBody(std::shared_ptr<Collider> collider, PhysicsWorld* physicsWorld)
+{
+	shared_ptr<Component> rigidBody = make_shared<RigidBody>(btVector3(position.x, position.y, position.z),
+															btQuaternion(rotation.x, rotation.y, rotation.z, rotation.w),
+															collider, physicsWorld);
+	AddComponent(rigidBody);
+}
+
 bool GameObject::HasComponent(ComponentType type)
 {
 
@@ -21,7 +32,7 @@ bool GameObject::HasComponent(ComponentType type)
 GameObject::GameObject()
 {
 	position = glm::vec3(0, 0, 0);
-	rotation = glm::vec4(0, 0, 0,0);
+	rotation = glm::vec4(0, 0, 0,1);
 	scale = glm::vec3(1, 1, 1);
 	name = "default";
 }

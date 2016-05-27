@@ -16,7 +16,7 @@ void OGLRenderer::renderObject(const IVertexArray & vertexArray, const vector<sh
 {
 	const OGLVertexArray &vArray = static_cast <const OGLVertexArray&>(vertexArray);
 	
-	if (textures[0]->type == TextureType_CUBEMAP)
+	if (textures.size()&&textures[0]->type == TextureType_CUBEMAP)
 	{
 		const OGLTextureBuffer &tBuffer = static_cast <const OGLTextureBuffer&>(*textures[0]->textureBuffer);
 		
