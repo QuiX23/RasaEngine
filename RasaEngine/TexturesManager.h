@@ -1,6 +1,5 @@
 #pragma once
 #include "Texture2D.h"
-#include "CubeMap.h"
 #include "vector"
 using namespace std;
 class TexturesManager

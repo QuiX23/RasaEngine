@@ -40,7 +40,6 @@ void RigidBody::setAsDynamic()
 	
 	rigidBody = new btRigidBody(*info);
 	physicsWorld->addRigibody(&*rigidBody);
-
 }
 
 btTransform RigidBody::getTransform() const

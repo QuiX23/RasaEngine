@@ -1,6 +1,4 @@
 #pragma once
-
-
 #include "Component.h"
 #include <glm/glm.hpp>
 #include <memory>
@@ -8,7 +6,6 @@
 #include <vector>
 
 #include <boost/uuid/uuid.hpp>            // uuid class
-
 
 class PhysicsWorld;
 class Collider;
@@ -39,7 +36,7 @@ public:
 
 private:
 	glm::mat4 modelMatrix;
-	std::map<ComponentType, shared_ptr<Component>> m_components;
+	map<ComponentType, shared_ptr<Component>> m_components;
 
 };
 

@@ -1,9 +1,5 @@
 #include "Mesh.h"
-
 #include "Context.h"
-
-
-
 
 Mesh::Mesh(vector<Vertex> vertices, vector<int> indices, Material material, Shader shader) :vertices(vertices), indices(indices), material (material)
 {

@@ -1,6 +1,7 @@
 #include "TexturesManager.h"
 #include <SOIL.h>
 #include <algorithm>
+#include "CubeMap.h"
 
 TexturesManager& TexturesManager::getInstance()
 {
@@ -12,9 +13,7 @@ TexturesManager& TexturesManager::getInstance()
 unique_ptr<unsigned char> TexturesManager::TextureFromFile(string filename, int &width, int &height)
 {
 	//Generate texture ID and load texture data 
-	//unsigned char* image = SOIL_load_image(filename.c_str(), &width, &height, 0, SOIL_LOAD_RGB);
 	unique_ptr<unsigned char> temp(SOIL_load_image(filename.c_str(), &width, &height, 0, SOIL_LOAD_RGB));
-	//SOIL_free_image_data(image);
 	return move(temp);
 }
 shared_ptr<Texture> TexturesManager::CreateTexture2D(string path, string directory, TextureType type, float blend, TextureBlendOperation op)
@@ -23,8 +22,6 @@ shared_ptr<Texture> TexturesManager::CreateTexture2D(string path, string directo
 
 	if (it != texturesBuffers.end())
 	{
-		// found element. it is an iterator to the first matching element.
-		// if you really need the index, you can also get it:
 		auto index = std::distance(texturesBuffers.begin(), it);
 		return texturesBuffers[index];
 	}
@@ -45,9 +42,6 @@ shared_ptr<Texture> TexturesManager::CreateCubeMap(string* filenames)
 	for (int i = 0; i < 6; i++)
 	{
 		//Rozwiazanie tymczasowe
-
-		/*unique_ptr<unsigned char> tempImage = TextureFromFile(filenames[i], widths[i], heights[i]);
-		tempImages.push_back(&*tempImage);*/
 		unsigned char* image = SOIL_load_image(filenames[i].c_str(), &widths[i], &heights[i], 0, SOIL_LOAD_RGB);
 		tempImages.push_back(image);
 	}

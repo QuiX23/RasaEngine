@@ -22,7 +22,6 @@ void GameObject::AddRigidBody(std::shared_ptr<Collider> collider, PhysicsWorld* 
 
 bool GameObject::HasComponent(ComponentType type)
 {
-
 	if (m_components.find(type) == m_components.end())
 		return false;
 	return true;

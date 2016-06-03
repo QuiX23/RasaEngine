@@ -10,10 +10,8 @@
 #include <boost\container\map.hpp>
 #include <boost\container\set.hpp>
 
-
 class Scene;
 typedef boost::uuids::uuid UUID;
-
 
 class LightsManager
 {

@@ -41,10 +41,8 @@ in VS_OUT {
   vec4 FragPosLightSpace;
 } fs_in;
 
-
 uniform PointLight pointLights[NR_POINT_LIGHTS];
 uniform	DirectionalLight directionalLights[NR_DIRECTIONAL_LIGHTS];
-
 
 uniform vec3 viewPos;
 uniform Material material;
@@ -54,7 +52,6 @@ vec3 CalcPointLight(PointLight light, Material mat, vec3 normal, vec3 fragPos, v
 vec3 CalcDircetionalLight(DirectionalLight light, Material mat, vec3 normal, vec3 fragPos, vec3 viewDir);
 
 float ShadowCalculation(DirectionalLight light,vec3 normal, vec4 fragPosLightSpace);
-
 
 void main()
 {
