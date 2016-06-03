@@ -17,7 +17,7 @@
 #include "Collider.h"
 #include "RigidBody.h"
 
-Scene::Scene() :physicsWordl()
+Scene::Scene() :physicsWorld()
 {
 	auto camera = Camera(glm::vec3(0.0f, 0.0f, 3.0f));
 	root = make_shared<GameObject>(GameObject(glm::vec3(0, 0, 0), glm::vec4(0, 0, 0, 0), glm::vec3(1, 1, 1)));
@@ -83,7 +83,7 @@ void Scene::addRigidBody(std::shared_ptr<Collider>  collider, const UUID& gameOb
 {
 	if (objectsCache[gameObject]->HasComponent(ComponentType::ComponentType_RigidBody)) return;
 
-	objectsCache[gameObject]->AddRigidBody(collider, &physicsWordl);
+	objectsCache[gameObject]->AddRigidBody(collider, &physicsWorld);
 	rigidBodies.insert(gameObject);
 }
 
@@ -110,7 +110,7 @@ UUID Scene::addChild(shared_ptr<GameObject> parent)
 void Scene::update()
 {
 	renderUpdate();
-	physicsWordl.stepSimulation();
+	physicsWorld.stepSimulation();
 
 	for each (UUID var in rigidBodies)
 	{
