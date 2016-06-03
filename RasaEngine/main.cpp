@@ -8,7 +8,6 @@
 #include "Model.h"
 #include "Light.h"
 
-
 #include "MidiDebugger.h"
 #include "Context.h"
 #include "Pointlight.h"
@@ -19,8 +18,6 @@
 #include "PlaneCollider.h"
 #include "SphereCollider.h"
 #include "RigidBody.h"
-
-
 
 // Function prototypes
 void key_callback(GLFWwindow* window, int key, int scancode, int action, int mode);
@@ -44,28 +41,23 @@ int main()
 	Context::getInstance().setOGLContext();
 	scene = new Scene();
 
-
-
 	// Set the required callback functions
 	glfwSetKeyCallback(Context::getInstance().window, key_callback);
 	glfwSetCursorPosCallback(Context::getInstance().window, mouse_callback);
 	glfwSetScrollCallback(Context::getInstance().window, scroll_callback);
 
-
 #pragma region BulletTest
 
 	Shader shader("Shaders/SimpleShader.vert", "Shaders/SimpleShader.frag");
-	//Model ourModel("Models/nanosuit/nanosuit.obj", shader);
 	shared_ptr <Model> ourModel = make_shared<Model>(Model("Models/nanosuit/nanosuit.obj", shader));
 	shared_ptr <Model> plane = make_shared<Model>(Model::genericPlane());
-
 
 	auto floor = scene->addNewChild(glm::vec3(0.0f, -5.0f, 0.0f),
 		glm::vec4(0.0f, 0.0f, 0.0f, 1.0f),
 		glm::vec3(1.0f, 1.0f, 1.0f));
-	shared_ptr<Collider> floorPlane = make_shared<PlaneCollider>(btVector3(0, 1, 0), 1);
-	scene->addRigidBody(floorPlane, floor);
-	//scene->addComponent(plane, floor);
+	shared_ptr<Collider> floorPlaneColl = make_shared<PlaneCollider>(btVector3(0, 1, 0), 1);
+	scene->addRigidBody(floorPlaneColl, floor);
+	scene->addComponent(plane, floor);
 
 	auto ball = scene->addNewChild(glm::vec3(0.0f, 10.0f, -10.0f),
 		glm::vec4(0.0f, 0.0f, 0.0f, 1.0f),
@@ -106,7 +98,8 @@ int main()
 
 	shared_ptr <Skybox> skybox = make_shared<Skybox>(Skybox(skyboxTex, skyboxShader));
 	scene->addSkybox(skybox);
-	/*
+	
+	/* Model Generation tests
 	// Setup and compile shaders
 	Shader shader("Shaders/SimpleShader.vert", "Shaders/SimpleShader.frag");
 	Shader bulbShader("Shaders/LampShader.vert", "Shaders/LampShader.frag");
@@ -137,6 +130,7 @@ int main()
 #pragma endregion
 
 #pragma region LightTests
+	/* Point light tests
 	Pointlight pLight = Pointlight();
 	pLight.ambientColor = glm::vec3(0.05f, 0.05f, 0.05f);
 	pLight.diffuseColor = glm::vec3(1.0f, 1.0f, 1.0f);
@@ -149,8 +143,8 @@ int main()
 	boost::uuids::uuid pLight1 = scene->addNewChild(glm::vec3(2.3f, 4, -3.0f),
 		glm::vec4(0.0f, 0.0f, 1.0f, 3.141592f),
 		glm::vec3(0.2f, 0.2f, 0.2f));
-	//scene->addComponent(make_shared<Pointlight>(pLight), pLight1);
-	//scene->addComponent(bulb, pLight1);
+	scene->addComponent(make_shared<Pointlight>(pLight), pLight1);
+	scene->addComponent(bulb, pLight1);*/
 
 	DirectionalLight dLight = DirectionalLight();
 	dLight.position = glm::vec3(0.0f, 0.5f, -2.0f);
@@ -190,7 +184,6 @@ int main()
 	delete scene;
 	glfwTerminate();
 	return 0;
-
 }
 
 #pragma region "User input"
