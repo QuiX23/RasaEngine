@@ -4,7 +4,6 @@
 #include "Model.h"
 #include "Component.h"
 
-
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
@@ -18,46 +17,8 @@
 #include "Collider.h"
 #include "RigidBody.h"
 
-
-#pragma region Quad Dedub
-// RenderQuad() Renders a 1x1 quad in NDC, best used for framebuffer color targets
-// and post-processing effects.
-GLuint quadVAO = 0;
-GLuint quadVBO;
-Shader debugDepthQuad;
-void RenderQuad()
-{
-	if (quadVAO == 0)
-	{
-		GLfloat quadVertices[] = {
-			// Positions        // Texture Coords
-			-1.0f,  1.0f, 0.0f,  0.0f, 1.0f,
-			-1.0f, -1.0f, 0.0f,  0.0f, 0.0f,
-			1.0f,  1.0f, 0.0f,  1.0f, 1.0f,
-			1.0f, -1.0f, 0.0f,  1.0f, 0.0f,
-		};
-		// Setup plane VAO
-		glGenVertexArrays(1, &quadVAO);
-		glGenBuffers(1, &quadVBO);
-		glBindVertexArray(quadVAO);
-		glBindBuffer(GL_ARRAY_BUFFER, quadVBO);
-		glBufferData(GL_ARRAY_BUFFER, sizeof(quadVertices), &quadVertices, GL_STATIC_DRAW);
-		glEnableVertexAttribArray(0);
-		glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 5 * sizeof(GLfloat), (GLvoid*)0);
-		glEnableVertexAttribArray(1);
-		glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 5 * sizeof(GLfloat), (GLvoid*)(3 * sizeof(GLfloat)));
-	}
-	glBindVertexArray(quadVAO);
-	glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);
-	glBindVertexArray(0);
-}
-
-#pragma endregion 
-
 Scene::Scene() :physicsWordl()
 {
-	debugDepthQuad = Shader("Quad.vert", "Quad.frag");
-
 	auto camera = Camera(glm::vec3(0.0f, 0.0f, 3.0f));
 	root = make_shared<GameObject>(GameObject(glm::vec3(0, 0, 0), glm::vec4(0, 0, 0, 0), glm::vec3(1, 1, 1)));
 	lightsManager = LightsManager();
@@ -151,7 +112,6 @@ void Scene::update()
 	renderUpdate();
 	physicsWordl.stepSimulation();
 
-
 	for each (UUID var in rigidBodies)
 	{
 		auto ptr = static_pointer_cast<RigidBody>(objectsCache[var]->GetComponent(ComponentType_RigidBody));
@@ -172,7 +132,6 @@ void Scene::update()
 
 void Scene::renderUpdate() 
 {
-	
 	lightsManager.calcShadows(this);
 
 #pragma region Transformation matrices 
@@ -180,22 +139,9 @@ void Scene::renderUpdate()
 	auto projection = glm::perspective(camera.Zoom, (float)(Context::getInstance().screenWidth) / (float)(float)(Context::getInstance().screenHeight), 0.1f, 100.0f);
 	auto view = camera.GetViewMatrix();
 
-	
 #pragma endregion 
 	
 	renderObjects(projection, view);
-
-	// Render Depth map to quad
-	//OGLTextureBuffer otb = *static_pointer_cast<OGLTextureBuffer>(tb);
-
-	//Context::getInstance().renderer->unSetFrameBuffer();
-	//debugDepthQuad.Use();
-	//glUniform1f(glGetUniformLocation(debugDepthQuad.Program, "near_plane"), 1.0);
-	//glUniform1f(glGetUniformLocation(debugDepthQuad.Program, "far_plane"), 20.0);
-	//glActiveTexture(GL_TEXTURE0);
-	//glBindTexture(GL_TEXTURE_2D, otb.id);
-	//RenderQuad();
-
 	renderSkybox(projection, view);
 }
 
@@ -286,7 +232,6 @@ void Scene::renderObjects(glm::mat4 projection, glm::mat4 view, Shader shader)
 
 		glUniform3f(glGetUniformLocation(shader.Program, "viewPos"), camera.Position.x, camera.Position.y, camera.Position.z);
 
-
 		lightsManager.activateLights(shader);
 
 		glm::mat4 model;
@@ -299,9 +244,5 @@ void Scene::renderObjects(glm::mat4 projection, glm::mat4 view, Shader shader)
 	}
 }
 
-void Scene::lightUpdate()
-{
-	
-}
 
 
