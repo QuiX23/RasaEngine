@@ -1,5 +1,4 @@
 #pragma once
-#include <memory>
 #include <BulletCollision/BroadphaseCollision/btDbvtBroadphase.h>
 #include "btBulletDynamicsCommon.h"
 #include "BulletDynamics\Dynamics\btDiscreteDynamicsWorld.h"

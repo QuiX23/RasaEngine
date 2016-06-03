@@ -236,13 +236,13 @@
     <None Include="Quad.vert" />
     <None Include="Shaders\LampShader.frag" />
     <None Include="Shaders\LampShader.vert" />
+    <None Include="Shaders\Shadow.frag" />
+    <None Include="Shaders\Shadow.vert" />
     <None Include="Shaders\SimpleShader.frag" />
     <None Include="Shaders\SimpleShader.vert" />
     <None Include="Shaders\TutorialShader.frag" />
     <None Include="Shaders\TutorialShader.vert" />
     <None Include="Shaders\TutorialShader2.frag" />
-    <None Include="Shadow.frag" />
-    <None Include="Shadow.vert" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Buller2013\src\BulletCollision\BulletCollision.vcxproj">

@@ -12,7 +12,7 @@ LightsManager::LightsManager()
 {
 	fbo=Context::getInstance().CreateFrameBuffer(2048, 2048);
 	fbo->setDepthBuffer(true);
-	shader=Shader("Shadow.vert", "Shadow.frag");
+	shader=Shader("/Shadow.vert", "Shadow.frag");
 }
 
 

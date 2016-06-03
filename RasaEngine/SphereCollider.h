@@ -4,7 +4,6 @@ class SphereCollider :
 	public Collider
 {
 public:
-
 	SphereCollider(float radius);
 	~SphereCollider();
 };

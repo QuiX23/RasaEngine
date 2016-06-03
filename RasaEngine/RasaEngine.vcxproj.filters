@@ -52,6 +52,12 @@
     <Filter Include="Engine\CommonConcepts">
       <UniqueIdentifier>{2e29914e-5bc0-400d-b8bc-eb123532d8d7}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Engine\PhysicEngine\Source Files">
+      <UniqueIdentifier>{8de3f62b-b4a1-4946-8ae1-ab49e746021e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\PhysicEngine\Headers">
+      <UniqueIdentifier>{0a5fb567-e7dc-4d12-9f4c-6514a105c96f}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Camera.h">
@@ -132,47 +138,47 @@
     <ClInclude Include="Scene.h">
       <Filter>Engine\Core\Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="LightsManager.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="Color.h">
       <Filter>Engine\CommonConcepts</Filter>
-    </ClInclude>
-    <ClInclude Include="IFrameBuffer.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="OGLFrameBuffer.h">
-      <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="TerrainGenerator.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Skybox.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Texture2D.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="CubeMap.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="BoxCollider.h">
+      <Filter>Engine\PhysicEngine\Headers</Filter>
     </ClInclude>
     <ClInclude Include="Collider.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="BoxCollider.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="PlaneCollider.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="RigidBody.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="PhysicsWorld.h">
-      <Filter>Header Files</Filter>
+      <Filter>Engine\PhysicEngine\Headers</Filter>
     </ClInclude>
     <ClInclude Include="SphereCollider.h">
-      <Filter>Header Files</Filter>
+      <Filter>Engine\PhysicEngine\Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="RigidBody.h">
+      <Filter>Engine\PhysicEngine\Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="PlaneCollider.h">
+      <Filter>Engine\PhysicEngine\Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="PhysicsWorld.h">
+      <Filter>Engine\PhysicEngine\Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="IFrameBuffer.h">
+      <Filter>Engine\GraphicEngine\Interfaces</Filter>
+    </ClInclude>
+    <ClInclude Include="OGLFrameBuffer.h">
+      <Filter>Engine\GraphicEngine\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="LightsManager.h">
+      <Filter>Engine\Core\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Skybox.h">
+      <Filter>Engine\Core\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Texture2D.h">
+      <Filter>Engine\CommonConcepts</Filter>
+    </ClInclude>
+    <ClInclude Include="CubeMap.h">
+      <Filter>Engine\CommonConcepts</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -236,41 +242,41 @@
     <ClCompile Include="main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="LightsManager.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="OGLFrameBuffer.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="TerrainGenerator.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Skybox.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Texture2D.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="CubeMap.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="BoxCollider.cpp">
+      <Filter>Engine\PhysicEngine\Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Collider.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="BoxCollider.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="PlaneCollider.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="RigidBody.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Engine\PhysicEngine\Source Files</Filter>
     </ClCompile>
     <ClCompile Include="PhysicsWorld.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Engine\PhysicEngine\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="PlaneCollider.cpp">
+      <Filter>Engine\PhysicEngine\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="RigidBody.cpp">
+      <Filter>Engine\PhysicEngine\Source Files</Filter>
     </ClCompile>
     <ClCompile Include="SphereCollider.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Engine\PhysicEngine\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="OGLFrameBuffer.cpp">
+      <Filter>Engine\GraphicEngine\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Texture2D.cpp">
+      <Filter>Engine\CommonConcepts</Filter>
+    </ClCompile>
+    <ClCompile Include="CubeMap.cpp">
+      <Filter>Engine\CommonConcepts</Filter>
+    </ClCompile>
+    <ClCompile Include="Skybox.cpp">
+      <Filter>Engine\Core\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="LightsManager.cpp">
+      <Filter>Engine\Core\Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -296,12 +302,6 @@
     <None Include="Shaders\LampShader.frag">
       <Filter>Shaders</Filter>
     </None>
-    <None Include="Shadow.vert">
-      <Filter>Shaders</Filter>
-    </None>
-    <None Include="Shadow.frag">
-      <Filter>Shaders</Filter>
-    </None>
     <None Include="Quad.frag">
       <Filter>Shaders</Filter>
     </None>
@@ -312,6 +312,12 @@
       <Filter>Shaders</Filter>
     </None>
     <None Include="GenericShader.vert">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="Shaders\Shadow.vert">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="Shaders\Shadow.frag">
       <Filter>Shaders</Filter>
     </None>
   </ItemGroup>

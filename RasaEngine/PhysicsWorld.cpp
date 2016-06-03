@@ -19,9 +19,6 @@ PhysicsWorld::PhysicsWorld()
 	dynamicsWorld->setGravity(btVector3(0, -10, 0));
 }
 
-
-
-
 PhysicsWorld::~PhysicsWorld()
 {
 	delete dynamicsWorld;
@@ -47,5 +44,4 @@ void PhysicsWorld::stepSimulation()
 	float deltaTime = currentTime - lastTime;
 	lastTime = currentTime;
 	dynamicsWorld->stepSimulation(1 / 60.f, 10);
-
 }

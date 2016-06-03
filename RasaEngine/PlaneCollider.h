@@ -2,7 +2,6 @@
 #include "Collider.h"
 class btVector3;
 
-
 class PlaneCollider :
 	public Collider
 {

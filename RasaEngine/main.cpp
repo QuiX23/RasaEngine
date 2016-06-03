@@ -10,11 +10,9 @@
 
 #include "MidiDebugger.h"
 #include "Context.h"
-#include "Pointlight.h"
 #include <boost/uuid/uuid.hpp>
 #include "DirectionalLight.h"
 #include "Scene.h"
-#include "Collider.h"
 #include "PlaneCollider.h"
 #include "SphereCollider.h"
 #include "RigidBody.h"
@@ -45,33 +43,9 @@ int main()
 	glfwSetKeyCallback(Context::getInstance().window, key_callback);
 	glfwSetCursorPosCallback(Context::getInstance().window, mouse_callback);
 	glfwSetScrollCallback(Context::getInstance().window, scroll_callback);
-
-#pragma region BulletTest
-
-	Shader shader("Shaders/SimpleShader.vert", "Shaders/SimpleShader.frag");
-	shared_ptr <Model> ourModel = make_shared<Model>(Model("Models/nanosuit/nanosuit.obj", shader));
-	shared_ptr <Model> plane = make_shared<Model>(Model::genericPlane());
-
-	auto floor = scene->addNewChild(glm::vec3(0.0f, -5.0f, 0.0f),
-		glm::vec4(0.0f, 0.0f, 0.0f, 1.0f),
-		glm::vec3(1.0f, 1.0f, 1.0f));
-	shared_ptr<Collider> floorPlaneColl = make_shared<PlaneCollider>(btVector3(0, 1, 0), 1);
-	scene->addRigidBody(floorPlaneColl, floor);
-	scene->addComponent(plane, floor);
-
-	auto ball = scene->addNewChild(glm::vec3(0.0f, 10.0f, -10.0f),
-		glm::vec4(0.0f, 0.0f, 0.0f, 1.0f),
-		glm::vec3(0.2f, 0.2f, 0.2f));
-	shared_ptr<Collider> ballSphere = make_shared<SphereCollider>(1);
-	scene->addRigidBody(ballSphere, ball);
-	auto rb= static_pointer_cast<RigidBody>(scene->getGameObject(ball)->GetComponent(ComponentType_RigidBody));
-	rb->setAsDynamic();
-
-	scene->addComponent(ourModel, ball);
-
 #pragma endregion 
 
-	//If you have connected a MIDI controller, this will allow you to debug you code;
+//If you have connected a MIDI controller, this will allow you to debug you code with it;
 #if _DEBUG
 	unique_ptr<MidiDebugger> midiDebug;
 	try
@@ -83,6 +57,30 @@ int main()
 		std::cout << "No MIDI port found!";
 	}
 #endif
+
+#pragma region BulletTest
+
+	Shader shader("Shaders/SimpleShader.vert", "Shaders/SimpleShader.frag");
+	auto ourModel = make_shared<Model>(Model("Models/nanosuit/nanosuit.obj", shader));
+	auto plane = make_shared<Model>(Model::genericPlane());
+
+	auto floor = scene->addNewChild(glm::vec3(0.0f, -5.0f, 0.0f),
+		glm::vec4(0.0f, 0.0f, 0.0f, 1.0f),
+		glm::vec3(1.0f, 1.0f, 1.0f));
+	auto floorPlaneColl = make_shared<PlaneCollider>(btVector3(0, 1, 0), 1);
+	scene->addRigidBody(floorPlaneColl, floor);
+	scene->addComponent(plane, floor);
+
+	auto ball = scene->addNewChild(glm::vec3(0.0f, 10.0f, -10.0f),
+		glm::vec4(0.0f, 0.0f, 0.0f, 1.0f),
+		glm::vec3(0.2f, 0.2f, 0.2f));
+	auto ballSphere = make_shared<SphereCollider>(1);
+	scene->addRigidBody(ballSphere, ball);
+	auto rb= static_pointer_cast<RigidBody>(scene->getGameObject(ball)->GetComponent(ComponentType_RigidBody));
+	rb->setAsDynamic();
+
+	scene->addComponent(ourModel, ball);
+#pragma endregion 
 
 #pragma region RenderTests
 	Shader skyboxShader("Shaders/SkyboxShader.vert", "Shaders/SkyboxShader.frag");
@@ -96,56 +94,11 @@ int main()
 		"Models/skybox/front.jpg"
 	};
 
-	shared_ptr <Skybox> skybox = make_shared<Skybox>(Skybox(skyboxTex, skyboxShader));
+	auto skybox = make_shared<Skybox>(Skybox(skyboxTex, skyboxShader));
 	scene->addSkybox(skybox);
-	
-	/* Model Generation tests
-	// Setup and compile shaders
-	Shader shader("Shaders/SimpleShader.vert", "Shaders/SimpleShader.frag");
-	Shader bulbShader("Shaders/LampShader.vert", "Shaders/LampShader.frag");
-
-	//Model ourModel("Models/nanosuit/nanosuit.obj", shader);
-	shared_ptr <Model> ourModel = make_shared<Model>(Model("Models/nanosuit/nanosuit.obj", shader));
-	shared_ptr <Model> bulb = make_shared<Model>(Model("Models/Bulb/Bulb.3DS", bulbShader));
-
-	int count = 7;
-	float x = -10;
-
-	//Temporary creating multiple objects from the same model
-	// without use ofinstantiation. Will be implemented later.
-	for (int i = 0; i < count; i++)
-	{
-	x += 2;
-	float z = -10;
-	for (int i = 0; i < count; i++)
-	{
-	z += 2;
-	boost::uuids::uuid gameObject = scene->addNewChild(glm::vec3(x, -1.75f, z),
-	glm::vec4(0.0f, 1.0f, 0.0f, 0.0f),
-	glm::vec3(0.2f, 0.2f, 0.2f));
-	scene->addComponent(ourModel, gameObject);
-	}
-	}
-	*/
 #pragma endregion
 
 #pragma region LightTests
-	/* Point light tests
-	Pointlight pLight = Pointlight();
-	pLight.ambientColor = glm::vec3(0.05f, 0.05f, 0.05f);
-	pLight.diffuseColor = glm::vec3(1.0f, 1.0f, 1.0f);
-	pLight.specularColor = glm::vec3(1.0f, 1.0f, 1.0f);
-	pLight.constant = 1.0f;
-	pLight.linear = 0.009;
-	pLight.quadratic = 0.0032;
-
-
-	boost::uuids::uuid pLight1 = scene->addNewChild(glm::vec3(2.3f, 4, -3.0f),
-		glm::vec4(0.0f, 0.0f, 1.0f, 3.141592f),
-		glm::vec3(0.2f, 0.2f, 0.2f));
-	scene->addComponent(make_shared<Pointlight>(pLight), pLight1);
-	scene->addComponent(bulb, pLight1);*/
-
 	DirectionalLight dLight = DirectionalLight();
 	dLight.position = glm::vec3(0.0f, 0.5f, -2.0f);
 	dLight.ambientColor = glm::vec3(0.4f, 0.4f, 0.4f);

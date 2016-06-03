@@ -47,7 +47,7 @@ public:
 private:
 	/*  Scene data  */
 	LightsManager lightsManager;
-	PhysicsWorld physicsWordl;
+	PhysicsWorld physicsWorld;
 	shared_ptr<GameObject> root;
 	shared_ptr<Skybox> skybox;
 

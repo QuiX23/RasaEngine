@@ -18,7 +18,6 @@ RigidBody::RigidBody(const btVector3&position, const btQuaternion& rotation, std
 
 	rigidBody = new btRigidBody(*info);
 	physicsWorld->addRigibody(&*rigidBody);
-
 }
 
 RigidBody::~RigidBody()

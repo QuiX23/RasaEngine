@@ -83,8 +83,7 @@ void OGLRenderer::renderObject(const IVertexArray & vertexArray, const vector<sh
 {
 	glBindFramebuffer(GL_FRAMEBUFFER, 0);
 	glViewport(0, 0, Context::getInstance().screenWidth, Context::getInstance().screenHeight);
-	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-	
+	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);	
 }
 
 void OGLRenderer::setFrameBuffer(const IFrameBuffer & frameBuffer) 
@@ -104,8 +103,6 @@ void OGLRenderer::setFrameBuffer(const IFrameBuffer & frameBuffer)
 
 OGLRenderer::OGLRenderer(): shadowMap()
 {
-
-
 	// Define the viewport dimensions
 	glViewport(0, 0, Context::getInstance().screenWidth, Context::getInstance().screenHeight);
 

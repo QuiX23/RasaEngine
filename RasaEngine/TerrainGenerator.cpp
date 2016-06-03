@@ -5,15 +5,11 @@
 
 TerrainGenerator::TerrainGenerator()
 {
-
 	CreateBlock();
 
 	glEnableVertexAttribArray(0);
 	glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, sizeof(glm::vec2),
 		(GLvoid*)0);
-
-
-
 }
 
 void TerrainGenerator::CreateBlock()
@@ -77,9 +73,6 @@ void TerrainGenerator::CreateBlock()
 
 	}
 
-
-
-
 	glGenVertexArrays(1, &this->VAO);
 	glGenBuffers(1, &this->blockBuffer);
 	glGenBuffers(1, &this->EBO);
@@ -95,13 +88,6 @@ void TerrainGenerator::CreateBlock()
 		&indices[0], GL_STATIC_DRAW);
 
 }
-/*
-void TerrainGenerator::DrawTerrain()
-{
-	
-}
-*/
-
 
 TerrainGenerator::~TerrainGenerator()
 {

@@ -21,7 +21,6 @@ public:
 	const LightType typeL;
 	
 	~C_Light();
-//protected:
 	C_Light(LightType typeL);
 
 };
