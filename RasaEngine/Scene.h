@@ -9,10 +9,8 @@
 #include <boost\functional\hash.hpp>
 #include "PhysicsWorld.h"
 
-
 namespace std
 {
-
 	template<>
 	struct hash<UUID>
 	{
@@ -21,13 +19,11 @@ namespace std
 			return boost::hash<UUID>()(uid);
 		}
 	};
-
 }
 
 class Scene
 {
 public:
-
 	Scene();
 	~Scene();
 
@@ -63,11 +59,9 @@ private:
 	void addLight(shared_ptr<Component> component, const UUID & gameObject);
 	void addRenderable(shared_ptr<Component> component, const UUID & gameObject);
 
-	void lightUpdate();
 	void renderUpdate();
 	void renderSkybox(glm::mat4 projection, glm::mat4 view);
 
 	void setViewProjection(glm::mat4 projection, glm::mat4 view);
-	
 };
 
